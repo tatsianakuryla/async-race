@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "./async-race/dist",
+    "rootDir": "./async-race/src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "resolveJsonModule": true,
+    "lib": ["dom", "esnext"]
+  },
+  "include": [
+    "async-race/src/**/*",
+    "commitlint.config.js",
+    "webpack.config.js",
+    "eslint.config.mjs"
+  ],
+  "exclude": ["async-race/node_modules"]
+}
