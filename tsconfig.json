@@ -16,11 +16,6 @@
     "resolveJsonModule": true,
     "lib": ["dom", "esnext"]
   },
-  "include": [
-    "async-race/src/**/*",
-    "commitlint.config.js",
-    "webpack.config.js",
-    "eslint.config.mjs"
-  ],
+  "include": ["async-race/src/**/*", "commitlint.config.js", "webpack.config.js", "eslint.config.mjs"],
   "exclude": ["async-race/node_modules"]
 }
