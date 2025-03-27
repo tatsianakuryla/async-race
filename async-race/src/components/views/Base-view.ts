@@ -1,10 +1,11 @@
 import { main } from '../..';
+import { type Views } from '../../api/api-types';
 import { createContainer, createElementWithClassId, textToUpperCase } from '../../utils/helpers';
 
 export abstract class View {
   protected _section: HTMLElement;
 
-  constructor(viewModificator: string) {
+  constructor(viewModificator: Views) {
     this._section = createElementWithClassId('section', ['app__view', `app__view_${viewModificator}`]);
     const container = createContainer();
     container.append(View._getViewTitle(viewModificator));

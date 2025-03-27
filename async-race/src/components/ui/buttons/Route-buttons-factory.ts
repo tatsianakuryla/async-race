@@ -4,7 +4,7 @@ import { ButtonFactory } from './Button';
 
 export class RouteButtonsFactory {
   public static getButtons(): HTMLElement {
-    const buttonsContainer = createElementWithClassId('div', ['app__route-buttons-container']);
+    const buttonsContainer = createElementWithClassId('div', ['app__route-buttons-container', 'flex']);
     const visitGarageButton = ButtonFactory.create('visit garage');
 
     visitGarageButton.addEventListener('click', () => {

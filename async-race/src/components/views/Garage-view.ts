@@ -1,4 +1,4 @@
-import { winnersViewSection } from '../..';
+import { garage, winnersViewSection } from '../..';
 import { View } from './Base-view';
 
 export class GarageView extends View {
@@ -8,5 +8,6 @@ export class GarageView extends View {
 
   public override open(): void {
     super.open(winnersViewSection);
+    garage.initialize();
   }
 }

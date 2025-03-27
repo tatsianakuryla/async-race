@@ -1,9 +1,9 @@
-import type { CarWithId, GetResponse, ViewsTypes, Winner } from './api-types';
+import type { CarOrWinner, GetResponse, Views } from './api-types';
 import { BASE_URL } from './api-types';
 
-export class Api<T extends Winner | CarWithId> {
-  private _view: ViewsTypes;
-  constructor(view: ViewsTypes) {
+export class Api<T extends CarOrWinner> {
+  private _view: Views;
+  constructor(view: Views) {
     this._view = view;
   }
 
