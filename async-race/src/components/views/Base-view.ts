@@ -1,5 +1,5 @@
-import { main } from '../../..';
-import { createContainer, createElementWithClassId, textToUpperCase } from '../../../utils/helpers';
+import { main } from '../..';
+import { createContainer, createElementWithClassId, textToUpperCase } from '../../utils/helpers';
 
 export abstract class View {
   protected _section: HTMLElement;
@@ -11,21 +11,20 @@ export abstract class View {
     this._section.append(container);
   }
 
+  public get section(): HTMLElement {
+    return this._section;
+  }
+
   private static _getViewTitle(viewModificator: string): HTMLParagraphElement {
     const title = createElementWithClassId('p', ['app__view-title']);
     title.textContent = textToUpperCase(viewModificator);
     return title;
   }
 
-  public open(): void {
-    if (!main.contains(this._section)) {
-      main.append(this._section);
+  public open(sectionToClose: HTMLElement): void {
+    if (main.contains(sectionToClose)) {
+      sectionToClose.remove();
     }
-  }
-
-  public close(): void {
-    if (main.contains(this._section)) {
-      this._section.remove();
-    }
+    main.append(this._section);
   }
 }

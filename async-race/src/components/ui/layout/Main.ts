@@ -1,10 +1,10 @@
 import { createElementWithClassId } from '../../../utils/helpers';
-import { StartSectionFactory } from './start-section-factory';
+import { StartScreenComponentsFactory } from './Start-screen-components';
 
 export class MainFactory {
   public static get(): HTMLElement {
     const main = createElementWithClassId('main', ['app']);
-    main.append(StartSectionFactory.get());
+    main.append(StartScreenComponentsFactory.get());
     return main;
   }
 }

@@ -1,23 +1,23 @@
 import { createElementWithClassId } from '../../../utils/helpers';
-import { ButtonFactory } from '../buttons/button';
-import { InputFactory } from '../inputs/input';
+import { ButtonFactory } from '../buttons/Button';
+import { InputFactory } from '../inputs/Input';
 
-export class CarTransformBlock {
+export class CarForm {
   private static _DEFAULT_CAR_COLOR = '#ffcc00';
-  private _block: HTMLElement;
+  private _component: HTMLElement;
 
   constructor() {
-    this._block = createElementWithClassId('div', ['app__transform-block', 'flex']);
-    this._block.append(CarTransformBlock._getTransformOption('update'), CarTransformBlock._getTransformOption('create'));
+    this._component = createElementWithClassId('div', ['app__transform-block', 'flex']);
+    this._component.append(CarForm._getTransformOption('update'), CarForm._getTransformOption('create'));
   }
 
   public get block(): HTMLElement {
-    return this._block;
+    return this._component;
   }
 
   private static _getTransformOption(transformTask: string): HTMLElement {
     const option = createElementWithClassId('div', ['app__transform-option', 'flex']);
-    option.append(CarTransformBlock._getTitleInput(), CarTransformBlock._getColorInput(), CarTransformBlock._getConfirmButton(transformTask));
+    option.append(CarForm._getTitleInput(), CarForm._getColorInput(), CarForm._getConfirmButton(transformTask));
     return option;
   }
 
