@@ -20,3 +20,4 @@ export type GetResponse<T> = {
 };
 
 export type Views = 'garage' | 'winners';
+export type TransformCarTasks = 'update' | 'create';

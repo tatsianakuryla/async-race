@@ -1,9 +1,9 @@
-import { createElementWithClassId } from '../../../utils/helpers';
+import { createButtonsContainer } from '../../../utils/helpers';
 import { ButtonFactory } from './Button';
 
 export class RaceButtonsFactory {
   public static getButtons(): HTMLElement {
-    const buttonsContainer = createElementWithClassId('div', ['app__manage-buttons-container', 'flex']);
+    const buttonsContainer = createButtonsContainer('manage');
     const raceAllButton = ButtonFactory.create('race all');
     const resetRaceButton = ButtonFactory.create('reset race');
     const generateCarsButton = ButtonFactory.create('generate cars');

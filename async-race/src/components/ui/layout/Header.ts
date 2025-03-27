@@ -6,7 +6,7 @@ export class HeaderFactory {
 
   public static get(): HTMLHeadElement {
     const header = createElementWithClassId('header', ['header']);
-    const container = createContainer();
+    const container = createContainer('header');
 
     const heading = createElementWithClassId('h1', ['app__heading']);
     heading.textContent = this._APP_HEADING;

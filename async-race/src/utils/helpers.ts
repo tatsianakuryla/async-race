@@ -14,6 +14,11 @@ export function textToUpperCase(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
 
-export function createContainer(): HTMLElement {
-  return createElementWithClassId('div', ['container', 'flex']);
+export function createContainer(containerClass: string): HTMLElement {
+  return createElementWithClassId('div', ['container', 'flex', `${containerClass}-container`]);
+}
+
+export function createButtonsContainer(containerClass: string): HTMLElement {
+  const buttonsContainer = createElementWithClassId('div', ['app__buttons-contaiter', `app__buttons-contaiter_${containerClass}`, 'flex']);
+  return buttonsContainer;
 }

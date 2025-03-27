@@ -37,6 +37,7 @@ export default [
         Audio: 'readonly',
         location: 'readonly',
         fetch: 'readonly',
+        console: 'readonly',
       },
     },
     plugins: {

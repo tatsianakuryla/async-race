@@ -1,0 +1,4 @@
+.start-window-container,
+.app__transform-block {
+  flex-direction: column;
+}

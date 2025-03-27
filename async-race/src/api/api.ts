@@ -1,5 +1,6 @@
-import type { CarOrWinner, GetResponse, Views } from './api-types';
-import { BASE_URL } from './api-types';
+import type { CarOrWinner } from '../types';
+import type { GetResponse, Views } from '../types';
+import { BASE_URL } from '../types';
 
 export class Api<T extends CarOrWinner> {
   private _view: Views;
