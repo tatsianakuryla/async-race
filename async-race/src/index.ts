@@ -1,3 +1,6 @@
-import { ContainerFactory } from './components/dom/container/container-factory';
+import { HeaderFactory } from './components/dom/start-window-factory/header-factory';
+import { MainFactory } from './components/dom/start-window-factory/main-factory';
 
-document.body.append(ContainerFactory.getContainer());
+export const main = MainFactory.get();
+
+document.body.append(HeaderFactory.get(), main);

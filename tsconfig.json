@@ -14,7 +14,7 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "resolveJsonModule": true,
-    "lib": ["dom", "esnext"]
+    "lib": ["DOM", "ES2021"]
   },
   "include": ["async-race/src/**/*", "commitlint.config.js", "webpack.config.js", "eslint.config.mjs"],
   "exclude": ["async-race/node_modules"]

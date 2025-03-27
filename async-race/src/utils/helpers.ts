@@ -9,3 +9,11 @@ export function createElementWithClassId<T extends keyof HTMLElementTagNameMap>(
 
   return element;
 }
+
+export function textToUpperCase(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
+export function createContainer(): HTMLElement {
+  return createElementWithClassId('div', ['container', 'flex']);
+}
