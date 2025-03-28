@@ -32,7 +32,10 @@ export class CarSvg {
     this._svg.appendChild(shadow);
 
     // 2. Корпус
-    this._carBody.setAttribute('d', 'M260 100 Q250 80, 220 80 L180 80 Q175 60, 150 60 Q120 60, 110 80 L60 80 Q50 80, 40 90 Q30 100, 30 105 L30 110 L260 110 Z');
+    this._carBody.setAttribute(
+      'd',
+      'M260 100 Q250 80, 220 80 L180 80 Q175 60, 150 60 Q120 60, 110 80 L60 80 Q50 80, 40 90 Q30 100, 30 105 L30 110 L260 110 Z',
+    );
     this._carBody.setAttribute('fill', color);
     this._carBody.setAttribute('stroke', '#0056b3');
     this._carBody.setAttribute('stroke-width', '2');

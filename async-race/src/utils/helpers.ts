@@ -1,4 +1,8 @@
-export function createElementWithClassId<T extends keyof HTMLElementTagNameMap>(tag: T, classes?: string[], id?: string): HTMLElementTagNameMap[T] {
+export function createElementWithClassId<T extends keyof HTMLElementTagNameMap>(
+  tag: T,
+  classes?: string[],
+  id?: string,
+): HTMLElementTagNameMap[T] {
   const element = document.createElement(tag);
   if (classes) {
     element.classList.add(...classes);
@@ -15,10 +19,18 @@ export function textToUpperCase(text: string): string {
 }
 
 export function createContainer(containerClass: string): HTMLElement {
-  return createElementWithClassId('div', ['container', 'flex', `${containerClass}-container`]);
+  return createElementWithClassId('div', [
+    'container',
+    'flex',
+    `${containerClass}-container`,
+  ]);
 }
 
 export function createButtonsContainer(containerClass: string): HTMLElement {
-  const buttonsContainer = createElementWithClassId('div', ['app__buttons-contaiter', `app__buttons-contaiter_${containerClass}`, 'flex']);
+  const buttonsContainer = createElementWithClassId('div', [
+    'app__buttons-contaiter',
+    `app__buttons-contaiter_${containerClass}`,
+    'flex',
+  ]);
   return buttonsContainer;
 }

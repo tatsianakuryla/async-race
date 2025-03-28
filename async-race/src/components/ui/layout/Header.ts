@@ -1,4 +1,7 @@
-import { createContainer, createElementWithClassId } from '../../../utils/helpers';
+import {
+  createContainer,
+  createElementWithClassId,
+} from '../../../utils/helpers';
 
 export class HeaderFactory {
   private static _APP_HEADING = 'START YOUR RACE';

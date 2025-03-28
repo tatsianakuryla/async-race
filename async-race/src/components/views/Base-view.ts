@@ -1,6 +1,10 @@
-import { main } from '../..';
+import { garageItems, main } from '../..';
 import { type Views } from '../../types';
-import { createContainer, createElementWithClassId, textToUpperCase } from '../../utils/helpers';
+import {
+  createContainer,
+  createElementWithClassId,
+  textToUpperCase,
+} from '../../utils/helpers';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
 import './views.css';
 
@@ -11,11 +15,20 @@ export abstract class View {
   protected _TOTAL_INFO_TEXT = 'Total quantity: ';
 
   constructor(viewModificator: Views) {
-    this._section = createElementWithClassId('section', ['app__view', `app__view_${viewModificator}`]);
+    this._section = createElementWithClassId('section', [
+      'app__view',
+      `app__view_${viewModificator}`,
+    ]);
     const container = createContainer('view');
-    this.totalItemsQuantityInfo = createElementWithClassId('span', ['app__items-quantity-info']);
+    this.totalItemsQuantityInfo = createElementWithClassId('span', [
+      'app__items-quantity-info',
+    ]);
     this.itemsList = ItemsListFactory.get();
-    container.append(View._getViewTitle(viewModificator), this._createTotalItemsInfoBlock(), this.itemsList);
+    container.append(
+      View._getViewTitle(viewModificator),
+      this._createTotalItemsInfoBlock(),
+      this.itemsList,
+    );
     this._section.append(container);
   }
 
@@ -34,6 +47,10 @@ export abstract class View {
       sectionToClose.remove();
     }
     main.append(this._section);
+  }
+
+  public updateTotalItemsQuantityInfo(): void {
+    this.totalItemsQuantityInfo.textContent = String(garageItems.itemsQuantity);
   }
 
   protected _createTotalItemsInfoBlock(): HTMLElement {

@@ -9,9 +9,12 @@ export class Api<T extends CarOrWinner> {
   }
 
   public async getAll(page = 1, limit = 7): Promise<GetResponse<T>> {
-    const response = await fetch(`${BASE_URL}/${this._view}?_page=${page}&_limit=${limit}`, {
-      method: 'GET',
-    });
+    const response = await fetch(
+      `${BASE_URL}/${this._view}?_page=${page}&_limit=${limit}`,
+      {
+        method: 'GET',
+      },
+    );
 
     if (!response.ok) {
       //TODO open Error Modal
@@ -19,7 +22,8 @@ export class Api<T extends CarOrWinner> {
     }
 
     const results = await response.json();
-    const totalCount: number = Number(response.headers.get('X-Total-Count')) || 0;
+    const totalCount: number =
+      Number(response.headers.get('X-Total-Count')) || 0;
 
     return { results, totalCount };
   }

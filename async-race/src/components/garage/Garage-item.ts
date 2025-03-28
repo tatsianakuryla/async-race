@@ -7,7 +7,11 @@ export class GarageItem {
   public static createItem(garageItem: Car): HTMLElement {
     const item = createElementWithClassId('li', ['app__garage-item', 'flex']);
     item.setAttribute('data-id', String(garageItem.id));
-    item.append(this._getItemTitle(garageItem.name), this._getItemSvg(garageItem.color), GarageItemsButtonsFactory.getButtons());
+    item.append(
+      this._getItemTitle(garageItem.name),
+      this._getItemSvg(garageItem.color),
+      GarageItemsButtonsFactory.getButtons(garageItem.id),
+    );
     return item;
   }
 
