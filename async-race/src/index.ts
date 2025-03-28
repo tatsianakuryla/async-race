@@ -4,11 +4,11 @@ import { HeaderFactory } from './components/ui/layout/Header';
 import { MainFactory } from './components/ui/layout/Main';
 import { GarageView } from './components/views/Garage-view';
 import { WinnersView } from './components/views/Winners-view';
-import { GarageItems } from './components/garage/Garage-items';
+import { Garage } from './components/garage/Garage';
 import './styles/style.css';
-import { CarForm } from './components/ui/car-form/Car-form';
+import { CarTransform } from './components/ui/car-transform/Car-transform';
 
-export const carForm = new CarForm();
+export const carTransform = new CarTransform();
 export const garageApi = new Api<Car>('garage');
 export const winnersApi = new Api<Winner>('winners');
 
@@ -20,7 +20,7 @@ export const garageViewSection = garageView.section;
 export const winnersView = new WinnersView();
 export const winnersViewSection = winnersView.section;
 
-export const garageItems = new GarageItems();
+export const garage = new Garage();
 
 document.body.append(HeaderFactory.get(), main);
 garageView.open();

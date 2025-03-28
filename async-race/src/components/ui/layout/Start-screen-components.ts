@@ -1,4 +1,4 @@
-import { carForm } from '../../..';
+import { carTransform } from '../../..';
 import {
   createContainer,
   createElementWithClassId,
@@ -16,7 +16,7 @@ export class StartScreenComponentsFactory {
 
     container.append(
       RouteButtonsFactory.getButtons(),
-      carForm.block,
+      carTransform.block,
       RaceButtonsFactory.getButtons(),
     );
 

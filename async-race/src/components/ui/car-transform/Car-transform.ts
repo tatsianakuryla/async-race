@@ -1,10 +1,10 @@
-import { garageItems } from '../../..';
+import { garage } from '../../..';
 import type { TransformCarTasks } from '../../../types';
 import { createElementWithClassId } from '../../../utils/helpers';
 import { ButtonFactory } from '../buttons/Button';
 import { InputFactory } from '../inputs/Input';
 
-export class CarForm {
+export class CarTransform {
   private static _DEFAULT_COLOR_INPUT_VALUE = '#ffcc00';
   private static _DEFAULT_TITLE_INPUT_VALUE = '';
 
@@ -20,10 +20,10 @@ export class CarForm {
       'app__transform-block',
       'flex',
     ]);
-    this.updateTitleInput = CarForm._getTitleInput('update');
-    this.updateColorInput = CarForm._getColorInput('update');
-    this.createTitleInput = CarForm._getTitleInput('create');
-    this.createColorInput = CarForm._getColorInput('create');
+    this.updateTitleInput = CarTransform._getTitleInput('update');
+    this.updateColorInput = CarTransform._getColorInput('update');
+    this.createTitleInput = CarTransform._getTitleInput('create');
+    this.createColorInput = CarTransform._getColorInput('create');
     this._component.append(this._getUpdateOption(), this._getCreateOption());
   }
 
@@ -58,11 +58,11 @@ export class CarForm {
 
   public cleanInputs(transformTask: TransformCarTasks): void {
     if (transformTask === 'create') {
-      this.createTitleInput.value = CarForm._DEFAULT_TITLE_INPUT_VALUE;
-      this.createColorInput.value = CarForm._DEFAULT_COLOR_INPUT_VALUE;
+      this.createTitleInput.value = CarTransform._DEFAULT_TITLE_INPUT_VALUE;
+      this.createColorInput.value = CarTransform._DEFAULT_COLOR_INPUT_VALUE;
     } else if (transformTask === 'update') {
-      this.updateTitleInput.value = CarForm._DEFAULT_TITLE_INPUT_VALUE;
-      this.updateColorInput.value = CarForm._DEFAULT_COLOR_INPUT_VALUE;
+      this.updateTitleInput.value = CarTransform._DEFAULT_TITLE_INPUT_VALUE;
+      this.updateColorInput.value = CarTransform._DEFAULT_COLOR_INPUT_VALUE;
     }
   }
 
@@ -71,10 +71,10 @@ export class CarForm {
       'app__transform-option',
       'flex',
     ]);
-    const updateButton = CarForm._getTransformButton('update');
+    const updateButton = CarTransform._getTransformButton('update');
     updateButton.dataset.id = 'update';
     updateButton.addEventListener('click', () => {
-      garageItems.updateCar();
+      garage.updateCar();
     });
     option.append(this.updateTitleInput, this.updateColorInput, updateButton);
     return option;
@@ -85,10 +85,10 @@ export class CarForm {
       'app__transform-option',
       'flex',
     ]);
-    const createButton = CarForm._getTransformButton('create');
+    const createButton = CarTransform._getTransformButton('create');
     createButton.dataset.id = 'create';
     createButton.addEventListener('click', () => {
-      garageItems.createCar();
+      garage.createCar();
     });
     option.append(this.createTitleInput, this.createColorInput, createButton);
     return option;

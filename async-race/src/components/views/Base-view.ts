@@ -1,4 +1,4 @@
-import { garageItems, main } from '../..';
+import { garage, main } from '../..';
 import { type Views } from '../../types';
 import {
   createContainer,
@@ -50,7 +50,7 @@ export abstract class View {
   }
 
   public updateTotalItemsQuantityInfo(): void {
-    this.totalItemsQuantityInfo.textContent = String(garageItems.itemsQuantity);
+    this.totalItemsQuantityInfo.textContent = String(garage.itemsQuantity);
   }
 
   protected _createTotalItemsInfoBlock(): HTMLElement {

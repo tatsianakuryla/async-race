@@ -8,11 +8,18 @@ export class GarageItem {
     const item = createElementWithClassId('li', ['app__garage-item', 'flex']);
     item.setAttribute('data-id', String(garageItem.id));
     item.append(
+      this._getItemId(garageItem.id),
       this._getItemTitle(garageItem.name),
       this._getItemSvg(garageItem.color),
       GarageItemsButtonsFactory.getButtons(garageItem.id),
     );
     return item;
+  }
+
+  private static _getItemId(id: number): HTMLElement {
+    const carId = createElementWithClassId('div', ['app__item-id']);
+    carId.textContent = String(id);
+    return carId;
   }
 
   private static _getItemTitle(name: string): HTMLElement {

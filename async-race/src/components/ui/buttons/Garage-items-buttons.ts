@@ -1,4 +1,4 @@
-import { garageItems } from '../../..';
+import { garage } from '../../..';
 import { createButtonsContainer } from '../../../utils/helpers';
 import { ButtonFactory } from './Button';
 
@@ -16,7 +16,7 @@ export class GarageItemsButtonsFactory {
     selectItemButton.addEventListener('click', () => {
       const dataId = selectItemButton.getAttribute('data-id');
       if (dataId) {
-        garageItems.selectCar(dataId);
+        garage.selectCar(dataId);
       }
     });
 
@@ -26,7 +26,7 @@ export class GarageItemsButtonsFactory {
     deleteItemButton.addEventListener('click', () => {
       const dataId = deleteItemButton.getAttribute('data-id');
       if (dataId) {
-        garageItems.deleteCar(dataId);
+        garage.deleteCar(dataId);
         //TODO delete from Winners list
       }
     });
