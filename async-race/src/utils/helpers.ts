@@ -34,3 +34,7 @@ export function createButtonsContainer(containerClass: string): HTMLElement {
   ]);
   return buttonsContainer;
 }
+
+export function getRandomIndex(): number {
+  return Math.floor(Math.random() * 100);
+}

@@ -1,5 +1,13 @@
-import { carTransform, garageApi, garageView } from '../..';
+import {
+  carTransform,
+  garageApi,
+  garageView,
+  RANDOM_CAR_BRANDS,
+  RANDOM_CAR_COLORS,
+  RANDOM_CAR_MODELS,
+} from '../..';
 import type { Car } from '../../types';
+import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
 import { GarageItem } from './Garage-item';
 import './garage.css';
 
@@ -94,6 +102,26 @@ export class Garage {
     } catch {
       Garage._handleError('Deleting car process ');
     }
+  }
+
+  public async add100RandomCars(): Promise<void> {
+    const carPromises: Promise<Car>[] = [];
+    for (let i = 1; i <= 100; i++) {
+      const randomBrandIndex = getRandomIndex();
+      const randomModelIndex = getRandomIndex();
+      const randomColorIndex = getRandomIndex();
+      const newCar: Car = {
+        name:
+          textToUpperCase(RANDOM_CAR_BRANDS[randomBrandIndex]) +
+          ' ' +
+          textToUpperCase(RANDOM_CAR_MODELS[randomModelIndex]),
+        color: RANDOM_CAR_COLORS[randomColorIndex],
+        id: 0,
+      };
+      carPromises.push(garageApi.createItem(newCar));
+    }
+    await Promise.all(carPromises);
+    await this.initialize();
   }
 
   public selectCar(dataId: string): void {
