@@ -1,4 +1,4 @@
-import { garage, main } from '../..';
+import { garage, main, pagination } from '../..';
 import { type Views } from '../../types';
 import {
   createContainer,
@@ -12,6 +12,8 @@ export abstract class View {
   public totalItemsQuantityInfo: HTMLSpanElement;
   public itemsList: HTMLUListElement;
   protected _section: HTMLElement;
+  protected _container: HTMLElement;
+  protected _pageNumberInfo: HTMLElement;
   protected _TOTAL_INFO_TEXT = 'Total quantity: ';
 
   constructor(viewModificator: Views) {
@@ -19,21 +21,29 @@ export abstract class View {
       'app__view',
       `app__view_${viewModificator}`,
     ]);
-    const container = createContainer('view');
+    this._container = createContainer('view');
     this.totalItemsQuantityInfo = createElementWithClassId('span', [
       'app__items-quantity-info',
     ]);
     this.itemsList = ItemsListFactory.get();
-    container.append(
+    this._pageNumberInfo = createElementWithClassId('div', [
+      'app__page-number',
+    ]);
+    this._container.append(
       View._getViewTitle(viewModificator),
       this._createTotalItemsInfoBlock(),
       this.itemsList,
     );
-    this._section.append(container);
+    this._section.append(this._container);
   }
 
   public get section(): HTMLElement {
     return this._section;
+  }
+
+  public get pageNumberInfo(): HTMLElement {
+    this.updatePageNumberInfo();
+    return this._pageNumberInfo;
   }
 
   private static _getViewTitle(viewModificator: Views): HTMLElement {
@@ -51,6 +61,10 @@ export abstract class View {
 
   public updateTotalItemsQuantityInfo(): void {
     this.totalItemsQuantityInfo.textContent = String(garage.itemsQuantity);
+  }
+
+  public updatePageNumberInfo(): void {
+    this._pageNumberInfo.textContent = String(pagination.currentPage);
   }
 
   protected _createTotalItemsInfoBlock(): HTMLElement {

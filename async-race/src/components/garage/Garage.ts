@@ -46,14 +46,13 @@ export class Garage {
 
   public async initialize(): Promise<void> {
     try {
-      await garageApi.getAll(1, 7).then((response) => {
+      await garageApi.getAll(7).then((response) => {
         this._cars = response.results;
         this._carsOnServerQuantity = response.totalCount;
         Garage.renderAll(this._cars);
         garageView.updateTotalItemsQuantityInfo();
+        garageView.updatePageNumberInfo();
         this._resetChosenCar();
-        //Remove console.log
-        console.log('Cars loaded:', this._cars);
       });
     } catch {
       Garage._handleError('Loading cars process ');

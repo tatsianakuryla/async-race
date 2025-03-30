@@ -7,6 +7,8 @@ import { WinnersView } from './components/views/Winners-view';
 import { Garage } from './components/garage/Garage';
 import './styles/style.css';
 import { CarTransform } from './components/ui/car-transform/Car-transform';
+import { Pagination } from './components/pagination/Pagination';
+import { Winners } from './components/winners/Winners';
 
 export const RANDOM_CAR_COLORS = [
   '#095387',
@@ -316,6 +318,10 @@ export const RANDOM_CAR_BRANDS = [
   'Wiesmann',
   'Zotye',
 ];
+
+export const garage = new Garage();
+export const winners = new Winners();
+export const pagination = new Pagination();
 export const carTransform = new CarTransform();
 export const garageApi = new Api<Car>('garage');
 export const winnersApi = new Api<Winner>('winners');
@@ -327,8 +333,6 @@ export const garageViewSection = garageView.section;
 
 export const winnersView = new WinnersView();
 export const winnersViewSection = winnersView.section;
-
-export const garage = new Garage();
 
 document.body.append(HeaderFactory.get(), main);
 garageView.open();

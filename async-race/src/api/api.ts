@@ -1,3 +1,4 @@
+import { pagination } from '..';
 import type { CarOrWinner } from '../types';
 import type { GetResponse, Views } from '../types';
 import { BASE_URL } from '../types';
@@ -8,7 +9,8 @@ export class Api<T extends CarOrWinner> {
     this._view = view;
   }
 
-  public async getAll(page = 1, limit = 7): Promise<GetResponse<T>> {
+  public async getAll(limit = 7): Promise<GetResponse<T>> {
+    const page = pagination.currentPage;
     const response = await fetch(
       `${BASE_URL}/${this._view}?_page=${page}&_limit=${limit}`,
       {
@@ -25,6 +27,7 @@ export class Api<T extends CarOrWinner> {
     const totalCount: number =
       Number(response.headers.get('X-Total-Count')) || 0;
 
+    pagination.totalItems = totalCount;
     return { results, totalCount };
   }
 
