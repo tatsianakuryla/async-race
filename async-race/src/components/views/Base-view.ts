@@ -9,8 +9,8 @@ import { ItemsListFactory } from '../ui/items-list/Items-list';
 import './views.css';
 
 export abstract class View {
-  public totalItemsQuantityInfo: HTMLSpanElement;
-  public itemsList: HTMLUListElement;
+  public _itemsList: HTMLUListElement;
+  protected _totalItemsQuantityInfo: HTMLSpanElement;
   protected _section: HTMLElement;
   protected _container: HTMLElement;
   protected _pageNumberInfo: HTMLElement;
@@ -22,17 +22,17 @@ export abstract class View {
       `app__view_${viewModificator}`,
     ]);
     this._container = createContainer('view');
-    this.totalItemsQuantityInfo = createElementWithClassId('span', [
+    this._totalItemsQuantityInfo = createElementWithClassId('span', [
       'app__items-quantity-info',
     ]);
-    this.itemsList = ItemsListFactory.get();
-    this._pageNumberInfo = createElementWithClassId('div', [
+    this._itemsList = ItemsListFactory.getUl();
+    this._pageNumberInfo = createElementWithClassId('span', [
       'app__page-number',
     ]);
     this._container.append(
       View._getViewTitle(viewModificator),
       this._createTotalItemsInfoBlock(),
-      this.itemsList,
+      this._itemsList,
     );
     this._section.append(this._container);
   }
@@ -60,7 +60,7 @@ export abstract class View {
   }
 
   public updateTotalItemsQuantityInfo(): void {
-    this.totalItemsQuantityInfo.textContent = String(garage.itemsQuantity);
+    this._totalItemsQuantityInfo.textContent = String(garage.itemsQuantity);
   }
 
   public updatePageNumberInfo(): void {
@@ -70,7 +70,7 @@ export abstract class View {
   protected _createTotalItemsInfoBlock(): HTMLElement {
     const title = createElementWithClassId('h4', ['app__view-total-info']);
     title.textContent = textToUpperCase(this._TOTAL_INFO_TEXT);
-    title.append(this.totalItemsQuantityInfo);
+    title.append(this._totalItemsQuantityInfo);
     return title;
   }
 }

@@ -13,6 +13,7 @@ export type Winner = {
 };
 
 export type CarOrWinner = Car | Winner;
+export type CarAndWinner = Car & Winner;
 
 export type GetResponse<T> = {
   results: T[];

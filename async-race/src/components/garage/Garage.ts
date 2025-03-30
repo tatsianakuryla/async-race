@@ -8,7 +8,7 @@ import {
 } from '../..';
 import type { Car } from '../../types';
 import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
-import { GarageItem } from './Garage-item';
+import { BaseCar } from '../car/Base-car';
 import './garage.css';
 
 export class Garage {
@@ -33,10 +33,11 @@ export class Garage {
   }
 
   public static renderAll(cars: Car[]): void {
-    garageView.itemsList.replaceChildren();
-    cars.forEach((car) =>
-      garageView.itemsList.append(GarageItem.createItem(car)),
-    );
+    garageView._itemsList.replaceChildren();
+    cars.forEach((car) => {
+      const baseCar = new BaseCar(car);
+      garageView._itemsList.append(baseCar.car);
+    });
   }
 
   private static _handleError(context: string): void {
@@ -96,11 +97,24 @@ export class Garage {
 
   public async deleteCar(dataId: string): Promise<void> {
     try {
+      if (+dataId === this.chosenCar.id) {
+        carTransform.cleanInputs('update');
+      }
       await garageApi.deleteItem(+dataId);
       await this.initialize();
     } catch {
       Garage._handleError('Deleting car process ');
     }
+  }
+
+  public selectCar(dataId: string): void {
+    this.chosenCar = this._cars.find((car) => car.id === +dataId) ?? {
+      name: '',
+      color: '',
+      id: 0,
+    };
+    carTransform.updateTitleInput.value = this.chosenCar.name;
+    carTransform.updateColorInput.value = this.chosenCar.color;
   }
 
   public async add100RandomCars(): Promise<void> {
@@ -121,16 +135,6 @@ export class Garage {
     }
     await Promise.all(carPromises);
     await this.initialize();
-  }
-
-  public selectCar(dataId: string): void {
-    this.chosenCar = this._cars.find((car) => car.id === +dataId) ?? {
-      name: '',
-      color: '',
-      id: 0,
-    };
-    carTransform.updateTitleInput.value = this.chosenCar.name;
-    carTransform.updateColorInput.value = this.chosenCar.color;
   }
 
   private _resetChosenCar(): void {
