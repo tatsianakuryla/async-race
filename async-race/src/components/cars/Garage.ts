@@ -10,8 +10,9 @@ import {
 import type { Car } from '../../types';
 import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
-import './garage.css';
 import { BaseCars } from './Base-cars';
+import { LocalStorage } from '../local-storage/Local-storage';
+import './garage.css';
 
 export class Garage extends BaseCars<Car> {
   public chosenCar: Car;
@@ -23,6 +24,16 @@ export class Garage extends BaseCars<Car> {
       color: '',
       id: 0,
     };
+    const pageNumber =
+      LocalStorage.getItemsFromLocalStorage('garage-page-number');
+    this._currentPage = pageNumber ? +pageNumber : 1;
+  }
+  public static renderAll(cars: Car[]): void {
+    garageView.itemsList.replaceChildren();
+    cars.forEach((car) => {
+      const baseCar = new GarageItem(car);
+      garageView.itemsList.append(baseCar.car);
+    });
   }
 
   public async initialize(): Promise<void> {
@@ -40,14 +51,6 @@ export class Garage extends BaseCars<Car> {
     } catch {
       Garage._handleError('Loading cars process ');
     }
-  }
-
-  public static renderAll(cars: Car[]): void {
-    garageView.itemsList.replaceChildren();
-    cars.forEach((car) => {
-      const baseCar = new GarageItem(car);
-      garageView.itemsList.append(baseCar.car);
-    });
   }
 
   public async createCar(): Promise<void> {

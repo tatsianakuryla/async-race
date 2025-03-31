@@ -5,8 +5,8 @@ import {
   createElementWithClassId,
   textToUpperCase,
 } from '../../utils/helpers';
-import { Garage } from '../cars/Garage';
-import { Winners } from '../cars/Winners';
+import type { Garage } from '../cars/Garage';
+import type { Winners } from '../cars/Winners';
 import './views.css';
 
 export abstract class View {

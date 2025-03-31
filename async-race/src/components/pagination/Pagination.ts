@@ -1,11 +1,12 @@
-import { Garage } from '../cars/Garage';
-import { Winners } from '../cars/Winners';
+import type { ItemsPerPage } from '../../types';
+import type { Garage } from '../cars/Garage';
+import type { Winners } from '../cars/Winners';
 
 export class Pagination {
   private _totalItems: number = 0;
   private _itemsPerPage: number;
 
-  constructor(itemsPerPage = 7) {
+  constructor(itemsPerPage: ItemsPerPage) {
     this._itemsPerPage = itemsPerPage;
   }
 
@@ -17,15 +18,19 @@ export class Pagination {
     this._totalItems = count;
   }
 
+  public static isFirstPage(viewHolder: Garage | Winners): boolean {
+    return viewHolder.currentPage === 1;
+  }
+
   public nextPage(viewHolder: Garage | Winners): void {
     if (viewHolder.currentPage < this.totalPages) {
-      viewHolder.currentPage++;
+      viewHolder.currentPage += 1;
     }
   }
 
   public prevPage(viewHolder: Garage | Winners): void {
-    if (viewHolder.currentPage > 1) {
-      viewHolder.currentPage--;
+    if (viewHolder.currentPage > 1 && this.totalPages) {
+      viewHolder.currentPage -= 1;
     }
   }
 
@@ -33,10 +38,6 @@ export class Pagination {
     if (page >= 1 && page <= this.totalPages) {
       viewHolder.currentPage = page;
     }
-  }
-
-  public isFirstPage(viewHolder: Garage | Winners): boolean {
-    return viewHolder.currentPage === 1;
   }
 
   public isLastPage(viewHolder: Garage | Winners): boolean {

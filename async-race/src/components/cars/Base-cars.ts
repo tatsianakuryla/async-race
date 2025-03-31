@@ -1,4 +1,4 @@
-import { ItemsPerPage } from '../../types';
+import type { ItemsPerPage } from '../../types';
 
 export abstract class BaseCars<T> {
   protected _items: T[] = [];

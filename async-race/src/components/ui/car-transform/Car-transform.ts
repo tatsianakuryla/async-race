@@ -1,6 +1,7 @@
 import { garage } from '../../..';
 import type { TransformCarTasks } from '../../../types';
 import { createElementWithClassId } from '../../../utils/helpers';
+import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from '../buttons/Button';
 import { InputFactory } from '../inputs/Input';
 
@@ -21,9 +22,33 @@ export class CarTransform {
       'flex',
     ]);
     this.updateTitleInput = CarTransform._getTitleInput('update');
+    this.updateTitleInput.addEventListener('input', () =>
+      LocalStorage.setItemsToLocalStorage(
+        'update-title',
+        this.updateTitleInput.value,
+      ),
+    );
     this.updateColorInput = CarTransform._getColorInput('update');
+    this.updateColorInput.addEventListener('change', () =>
+      LocalStorage.setItemsToLocalStorage(
+        'update-color',
+        this.updateColorInput.value,
+      ),
+    );
     this.createTitleInput = CarTransform._getTitleInput('create');
+    this.createTitleInput.addEventListener('input', () =>
+      LocalStorage.setItemsToLocalStorage(
+        'create-title',
+        this.createTitleInput.value,
+      ),
+    );
     this.createColorInput = CarTransform._getColorInput('create');
+    this.createColorInput.addEventListener('change', () =>
+      LocalStorage.setItemsToLocalStorage(
+        'create-color',
+        this.createColorInput.value,
+      ),
+    );
     this._component.append(this._getUpdateOption(), this._getCreateOption());
   }
 
@@ -36,6 +61,12 @@ export class CarTransform {
   ): HTMLInputElement {
     const titleInput = InputFactory.create('text', 'car-title');
     titleInput.placeholder = 'Enter car title...';
+    const value = LocalStorage.getItemsFromLocalStorage(
+      `${transformTask}-title`,
+    );
+    if (value !== null) {
+      titleInput.value = value;
+    }
     titleInput.dataset.id = transformTask;
     return titleInput;
   }
@@ -44,7 +75,14 @@ export class CarTransform {
     transformTask: TransformCarTasks,
   ): HTMLInputElement {
     const colorInput = InputFactory.create('color', 'color');
-    colorInput.value = this._DEFAULT_COLOR_INPUT_VALUE;
+    const value = LocalStorage.getItemsFromLocalStorage(
+      `${transformTask}-color`,
+    );
+    if (value !== null) {
+      colorInput.value = value;
+    } else {
+      colorInput.value = this._DEFAULT_COLOR_INPUT_VALUE;
+    }
     colorInput.dataset.id = transformTask;
     return colorInput;
   }

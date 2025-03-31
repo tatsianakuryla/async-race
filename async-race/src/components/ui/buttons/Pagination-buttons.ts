@@ -1,6 +1,7 @@
 import { pagination } from '../../..';
-import type { Garage } from '../../cars/Garage';
-import type { Winners } from '../../cars/Winners';
+import { Garage } from '../../cars/Garage';
+import { Winners } from '../../cars/Winners';
+import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from './Button';
 
 export class PaginationButtonsFactory {
@@ -10,6 +11,7 @@ export class PaginationButtonsFactory {
     const nextButton = ButtonFactory.create('next');
     nextButton.addEventListener('click', async () => {
       pagination.nextPage(carsHolder);
+      this._savePageToLocalStorage(carsHolder);
       await carsHolder.initialize();
     });
     return nextButton;
@@ -21,8 +23,17 @@ export class PaginationButtonsFactory {
     const previousButton = ButtonFactory.create('prev');
     previousButton.addEventListener('click', async () => {
       pagination.prevPage(carsHolder);
+      this._savePageToLocalStorage(carsHolder);
       await carsHolder.initialize();
     });
     return previousButton;
+  }
+
+  private static _savePageToLocalStorage(carsHolder: Garage | Winners) {
+    const key =
+      carsHolder instanceof Garage
+        ? 'garage-page-number'
+        : 'winners-page-number';
+    LocalStorage.setItemsToLocalStorage(key, carsHolder.currentPage);
   }
 }

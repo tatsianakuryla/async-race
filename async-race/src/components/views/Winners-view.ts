@@ -1,4 +1,4 @@
-import { garageViewSection, main, winners } from '../..';
+import { garageViewSection, winners } from '../..';
 import { WinnerItem } from '../car/Winner';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';

@@ -1,12 +1,48 @@
 import { garageApi, winners, winnersApi, winnersView } from '../..';
 import type { CarAndWinner, Winner } from '../../types';
 import { WinnerItem } from '../car/Winner';
-import '../cars/garage.css';
+import { LocalStorage } from '../local-storage/Local-storage';
 import { BaseCars } from './Base-cars';
+import '../cars/garage.css';
 
 export class Winners extends BaseCars<Winner> {
   constructor() {
     super(10);
+    const pageNumber = LocalStorage.getItemsFromLocalStorage(
+      'winners-page-number',
+    );
+    this._currentPage = pageNumber ? +pageNumber : 1;
+  }
+
+  public static async createCar(item: Winner): Promise<void> {
+    try {
+      await winnersApi.createItem(item);
+    } catch {
+      Winners._handleError('Creating car process ');
+    }
+  }
+
+  public static async updateCar(item: Winner): Promise<void> {
+    try {
+      await winnersApi.updateItem(item);
+    } catch {
+      Winners._handleError('Updating car process ');
+    }
+  }
+
+  private static async _getWinnersFromGarage(
+    winners: Winner[],
+  ): Promise<CarAndWinner[]> {
+    const carAndWinnerPromises = winners.map(async (winner) => {
+      const car = await garageApi.getOne(winner.id);
+      return {
+        ...car,
+        wins: winner.wins,
+        time: winner.time,
+      };
+    });
+
+    return await Promise.all(carAndWinnerPromises);
   }
 
   public async initialize(): Promise<void> {
@@ -41,37 +77,6 @@ export class Winners extends BaseCars<Winner> {
       }
       winnersView.itemsList.append(winnerLi);
     });
-  }
-
-  private static async _getWinnersFromGarage(
-    winners: Winner[],
-  ): Promise<CarAndWinner[]> {
-    const carAndWinnerPromises = winners.map(async (winner) => {
-      const car = await garageApi.getOne(winner.id);
-      return {
-        ...car,
-        wins: winner.wins,
-        time: winner.time,
-      };
-    });
-
-    return await Promise.all(carAndWinnerPromises);
-  }
-
-  public async createCar(item: Winner): Promise<void> {
-    try {
-      await winnersApi.createItem(item);
-    } catch {
-      Winners._handleError('Creating car process ');
-    }
-  }
-
-  public async updateCar(item: Winner): Promise<void> {
-    try {
-      await winnersApi.updateItem(item);
-    } catch {
-      Winners._handleError('Updating car process ');
-    }
   }
 
   public async deleteCar(dataId: string): Promise<void> {
