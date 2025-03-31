@@ -22,3 +22,5 @@ export type GetResponse<T> = {
 
 export type Views = 'garage' | 'winners';
 export type TransformCarTasks = 'update' | 'create';
+export type Sort = 'id' | 'wins' | 'time';
+export type Order = 'ASC' | 'DESC';

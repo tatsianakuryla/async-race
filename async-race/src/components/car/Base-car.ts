@@ -8,9 +8,8 @@ export class BaseCar {
     this._car = createElementWithClassId('li', ['app__winner-item', 'flex']);
     this._car.setAttribute('data-id', String(item.id));
     this._car.append(
-      BaseCar._getItemInfo(String(item.id)),
-      BaseCar._getItemSvg(item.color),
       BaseCar._getItemInfo(item.name),
+      BaseCar._getItemSvg(item.color),
     );
   }
 

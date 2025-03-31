@@ -1,5 +1,7 @@
 import { pagination } from '..';
-import type { CarOrWinner } from '../types';
+import { Garage } from '../components/garage/Garage';
+import { Winners } from '../components/winners/Winners';
+import type { Order, CarOrWinner, Sort } from '../types';
 import type { GetResponse, Views } from '../types';
 import { BASE_URL } from '../types';
 
@@ -9,10 +11,15 @@ export class Api<T extends CarOrWinner> {
     this._view = view;
   }
 
-  public async getAll(limit = 7): Promise<GetResponse<T>> {
-    const page = pagination.currentPage;
+  public async getAll(
+    limit = 7,
+    sort: Sort = 'id',
+    order: Order = 'ASC',
+    viewHolder: Winners | Garage,
+  ): Promise<GetResponse<T>> {
+    const page = viewHolder.currentPage;
     const response = await fetch(
-      `${BASE_URL}/${this._view}?_page=${page}&_limit=${limit}`,
+      `${BASE_URL}/${this._view}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`,
       {
         method: 'GET',
       },

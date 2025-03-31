@@ -1,5 +1,6 @@
 import {
   carTransform,
+  garage,
   garageApi,
   garageView,
   RANDOM_CAR_BRANDS,
@@ -8,11 +9,12 @@ import {
 } from '../..';
 import type { Car } from '../../types';
 import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
-import { BaseCar } from '../car/Base-car';
+import { GarageItem } from '../car/Garage-item';
 import './garage.css';
 
 export class Garage {
   public chosenCar: Car;
+  public _currentPage: number;
   private _cars: Car[] = [];
   private _carsOnServerQuantity = 0;
 
@@ -22,21 +24,26 @@ export class Garage {
       color: '',
       id: 0,
     };
+    this._currentPage = 1;
+  }
+
+  public get currentPage(): number {
+    return this._currentPage;
   }
 
   public get itemsQuantity(): number {
     return this._carsOnServerQuantity;
   }
 
-  public get items(): Car[] {
-    return this._cars;
+  public set currentPage(value: number) {
+    this._currentPage = value;
   }
 
   public static renderAll(cars: Car[]): void {
-    garageView._itemsList.replaceChildren();
+    garageView.itemsList.replaceChildren();
     cars.forEach((car) => {
-      const baseCar = new BaseCar(car);
-      garageView._itemsList.append(baseCar.car);
+      const baseCar = new GarageItem(car);
+      garageView.itemsList.append(baseCar.car);
     });
   }
 
@@ -47,12 +54,12 @@ export class Garage {
 
   public async initialize(): Promise<void> {
     try {
-      await garageApi.getAll(7).then((response) => {
+      await garageApi.getAll(7, 'id', 'ASC', garage).then((response) => {
         this._cars = response.results;
         this._carsOnServerQuantity = response.totalCount;
         Garage.renderAll(this._cars);
-        garageView.updateTotalItemsQuantityInfo();
-        garageView.updatePageNumberInfo();
+        garageView.updateTotalItemsQuantityInfo(garage);
+        garageView.updatePageNumberInfo(garage);
         this._resetChosenCar();
       });
     } catch {

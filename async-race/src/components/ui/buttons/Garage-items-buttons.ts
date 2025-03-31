@@ -1,4 +1,4 @@
-import { garage } from '../../..';
+import { garage, winners } from '../../..';
 import { createButtonsContainer } from '../../../utils/helpers';
 import { ButtonFactory } from './Button';
 
@@ -27,7 +27,7 @@ export class GarageItemsButtonsFactory {
       const dataId = deleteItemButton.getAttribute('data-id');
       if (dataId) {
         garage.deleteCar(dataId);
-        //TODO delete from Winners list
+        winners.deleteCar(dataId);
       }
     });
 

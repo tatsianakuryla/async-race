@@ -9,6 +9,7 @@ import './styles/style.css';
 import { CarTransform } from './components/ui/car-transform/Car-transform';
 import { Pagination } from './components/pagination/Pagination';
 import { Winners } from './components/winners/Winners';
+import { StartScreenComponents } from './components/ui/layout/Start-screen-components';
 
 export const RANDOM_CAR_COLORS = [
   '#095387',
@@ -321,11 +322,12 @@ export const RANDOM_CAR_BRANDS = [
 
 export const garage = new Garage();
 export const winners = new Winners();
-export const pagination = new Pagination();
+export const pagination = new Pagination(7);
 export const carTransform = new CarTransform();
 export const garageApi = new Api<Car>('garage');
 export const winnersApi = new Api<Winner>('winners');
 
+export const startScreenComponents = new StartScreenComponents();
 export const main = MainFactory.get();
 
 export const garageView = new GarageView();

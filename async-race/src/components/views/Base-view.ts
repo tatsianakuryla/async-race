@@ -1,15 +1,15 @@
-import { garage, main, pagination } from '../..';
+import { main, startScreenComponents } from '../..';
 import { type Views } from '../../types';
 import {
   createContainer,
   createElementWithClassId,
   textToUpperCase,
 } from '../../utils/helpers';
-import { ItemsListFactory } from '../ui/items-list/Items-list';
+import { Garage } from '../garage/Garage';
+import { Winners } from '../winners/Winners';
 import './views.css';
 
 export abstract class View {
-  public _itemsList: HTMLUListElement;
   protected _totalItemsQuantityInfo: HTMLSpanElement;
   protected _section: HTMLElement;
   protected _container: HTMLElement;
@@ -25,14 +25,12 @@ export abstract class View {
     this._totalItemsQuantityInfo = createElementWithClassId('span', [
       'app__items-quantity-info',
     ]);
-    this._itemsList = ItemsListFactory.getUl();
     this._pageNumberInfo = createElementWithClassId('span', [
       'app__page-number',
     ]);
     this._container.append(
       View._getViewTitle(viewModificator),
       this._createTotalItemsInfoBlock(),
-      this._itemsList,
     );
     this._section.append(this._container);
   }
@@ -42,7 +40,6 @@ export abstract class View {
   }
 
   public get pageNumberInfo(): HTMLElement {
-    this.updatePageNumberInfo();
     return this._pageNumberInfo;
   }
 
@@ -56,15 +53,18 @@ export abstract class View {
     if (main.contains(sectionToClose)) {
       sectionToClose.remove();
     }
+    if (!main.contains(startScreenComponents.section)) {
+      main.append(startScreenComponents.section);
+    }
     main.append(this._section);
   }
 
-  public updateTotalItemsQuantityInfo(): void {
-    this._totalItemsQuantityInfo.textContent = String(garage.itemsQuantity);
+  public updateTotalItemsQuantityInfo(view: Garage | Winners): void {
+    this._totalItemsQuantityInfo.textContent = String(view.itemsQuantity);
   }
 
-  public updatePageNumberInfo(): void {
-    this._pageNumberInfo.textContent = String(pagination.currentPage);
+  public updatePageNumberInfo(view: Garage | Winners): void {
+    this._pageNumberInfo.textContent = String(view.currentPage);
   }
 
   protected _createTotalItemsInfoBlock(): HTMLElement {

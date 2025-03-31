@@ -8,9 +8,9 @@ export class PaginationButtonsFactory {
     carsHolder: Garage | Winners,
   ): HTMLButtonElement {
     const nextButton = ButtonFactory.create('next');
-    nextButton.addEventListener('click', () => {
-      pagination.nextPage();
-      carsHolder.initialize();
+    nextButton.addEventListener('click', async () => {
+      pagination.nextPage(carsHolder);
+      await carsHolder.initialize();
     });
     return nextButton;
   }
@@ -19,9 +19,9 @@ export class PaginationButtonsFactory {
     carsHolder: Garage | Winners,
   ): HTMLButtonElement {
     const previousButton = ButtonFactory.create('prev');
-    previousButton.addEventListener('click', () => {
-      pagination.prevPage();
-      carsHolder.initialize();
+    previousButton.addEventListener('click', async () => {
+      pagination.prevPage(carsHolder);
+      await carsHolder.initialize();
     });
     return previousButton;
   }
