@@ -1,5 +1,6 @@
 import {
   carTransform,
+  errorNotification,
   garage,
   garageApi,
   garageView,
@@ -69,14 +70,14 @@ export class Garage extends BaseCars<Car> {
   public async updateCar(): Promise<void> {
     try {
       if (!this.chosenCar.id) {
-        // TODO: Show error modal
+        errorNotification.open('Failed to update the Item');
         return;
       }
 
       if (carTransform.updateTitleInput.value.trim()) {
         this.chosenCar.name = carTransform.updateTitleInput.value;
       } else {
-        //TODO ERROR MODAL
+        errorNotification.open('Failed to update the Item');
       }
       if (this.chosenCar.color !== carTransform.updateColorInput.value) {
         this.chosenCar.color = carTransform.updateColorInput.value;
@@ -84,7 +85,7 @@ export class Garage extends BaseCars<Car> {
       await garageApi.updateItem(this.chosenCar);
       this._resetFormAndReload('update');
     } catch {
-      Garage._handleError('Updating car process ');
+      Garage._handleError('Failed to update the Item');
     }
   }
 
@@ -96,7 +97,7 @@ export class Garage extends BaseCars<Car> {
       await garageApi.deleteItem(+dataId);
       await this.initialize();
     } catch {
-      BaseCars._handleError('Deleting car process ');
+      BaseCars._handleError('Failed to update the Car');
     }
   }
 

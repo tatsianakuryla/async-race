@@ -26,7 +26,6 @@ export class Api<T extends CarOrWinner> {
     );
 
     if (!response.ok) {
-      //TODO open Error Modal
       throw new Error(`Failed to fetch`);
     }
 
@@ -43,7 +42,7 @@ export class Api<T extends CarOrWinner> {
       method: 'GET',
     });
     if (!response.ok) {
-      //TODO
+      throw new Error(`Failed to fetch the Item`);
     }
 
     return await response.json();
@@ -57,7 +56,7 @@ export class Api<T extends CarOrWinner> {
     });
 
     if (!response.ok) {
-      //TODO
+      throw new Error(`Failed to create the Item`);
     }
 
     return await response.json();
@@ -69,7 +68,7 @@ export class Api<T extends CarOrWinner> {
     });
 
     if (!response.ok) {
-      //TODO open Error Modal
+      throw new Error(`Failed to delete the Item`);
     }
   }
 
@@ -81,7 +80,7 @@ export class Api<T extends CarOrWinner> {
     });
 
     if (!response.ok) {
-      //TODO open Error Modal
+      throw new Error(`Failed to update the Item`);
     }
 
     return await response.json();

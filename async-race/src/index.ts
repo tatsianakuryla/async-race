@@ -8,6 +8,7 @@ import { Garage } from './components/cars/Garage';
 import { CarTransform } from './components/ui/car-transform/Car-transform';
 import { Pagination } from './components/pagination/Pagination';
 import { Winners } from './components/cars/Winners';
+import { ErrorNotification } from './components/ui/error-notification/error-notification';
 import './styles/style.css';
 
 export const RANDOM_CAR_COLORS = [
@@ -319,6 +320,7 @@ export const RANDOM_CAR_BRANDS = [
   'Zotye',
 ];
 
+export const errorNotification = new ErrorNotification();
 export const garage = new Garage();
 export const winners = new Winners();
 export const pagination = new Pagination(7);

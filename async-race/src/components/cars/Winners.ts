@@ -18,7 +18,7 @@ export class Winners extends BaseCars<Winner> {
     try {
       await winnersApi.createItem(item);
     } catch {
-      Winners._handleError('Creating car process ');
+      Winners._handleError('Failed to create the Item');
     }
   }
 
@@ -26,7 +26,7 @@ export class Winners extends BaseCars<Winner> {
     try {
       await winnersApi.updateItem(item);
     } catch {
-      Winners._handleError('Updating car process ');
+      Winners._handleError('Failed to update the Item');
     }
   }
 
@@ -61,7 +61,7 @@ export class Winners extends BaseCars<Winner> {
       winnersView.updateTotalItemsQuantityInfo(this);
       winnersView.updatePageNumberInfo(this);
     } catch {
-      Winners._handleError('Loading winners process');
+      Winners._handleError('Failed to load the Items');
     }
   }
 
@@ -84,7 +84,7 @@ export class Winners extends BaseCars<Winner> {
       await winnersApi.deleteItem(+dataId);
       await this.initialize();
     } catch {
-      BaseCars._handleError('Deleting car process ');
+      BaseCars._handleError('Failed to delete the Item');
     }
   }
 }

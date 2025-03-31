@@ -1,3 +1,4 @@
+import { errorNotification } from '../..';
 import type { ItemsPerPage } from '../../types';
 
 export abstract class BaseCars<T> {
@@ -23,7 +24,7 @@ export abstract class BaseCars<T> {
   }
 
   protected static _handleError(context: string): void {
-    throw new Error(`${context} failed`);
-    // TODO: Error modal
+    errorNotification.open(context);
+    throw new Error(context);
   }
 }
