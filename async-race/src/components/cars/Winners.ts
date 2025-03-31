@@ -1,38 +1,38 @@
 import { garageApi, winners, winnersApi, winnersView } from '../..';
 import type { CarAndWinner, Winner } from '../../types';
 import { WinnerItem } from '../car/Winner';
-import '../garage/garage.css';
+import '../cars/garage.css';
+import { BaseCars } from './Base-cars';
 
-export class Winners {
-  private _winners: Winner[] = [];
-  private _winnersOnServerQuantity = 0;
-  private _currentPage: number;
-  private _itemsPerPage: number = 10;
-
+export class Winners extends BaseCars<Winner> {
   constructor() {
-    this._currentPage = 1;
+    super(10);
   }
 
-  public get currentPage(): number {
-    return this._currentPage;
-  }
+  public async initialize(): Promise<void> {
+    try {
+      const response = await winnersApi.getAll(
+        this._itemsPerPage,
+        'time',
+        'ASC',
+        winners,
+      );
 
-  public get itemsQuantity(): number {
-    return this._winnersOnServerQuantity;
-  }
+      this._items = response.results;
+      this._itemsOnServerQuantity = response.totalCount;
 
-  public get items(): Winner[] {
-    return this._winners;
-  }
-
-  public set currentPage(value: number) {
-    this._currentPage = value;
+      await this.renderAll(this._items);
+      winnersView.updateTotalItemsQuantityInfo(this);
+      winnersView.updatePageNumberInfo(this);
+    } catch {
+      Winners._handleError('Loading winners process');
+    }
   }
 
   public async renderAll(winners: Winner[]): Promise<void> {
-    const scrollY = window.scrollY;
-    winnersView.itemsList.replaceChildren();
     const resultArray = await Winners._getWinnersFromGarage(winners);
+    winnersView.itemsList.replaceChildren();
+
     resultArray.forEach((winner, index) => {
       const winnerCar = new WinnerItem(winner);
       const winnerLi = winnerCar.car;
@@ -41,8 +41,6 @@ export class Winners {
       }
       winnersView.itemsList.append(winnerLi);
     });
-
-    window.scrollTo({ top: scrollY });
   }
 
   private static async _getWinnersFromGarage(
@@ -58,27 +56,6 @@ export class Winners {
     });
 
     return await Promise.all(carAndWinnerPromises);
-  }
-
-  private static _handleError(context: string): void {
-    throw new Error(`${context} failed`);
-    // TODO: Error modal
-  }
-
-  public async initialize(): Promise<void> {
-    try {
-      await winnersApi
-        .getAll(this._itemsPerPage, 'time', 'ASC', winners)
-        .then((response) => {
-          this._winners = response.results;
-          this._winnersOnServerQuantity = response.totalCount;
-          this.renderAll(this._winners);
-          winnersView.updateTotalItemsQuantityInfo(winners);
-          winnersView.updatePageNumberInfo(winners);
-        });
-    } catch {
-      Winners._handleError('Loading cars process ');
-    }
   }
 
   public async createCar(item: Winner): Promise<void> {
@@ -102,7 +79,7 @@ export class Winners {
       await winnersApi.deleteItem(+dataId);
       await this.initialize();
     } catch {
-      Winners._handleError('Deleting car process ');
+      BaseCars._handleError('Deleting car process ');
     }
   }
 }

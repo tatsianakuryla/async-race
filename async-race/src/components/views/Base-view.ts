@@ -1,12 +1,12 @@
-import { main, startScreenComponents } from '../..';
+import { main } from '../..';
 import { type Views } from '../../types';
 import {
   createContainer,
   createElementWithClassId,
   textToUpperCase,
 } from '../../utils/helpers';
-import { Garage } from '../garage/Garage';
-import { Winners } from '../winners/Winners';
+import { Garage } from '../cars/Garage';
+import { Winners } from '../cars/Winners';
 import './views.css';
 
 export abstract class View {
@@ -22,12 +22,14 @@ export abstract class View {
       `app__view_${viewModificator}`,
     ]);
     this._container = createContainer('view');
+
     this._totalItemsQuantityInfo = createElementWithClassId('span', [
       'app__items-quantity-info',
     ]);
     this._pageNumberInfo = createElementWithClassId('span', [
       'app__page-number',
     ]);
+
     this._container.append(
       View._getViewTitle(viewModificator),
       this._createTotalItemsInfoBlock(),
@@ -52,9 +54,6 @@ export abstract class View {
   public open(sectionToClose: HTMLElement): void {
     if (main.contains(sectionToClose)) {
       sectionToClose.remove();
-    }
-    if (!main.contains(startScreenComponents.section)) {
-      main.append(startScreenComponents.section);
     }
     main.append(this._section);
   }

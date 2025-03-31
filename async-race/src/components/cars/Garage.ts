@@ -11,32 +11,35 @@ import type { Car } from '../../types';
 import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import './garage.css';
+import { BaseCars } from './Base-cars';
 
-export class Garage {
+export class Garage extends BaseCars<Car> {
   public chosenCar: Car;
-  public _currentPage: number;
-  private _cars: Car[] = [];
-  private _carsOnServerQuantity = 0;
 
   constructor() {
+    super(7);
     this.chosenCar = {
       name: '',
       color: '',
       id: 0,
     };
-    this._currentPage = 1;
   }
 
-  public get currentPage(): number {
-    return this._currentPage;
-  }
-
-  public get itemsQuantity(): number {
-    return this._carsOnServerQuantity;
-  }
-
-  public set currentPage(value: number) {
-    this._currentPage = value;
+  public async initialize(): Promise<void> {
+    try {
+      await garageApi
+        .getAll(this._itemsPerPage, 'id', 'ASC', garage)
+        .then((response) => {
+          this._items = response.results;
+          this._itemsOnServerQuantity = response.totalCount;
+          Garage.renderAll(this._items);
+          garageView.updateTotalItemsQuantityInfo(garage);
+          garageView.updatePageNumberInfo(garage);
+          this._resetChosenCar();
+        });
+    } catch {
+      Garage._handleError('Loading cars process ');
+    }
   }
 
   public static renderAll(cars: Car[]): void {
@@ -45,26 +48,6 @@ export class Garage {
       const baseCar = new GarageItem(car);
       garageView.itemsList.append(baseCar.car);
     });
-  }
-
-  private static _handleError(context: string): void {
-    throw new Error(`${context} failed`);
-    // TODO: Error modal
-  }
-
-  public async initialize(): Promise<void> {
-    try {
-      await garageApi.getAll(7, 'id', 'ASC', garage).then((response) => {
-        this._cars = response.results;
-        this._carsOnServerQuantity = response.totalCount;
-        Garage.renderAll(this._cars);
-        garageView.updateTotalItemsQuantityInfo(garage);
-        garageView.updatePageNumberInfo(garage);
-        this._resetChosenCar();
-      });
-    } catch {
-      Garage._handleError('Loading cars process ');
-    }
   }
 
   public async createCar(): Promise<void> {
@@ -110,12 +93,12 @@ export class Garage {
       await garageApi.deleteItem(+dataId);
       await this.initialize();
     } catch {
-      Garage._handleError('Deleting car process ');
+      BaseCars._handleError('Deleting car process ');
     }
   }
 
   public selectCar(dataId: string): void {
-    this.chosenCar = this._cars.find((car) => car.id === +dataId) ?? {
+    this.chosenCar = this._items.find((car) => car.id === +dataId) ?? {
       name: '',
       color: '',
       id: 0,

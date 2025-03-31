@@ -1,5 +1,5 @@
-import { Garage } from '../garage/Garage';
-import { Winners } from '../winners/Winners';
+import { Garage } from '../cars/Garage';
+import { Winners } from '../cars/Winners';
 
 export class Pagination {
   private _totalItems: number = 0;

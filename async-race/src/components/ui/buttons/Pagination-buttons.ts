@@ -1,6 +1,6 @@
 import { pagination } from '../../..';
-import type { Garage } from '../../garage/Garage';
-import type { Winners } from '../../winners/Winners';
+import type { Garage } from '../../cars/Garage';
+import type { Winners } from '../../cars/Winners';
 import { ButtonFactory } from './Button';
 
 export class PaginationButtonsFactory {

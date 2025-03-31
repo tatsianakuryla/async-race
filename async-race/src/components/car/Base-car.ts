@@ -1,6 +1,6 @@
 import type { Car, CarAndWinner } from '../../types';
 import { createElementWithClassId } from '../../utils/helpers';
-import { CarSvg } from '../garage/Car-svg';
+import { CarSvg } from './Car-svg';
 
 export class BaseCar {
   protected _car: HTMLLIElement;

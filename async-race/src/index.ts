@@ -4,12 +4,11 @@ import { HeaderFactory } from './components/ui/layout/Header';
 import { MainFactory } from './components/ui/layout/Main';
 import { GarageView } from './components/views/Garage-view';
 import { WinnersView } from './components/views/Winners-view';
-import { Garage } from './components/garage/Garage';
-import './styles/style.css';
+import { Garage } from './components/cars/Garage';
 import { CarTransform } from './components/ui/car-transform/Car-transform';
 import { Pagination } from './components/pagination/Pagination';
-import { Winners } from './components/winners/Winners';
-import { StartScreenComponents } from './components/ui/layout/Start-screen-components';
+import { Winners } from './components/cars/Winners';
+import './styles/style.css';
 
 export const RANDOM_CAR_COLORS = [
   '#095387',
@@ -327,7 +326,6 @@ export const carTransform = new CarTransform();
 export const garageApi = new Api<Car>('garage');
 export const winnersApi = new Api<Winner>('winners');
 
-export const startScreenComponents = new StartScreenComponents();
 export const main = MainFactory.get();
 
 export const garageView = new GarageView();

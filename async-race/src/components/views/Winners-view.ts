@@ -1,4 +1,4 @@
-import { garageViewSection, main, startScreenComponents, winners } from '../..';
+import { garageViewSection, main, winners } from '../..';
 import { WinnerItem } from '../car/Winner';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
@@ -23,9 +23,6 @@ export class WinnersView extends View {
 
   public override open(): void {
     super.open(garageViewSection);
-    if (main.contains(startScreenComponents.section)) {
-      startScreenComponents.section.remove();
-    }
     winners.initialize();
   }
 }

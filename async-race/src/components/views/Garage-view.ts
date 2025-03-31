@@ -1,6 +1,7 @@
-import { garage, winnersViewSection } from '../..';
+import { carTransform, garage, winnersViewSection } from '../..';
 import { createButtonsContainer } from '../../utils/helpers';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
+import { RaceButtonsFactory } from '../ui/buttons/Race-manage-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
 import { View } from './Base-view';
 
@@ -17,6 +18,10 @@ export class GarageView extends View {
       PaginationButtonsFactory.getNextPageButton(garage),
     );
     this._container.append(this.itemsList, buttonsContainer);
+    this._container.prepend(
+      carTransform.block,
+      RaceButtonsFactory.getButtons(),
+    );
   }
 
   public override open(): void {

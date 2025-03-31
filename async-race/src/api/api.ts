@@ -1,6 +1,6 @@
 import { pagination } from '..';
-import { Garage } from '../components/garage/Garage';
-import { Winners } from '../components/winners/Winners';
+import { Garage } from '../components/cars/Garage';
+import { Winners } from '../components/cars/Winners';
 import type { Order, CarOrWinner, Sort } from '../types';
 import type { GetResponse, Views } from '../types';
 import { BASE_URL } from '../types';
