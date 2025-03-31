@@ -22,7 +22,7 @@ export class WinnersView extends View {
   }
 
   public override open(): void {
-    super.open(garageViewSection);
+    super.open('/winners', garageViewSection);
     winners.initialize();
   }
 }

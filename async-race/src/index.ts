@@ -8,8 +8,9 @@ import { Garage } from './components/cars/Garage';
 import { CarTransform } from './components/ui/car-transform/Car-transform';
 import { Pagination } from './components/pagination/Pagination';
 import { Winners } from './components/cars/Winners';
-import { ErrorNotification } from './components/ui/error-notification/error-notification';
+import { ErrorNotification } from './components/ui/error-notification/Error-notification';
 import './styles/style.css';
+import { Router } from './components/router/router';
 
 export const RANDOM_CAR_COLORS = [
   '#095387',
@@ -337,4 +338,17 @@ export const winnersView = new WinnersView();
 export const winnersViewSection = winnersView.section;
 
 document.body.append(HeaderFactory.get(), main);
-garageView.open();
+
+Router.addRoute('/', () => {
+  garageView.open();
+});
+
+Router.addRoute('/garage', () => {
+  garageView.open();
+});
+
+Router.addRoute('/winners', () => {
+  winnersView.open();
+});
+
+Router.init();

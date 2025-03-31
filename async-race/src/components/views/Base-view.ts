@@ -51,7 +51,10 @@ export abstract class View {
     return title;
   }
 
-  public open(sectionToClose: HTMLElement): void {
+  public open(route: string, sectionToClose: HTMLElement): void {
+    import('../router/router').then(({ Router }) => {
+      Router.navigateTo(route);
+    });
     if (main.contains(sectionToClose)) {
       sectionToClose.remove();
     }

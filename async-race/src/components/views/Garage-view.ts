@@ -25,7 +25,7 @@ export class GarageView extends View {
   }
 
   public override open(): void {
-    super.open(winnersViewSection);
+    super.open('/garage', winnersViewSection);
     garage.initialize();
   }
 }
