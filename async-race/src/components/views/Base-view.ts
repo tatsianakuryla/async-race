@@ -1,13 +1,15 @@
 import { main } from '../..';
 import { type Views } from '../../types';
 import {
+  createButtonsContainer,
   createContainer,
   createElementWithClassId,
   textToUpperCase,
 } from '../../utils/helpers';
 import type { Garage } from '../cars/Garage';
 import type { Winners } from '../cars/Winners';
-import './views.css';
+import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
+import { ItemsListFactory } from '../ui/items-list/Items-list';
 
 export abstract class View {
   protected _totalItemsQuantityInfo: HTMLSpanElement;
@@ -15,6 +17,7 @@ export abstract class View {
   protected _container: HTMLElement;
   protected _pageNumberInfo: HTMLElement;
   protected _TOTAL_INFO_TEXT = 'Total quantity: ';
+  public itemsList: HTMLUListElement;
 
   constructor(viewModificator: Views) {
     this._section = createElementWithClassId('section', [
@@ -29,7 +32,7 @@ export abstract class View {
     this._pageNumberInfo = createElementWithClassId('span', [
       'app__page-number',
     ]);
-
+    this.itemsList = ItemsListFactory.getUl();
     this._container.append(
       View._getViewTitle(viewModificator),
       this._createTotalItemsInfoBlock(),
@@ -74,5 +77,18 @@ export abstract class View {
     title.textContent = textToUpperCase(this._TOTAL_INFO_TEXT);
     title.append(this._totalItemsQuantityInfo);
     return title;
+  }
+
+  protected _getPaginationButtonsContainer(
+    view: Garage | Winners,
+  ): HTMLElement {
+    const buttonsContainer = createButtonsContainer('pagination');
+    this.updatePageNumberInfo(view);
+    buttonsContainer.append(
+      PaginationButtonsFactory.getPreviousPageButton(view),
+      this.pageNumberInfo,
+      PaginationButtonsFactory.getNextPageButton(view),
+    );
+    return buttonsContainer;
   }
 }

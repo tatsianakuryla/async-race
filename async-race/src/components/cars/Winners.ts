@@ -3,7 +3,6 @@ import type { CarAndWinner, Winner } from '../../types';
 import { WinnerItem } from '../car/Winner';
 import { LocalStorage } from '../local-storage/Local-storage';
 import { BaseCars } from './Base-cars';
-import '../cars/garage.css';
 
 export class Winners extends BaseCars<Winner> {
   constructor() {
@@ -70,11 +69,11 @@ export class Winners extends BaseCars<Winner> {
     winnersView.itemsList.replaceChildren();
 
     resultArray.forEach((winner, index) => {
-      const winnerCar = new WinnerItem(winner);
+      const winnerCar = new WinnerItem(
+        winner,
+        (this.currentPage - 1) * this._itemsPerPage + 1 + index,
+      );
       const winnerLi = winnerCar.car;
-      if (index === 0) {
-        winnerLi.value = (this.currentPage - 1) * this._itemsPerPage + 1;
-      }
       winnersView.itemsList.append(winnerLi);
     });
   }

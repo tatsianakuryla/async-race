@@ -19,8 +19,8 @@ export class CarSvg {
 
   private _createCarSvg(SVG_NS: string, color: string = '#007bff'): SVGElement {
     this._svg.setAttribute('width', '100');
-    this._svg.setAttribute('height', '50');
-    this._svg.setAttribute('viewBox', '0 0 300 150');
+    this._svg.setAttribute('height', '45');
+    this._svg.setAttribute('viewBox', '0 0 300 100');
 
     // 1. Тень
     const shadow = document.createElementNS(SVG_NS, 'ellipse');
@@ -96,6 +96,7 @@ export class CarSvg {
     detail.setAttribute('rx', '2');
     this._svg.appendChild(detail);
 
+    this._svg.classList.add('app__svg', 'flex');
     return this._svg;
   }
 }

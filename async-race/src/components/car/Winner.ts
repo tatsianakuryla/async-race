@@ -3,11 +3,13 @@ import { createElementWithClassId } from '../../utils/helpers';
 import { BaseCar } from './Base-car';
 
 export class WinnerItem extends BaseCar {
-  constructor(item: CarAndWinner) {
-    super(item);
+  constructor(item: CarAndWinner, index: number) {
+    super(item, 'winners');
+    this._car.classList.add('app__item_winners');
+    this._car.prepend(BaseCar._getItemInfo(String(index), 'winners-number'));
     this._car.append(
-      BaseCar._getItemInfo(String(item.wins)),
-      BaseCar._getItemInfo(String(item.time)),
+      BaseCar._getItemInfo(String(item.wins), 'winners-wins'),
+      BaseCar._getItemInfo(String(item.time), 'winners-time'),
     );
   }
 
@@ -17,11 +19,10 @@ export class WinnerItem extends BaseCar {
       'flex',
     ]);
     winnersTitle.append(
-      BaseCar._getItemInfo('№'),
-      BaseCar._getItemInfo('Name'),
-      BaseCar._getItemInfo('Color'),
-      BaseCar._getItemInfo('Wins'),
-      BaseCar._getItemInfo('Best time, sec'),
+      BaseCar._getItemInfo('№', 'winners-number'),
+      BaseCar._getItemInfo('Name', 'winners-name'),
+      BaseCar._getItemInfo('Wins', 'winners-wins'),
+      BaseCar._getItemInfo('Best time, sec', 'winners-time'),
     );
     return winnersTitle;
   }

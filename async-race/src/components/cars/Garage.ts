@@ -13,7 +13,6 @@ import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import { BaseCars } from './Base-cars';
 import { LocalStorage } from '../local-storage/Local-storage';
-import './garage.css';
 
 export class Garage extends BaseCars<Car> {
   public chosenCar: Car;

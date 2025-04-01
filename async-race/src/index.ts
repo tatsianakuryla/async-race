@@ -9,8 +9,9 @@ import { CarTransform } from './components/ui/car-transform/Car-transform';
 import { Pagination } from './components/pagination/Pagination';
 import { Winners } from './components/cars/Winners';
 import { ErrorNotification } from './components/ui/error-notification/Error-notification';
-import './styles/style.css';
 import { Router } from './components/router/router';
+import './styles/modern-normalize.css';
+import './styles/style.css';
 
 export const RANDOM_CAR_COLORS = [
   '#095387',

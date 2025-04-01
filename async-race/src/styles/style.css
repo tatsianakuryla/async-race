@@ -1,0 +1,296 @@
+:root {
+  --color-bg: #1e1f26;
+  --color-card: #2c2f38;
+  --color-text: #ffffff;
+  --color-subtext: #cccccc;
+  --color-accent: #3f8cff;
+  --color-create: #1abc9c;
+  --color-update: #f39c12;
+  --color-race: #27ae60;
+  --color-delete: #e74c3c;
+  --color-dark-btn: #3a3d46;
+  --flex-gap: 5px;
+}
+
+/* ========== RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+html {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+body {
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ========== TYPOGRAPHY ========== */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+p,
+span {
+  color: var(--color-subtext);
+}
+
+/* ========== LAYOUT ========== */
+.container {
+  padding: 5px 20px;
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  gap: var(--flex-gap);
+}
+
+.header-container,
+.view-container,
+.app__items-list,
+.app__item {
+  flex-direction: column;
+}
+
+/* ========== HEADERS / TITLES ========== */
+.app__heading,
+.app__title,
+.app__view-title,
+.app__view-total-info {
+  color: var(--headers-color);
+}
+
+.app__view-title {
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #444;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.app__view-total-info {
+  margin-bottom: 5px;
+}
+
+/* ========== INPUTS ========== */
+
+.app__transform-option {
+  --offsets: 1;
+  flex-basis: calc(
+    (100% - var(--flex-gap) * var(--offsets)) / (var(--offsets) + 1)
+  );
+}
+
+.app__input_car-title {
+  --offsets: 2;
+  padding: 0.3rem 1rem;
+  border: 2px solid #444;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--color-text);
+  background-color: var(--color-card);
+  width: calc((100% - 30px - 100px - var(--flex-gap) * var(--offsets)));
+}
+
+.app__input_color {
+  border: none;
+  width: 30px;
+  height: 30px;
+  background: none;
+  cursor: pointer;
+}
+
+/* ========== BUTTONS ========== */
+.app__button {
+  padding: 0.3rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.app__button_update,
+.app__button_create {
+  width: 100px;
+}
+
+.app__button_visit-garage,
+.app__button_visit-winners {
+  background-color: #4f46e5;
+}
+
+.app__button_update {
+  background-color: var(--color-update);
+}
+.app__button_create {
+  background-color: var(--color-create);
+}
+.app__button_race-all {
+  background-color: var(--color-race);
+}
+.app__button_reset-race,
+.app__button_generate-cars {
+  background-color: var(--color-dark-btn);
+}
+
+.app__button_select,
+.app__button_delete,
+.app__button_start,
+.app__button_stop {
+  background-color: #2f313a;
+  border: 1px solid #444;
+  border-radius: 10px;
+  width: 85px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.app__button_select:hover,
+.app__button_delete:hover,
+.app__button_start:hover,
+.app__button_stop:hover {
+  background-color: #3f414c;
+}
+
+.app__button_select:disabled,
+.app__button_delete:disabled,
+.app__button_start:disabled,
+.app__button_stop:disabled {
+  color: #888;
+  background-color: #444;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Pagination buttons */
+.app__buttons-contaiter_pagination {
+  align-self: flex-end;
+  align-items: center;
+}
+
+.app__button_prev,
+.app__button_next {
+  padding: 0.3rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #111;
+  background-color: #e5e5e5;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.app__button_prev:disabled,
+.app__button_next:disabled {
+  background-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.app__button_prev:hover:not(:disabled),
+.app__button_next:hover:not(:disabled) {
+  background-color: #d4d4d4;
+}
+
+.app__page-number {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* ========== ITEM BLOCKS ========== */
+.app__item {
+  padding: 0.3rem 1rem;
+  border: 1px solid #3a3d46;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-card);
+}
+
+.app__item-info {
+  align-items: center;
+}
+
+.app__item-title {
+  min-width: 180px;
+  max-width: 180px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+/* ========== WINNERS SECTION ========== */
+.app__item_winners {
+  flex-direction: row;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.app__winners-list-title {
+  padding: 1rem;
+}
+
+.app__item-title_winners-number {
+  min-width: 10%;
+  max-width: 10%;
+}
+
+.app__item-title_winners-name {
+  min-width: 285px;
+  max-width: 285px;
+}
+
+.app__item-title_winners-wins,
+.app__item-title_winners-time {
+  min-width: calc((100% - 280px - 10%) / 2);
+  text-align: center;
+}
+
+/* ========== SVG DECORATION ========== */
+.app__svg-container {
+  position: relative;
+  align-items: center;
+  flex-shrink: 0;
+  padding-bottom: 2px;
+  background-image: url('../images/finish.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 40px 40px;
+}
+
+.app__svg-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  border-radius: 1px;
+  background-color: #444;
+}
+
+.app__item_winners .app__svg-container {
+  background-image: none;
+}
+
+.app__item_winners .app__svg-container::after {
+  height: 0;
+}

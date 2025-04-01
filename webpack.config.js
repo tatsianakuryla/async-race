@@ -26,6 +26,10 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
@@ -42,10 +46,6 @@ module.exports = {
           from: './async-race/src/images/favicon.png',
           to: 'favicon.png',
         },
-        // {
-        //   from: './async-race/src/assets',
-        //   to: 'assets',
-        // },
       ],
     }),
   ],

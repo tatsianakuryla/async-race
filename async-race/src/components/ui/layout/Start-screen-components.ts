@@ -3,7 +3,6 @@ import {
   createElementWithClassId,
 } from '../../../utils/helpers';
 import { RouteButtonsFactory } from '../buttons/Route-buttons-factory';
-import './start-screen-components.css';
 
 export class StartScreenComponentsFactory {
   public static get(): HTMLElement {
