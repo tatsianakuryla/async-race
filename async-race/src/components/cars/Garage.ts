@@ -13,9 +13,12 @@ import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import { BaseCars } from './Base-cars';
 import { LocalStorage } from '../local-storage/Local-storage';
+import { AnimationManager } from '../animation/Animation';
 
 export class Garage extends BaseCars<Car> {
   public chosenCar: Car;
+  public cars: Record<number, GarageItem> = {};
+  public carsAnimations: AnimationManager[] = [];
 
   constructor() {
     super(7);
@@ -28,10 +31,13 @@ export class Garage extends BaseCars<Car> {
       LocalStorage.getItemsFromLocalStorage('garage-page-number');
     this._currentPage = pageNumber ? +pageNumber : 1;
   }
-  public static renderAll(cars: Car[]): void {
+
+  public renderAll(cars: Car[]): void {
     garageView.itemsList.replaceChildren();
     cars.forEach((car) => {
       const baseCar = new GarageItem(car);
+      this.cars[car.id] = baseCar;
+      this.carsAnimations.push(baseCar.animation);
       garageView.itemsList.append(baseCar.car);
     });
   }
@@ -43,7 +49,7 @@ export class Garage extends BaseCars<Car> {
         .then((response) => {
           this._items = response.results;
           this._itemsOnServerQuantity = response.totalCount;
-          Garage.renderAll(this._items);
+          this.renderAll(this._items);
           garageView.updateTotalItemsQuantityInfo(garage);
           garageView.updatePageNumberInfo(garage);
           this._resetChosenCar();
@@ -108,6 +114,18 @@ export class Garage extends BaseCars<Car> {
     };
     carTransform.updateTitleInput.value = this.chosenCar.name;
     carTransform.updateColorInput.value = this.chosenCar.color;
+  }
+
+  public startRace(): void {
+    Object.entries(this.cars).forEach(([id, car]) => {
+      car.animation.startAnimation(+id, car.svgContainer, car.svg);
+    });
+  }
+
+  public resetRace(): void {
+    Object.entries(this.cars).forEach(([id, car]) => {
+      car.animation.stopAnimation(+id, car.svg);
+    });
   }
 
   public async add100RandomCars(): Promise<void> {

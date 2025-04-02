@@ -12,12 +12,12 @@ import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
 
 export abstract class View {
+  public itemsList: HTMLUListElement;
   protected _totalItemsQuantityInfo: HTMLSpanElement;
   protected _section: HTMLElement;
   protected _container: HTMLElement;
   protected _pageNumberInfo: HTMLElement;
   protected _TOTAL_INFO_TEXT = 'Total quantity: ';
-  public itemsList: HTMLUListElement;
 
   constructor(viewModificator: Views) {
     this._section = createElementWithClassId('section', [

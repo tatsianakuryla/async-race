@@ -25,3 +25,14 @@ export type TransformCarTasks = 'update' | 'create';
 export type Sort = 'id' | 'wins' | 'time';
 export type Order = 'ASC' | 'DESC';
 export type ItemsPerPage = 7 | 10;
+
+export type EngineDataResponse = {
+  velocity: number;
+  distance: number;
+};
+
+export type EngineToDriveModeResponse = {
+  success: boolean;
+};
+
+export type EngineStatus = 'started' | 'stopped' | 'drive';

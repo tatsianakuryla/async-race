@@ -1,14 +1,59 @@
 import { pagination } from '..';
 import type { Garage } from '../components/cars/Garage';
 import type { Winners } from '../components/cars/Winners';
-import type { Order, CarOrWinner, Sort } from '../types';
+import type {
+  Order,
+  CarOrWinner,
+  Sort,
+  EngineDataResponse,
+  EngineToDriveModeResponse,
+  EngineStatus,
+} from '../types';
 import type { GetResponse, Views } from '../types';
 import { BASE_URL } from '../types';
 
 export class Api<T extends CarOrWinner> {
   private _view: Views;
+
   constructor(view: Views) {
     this._view = view;
+  }
+
+  public static async manageCarEngine(
+    id: number,
+    status: EngineStatus,
+  ): Promise<EngineDataResponse> {
+    const parameters = new URLSearchParams({ id: String(id), status });
+    const response = await fetch(
+      `${BASE_URL}/engine?${parameters.toString()}`,
+      {
+        method: 'PATCH',
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to manage the car engine`);
+    }
+
+    return response.json();
+  }
+
+  public static async switchEngineToDriveMode(
+    id: number,
+  ): Promise<EngineToDriveModeResponse> {
+    const parameters = new URLSearchParams({ id: String(id), status: 'drive' });
+    const response = await fetch(
+      `${BASE_URL}/engine?${parameters.toString()}`,
+      {
+        method: 'PATCH',
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to drive`);
+    }
+
+    return await response.json();
   }
 
   public async getAll(

@@ -1,22 +1,41 @@
 :root {
+  --font-main: 'Segoe UI', sans-serif;
+  --font-alt: 'Inter', sans-serif;
   --color-bg: #1e1f26;
   --color-card: #2c2f38;
-  --color-text: #ffffff;
-  --color-subtext: #cccccc;
+  --color-text: #fff;
+  --color-subtext: #ccc;
+  --color-title: #f0f0f0;
   --color-accent: #3f8cff;
   --color-create: #1abc9c;
   --color-update: #f39c12;
   --color-race: #27ae60;
   --color-delete: #e74c3c;
+  --color-visit: #4f46e5;
+  --color-hover-create: #17a88c;
+  --color-hover-update: #d78c0f;
+  --color-hover-race: #219150;
+  --color-hover-dark-btn: #2e3038;
+  --color-hover-page: #d4d4d4;
+  --color-hover-visit: #3f36c4;
   --color-dark-btn: #3a3d46;
+  --color-dark-bg: #2f313a;
+  --color-dark-bg-hover: #3f414c;
+  --color-border: #444;
+  --color-disabled-text: #888;
+  --color-disabled-bg: #444;
+  --color-page-bg: #e5e5e5;
+  --color-page-bg-hover: #d4d4d4;
+  --color-page-bg-disabled: #ccc;
+  --color-page-text-disabled: #999;
+  --color-page-text: #111;
   --flex-gap: 5px;
 }
 
-/* ========== RESET ========== */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 ul {
@@ -30,16 +49,16 @@ html {
 
 body {
   margin: 0 auto;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: var(--color-bg);
+  font-family: var(--font-main);
   color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
-/* ========== TYPOGRAPHY ========== */
 h1,
 h2,
 h3,
 h4 {
+  font-family: var(--font-alt);
   font-weight: 700;
   color: var(--color-text);
 }
@@ -49,10 +68,9 @@ span {
   color: var(--color-subtext);
 }
 
-/* ========== LAYOUT ========== */
 .container {
-  padding: 5px 20px;
   width: 100%;
+  padding: 5px 20px;
 }
 
 .flex {
@@ -64,20 +82,20 @@ span {
 .view-container,
 .app__items-list,
 .app__item {
+  display: flex;
   flex-direction: column;
 }
 
-/* ========== HEADERS / TITLES ========== */
 .app__heading,
 .app__title,
 .app__view-title,
 .app__view-total-info {
-  color: var(--headers-color);
+  color: var(--color-text);
 }
 
 .app__view-title {
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #444;
+  border-bottom: 2px solid var(--color-border);
   font-size: 2rem;
   font-weight: 700;
 }
@@ -86,10 +104,9 @@ span {
   margin-bottom: 5px;
 }
 
-/* ========== INPUTS ========== */
-
 .app__transform-option {
   --offsets: 1;
+
   flex-basis: calc(
     (100% - var(--flex-gap) * var(--offsets)) / (var(--offsets) + 1)
   );
@@ -97,33 +114,40 @@ span {
 
 .app__input_car-title {
   --offsets: 2;
+
+  width: calc((100% - 30px - 100px - var(--flex-gap) * var(--offsets)));
   padding: 0.3rem 1rem;
-  border: 2px solid #444;
+  border: 2px solid var(--color-border);
   border-radius: 8px;
+
   font-size: 1rem;
   color: var(--color-text);
+
   background-color: var(--color-card);
-  width: calc((100% - 30px - 100px - var(--flex-gap) * var(--offsets)));
 }
 
 .app__input_color {
-  border: none;
+  cursor: pointer;
+
   width: 30px;
   height: 30px;
+  border: none;
+
   background: none;
-  cursor: pointer;
 }
 
-/* ========== BUTTONS ========== */
 .app__button {
+  cursor: pointer;
+
   padding: 0.3rem 1.2rem;
   border: none;
   border-radius: 8px;
+
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
+
   transition: background 0.2s ease;
-  cursor: pointer;
 }
 
 .app__button_update,
@@ -133,18 +157,21 @@ span {
 
 .app__button_visit-garage,
 .app__button_visit-winners {
-  background-color: #4f46e5;
+  background-color: var(--color-visit);
 }
 
 .app__button_update {
   background-color: var(--color-update);
 }
+
 .app__button_create {
   background-color: var(--color-create);
 }
+
 .app__button_race-all {
   background-color: var(--color-race);
 }
+
 .app__button_reset-race,
 .app__button_generate-cars {
   background-color: var(--color-dark-btn);
@@ -154,74 +181,106 @@ span {
 .app__button_delete,
 .app__button_start,
 .app__button_stop {
-  background-color: #2f313a;
-  border: 1px solid #444;
-  border-radius: 10px;
   width: 85px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+
   font-size: 0.9rem;
   font-weight: 500;
+
+  background-color: var(--color-dark-bg);
 }
 
 .app__button_select:hover,
 .app__button_delete:hover,
 .app__button_start:hover,
 .app__button_stop:hover {
-  background-color: #3f414c;
+  background-color: var(--color-dark-bg-hover);
 }
 
 .app__button_select:disabled,
 .app__button_delete:disabled,
 .app__button_start:disabled,
 .app__button_stop:disabled {
-  color: #888;
-  background-color: #444;
   cursor: not-allowed;
+  color: var(--color-disabled-text);
   opacity: 0.6;
+  background-color: var(--color-disabled-bg);
 }
 
-/* Pagination buttons */
+/* ХОВЕРЫ: */
+.app__button_update:hover {
+  background-color: var(--color-hover-update);
+}
+
+.app__button_create:hover {
+  background-color: var(--color-hover-create);
+}
+
+.app__button_visit-garage:hover,
+.app__button_visit-winners:hover {
+  background-color: var(--color-hover-visit);
+}
+
+.app__button_race-all:hover {
+  background-color: var(--color-hover-race);
+}
+
+.app__button_reset-race:hover,
+.app__button_generate-cars:hover {
+  background-color: var(--color-hover-dark-btn);
+}
+
 .app__buttons-contaiter_pagination {
-  align-self: flex-end;
   align-items: center;
+  align-self: flex-end;
 }
 
 .app__button_prev,
 .app__button_next {
+  cursor: pointer;
+
   padding: 0.3rem 1rem;
   border: none;
   border-radius: 0.5rem;
+
   font-size: 0.8rem;
   font-weight: bold;
-  color: #111;
-  background-color: #e5e5e5;
-  cursor: pointer;
+  color: var(--color-page-text);
+
+  background-color: var(--color-page-bg);
+
   transition: background-color 0.2s ease-in-out;
 }
 
 .app__button_prev:disabled,
 .app__button_next:disabled {
-  background-color: #ccc;
-  color: #999;
   cursor: not-allowed;
+  color: var(--color-page-text-disabled);
+  background-color: var(--color-page-bg-disabled);
 }
 
 .app__button_prev:hover:not(:disabled),
 .app__button_next:hover:not(:disabled) {
-  background-color: #d4d4d4;
+  background-color: var(--color-page-bg-hover);
 }
 
 .app__page-number {
+  width: 2rem;
   font-size: 0.9rem;
   font-weight: bold;
+  text-align: center;
 }
 
-/* ========== ITEM BLOCKS ========== */
 .app__item {
+  gap: 3px;
+
   padding: 0.3rem 1rem;
-  border: 1px solid #3a3d46;
+  border: 1px solid var(--color-dark-btn);
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
   background-color: var(--color-card);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
 }
 
 .app__item-info {
@@ -231,12 +290,12 @@ span {
 .app__item-title {
   min-width: 180px;
   max-width: 180px;
+
   font-size: 1.2rem;
   font-weight: 600;
-  color: #f0f0f0;
+  color: var(--color-title);
 }
 
-/* ========== WINNERS SECTION ========== */
 .app__item_winners {
   flex-direction: row;
   align-items: center;
@@ -264,27 +323,34 @@ span {
   text-align: center;
 }
 
-/* ========== SVG DECORATION ========== */
 .app__svg-container {
   position: relative;
-  align-items: center;
+
   flex-shrink: 0;
+  align-items: center;
+
+  width: calc(100% - 185px);
+  height: 45px;
   padding-bottom: 2px;
+
   background-image: url('../images/finish.png');
   background-repeat: no-repeat;
-  background-position: right center;
+  background-position: calc(100% - 70px) center;
   background-size: 40px 40px;
 }
 
 .app__svg-container::after {
   content: '';
+
   position: absolute;
-  bottom: 0;
   right: 0;
+  bottom: 0;
   left: 0;
+
   height: 3px;
   border-radius: 1px;
-  background-color: #444;
+
+  background-color: var(--color-border);
 }
 
 .app__item_winners .app__svg-container {
@@ -293,4 +359,11 @@ span {
 
 .app__item_winners .app__svg-container::after {
   height: 0;
+}
+
+.app__svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform linear;
 }

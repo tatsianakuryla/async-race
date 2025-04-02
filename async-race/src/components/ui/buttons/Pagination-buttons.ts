@@ -1,6 +1,6 @@
 import { pagination } from '../../..';
 import { Garage } from '../../cars/Garage';
-import { Winners } from '../../cars/Winners';
+import type { Winners } from '../../cars/Winners';
 import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from './Button';
 
@@ -29,7 +29,7 @@ export class PaginationButtonsFactory {
     return previousButton;
   }
 
-  private static _savePageToLocalStorage(carsHolder: Garage | Winners) {
+  private static _savePageToLocalStorage(carsHolder: Garage | Winners): void {
     const key =
       carsHolder instanceof Garage
         ? 'garage-page-number'
