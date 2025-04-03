@@ -9,7 +9,9 @@ export class AnimationManager {
   public async prepareForStart(
     id: number,
     svgContainer: HTMLElement,
+    svg: SVGElement,
   ): Promise<void> {
+    this.stopAnimation(id, svg);
     const { velocity } = await Api.manageCarEngine(id, 'started');
     this.engineStatus = 'started';
 

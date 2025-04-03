@@ -123,7 +123,11 @@ export class Garage extends BaseCars<Car> {
 
     await Promise.all(
       carsList.map(([id, carItem]) =>
-        carItem.animation.prepareForStart(+id, carItem.svgContainer),
+        carItem.animation.prepareForStart(
+          +id,
+          carItem.svgContainer,
+          carItem.svg,
+        ),
       ),
     );
 

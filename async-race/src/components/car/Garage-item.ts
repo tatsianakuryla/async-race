@@ -19,7 +19,7 @@ export class GarageItem extends BaseCar {
 
   private _startAnimation(id: number): void {
     this.animation
-      .prepareForStart(id, this._svgContainer)
+      .prepareForStart(id, this._svgContainer, this._svg)
       .then(() => {
         this.animation.runAnimation(id, this._svg);
       })
