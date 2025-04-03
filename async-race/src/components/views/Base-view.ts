@@ -61,7 +61,9 @@ export abstract class View {
     if (main.contains(sectionToClose)) {
       sectionToClose.remove();
     }
-    main.append(this._section);
+    if (!main.contains(this._section)) {
+      main.append(this._section);
+    }
   }
 
   public updateTotalItemsQuantityInfo(view: Garage | Winners): void {

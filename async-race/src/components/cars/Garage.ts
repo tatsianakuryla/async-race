@@ -7,6 +7,7 @@ import {
   RANDOM_CAR_BRANDS,
   RANDOM_CAR_COLORS,
   RANDOM_CAR_MODELS,
+  winners,
 } from '../..';
 import type { Car } from '../../types';
 import { getRandomIndex, textToUpperCase } from '../../utils/helpers';

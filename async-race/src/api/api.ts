@@ -30,11 +30,6 @@ export class Api<T extends CarOrWinner> {
         method: 'PATCH',
       },
     );
-
-    if (!response.ok) {
-      throw new Error(`Failed to manage the car engine`);
-    }
-
     return response.json();
   }
 
@@ -48,11 +43,6 @@ export class Api<T extends CarOrWinner> {
         method: 'PATCH',
       },
     );
-
-    if (!response.ok) {
-      throw new Error(`Failed to drive`);
-    }
-
     return await response.json();
   }
 
@@ -70,10 +60,6 @@ export class Api<T extends CarOrWinner> {
       },
     );
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch`);
-    }
-
     const results = await response.json();
     const totalCount: number =
       Number(response.headers.get('X-Total-Count')) || 0;
@@ -86,9 +72,6 @@ export class Api<T extends CarOrWinner> {
     const response = await fetch(`${BASE_URL}/${this._view}/${id}`, {
       method: 'GET',
     });
-    if (!response.ok) {
-      throw new Error(`Failed to fetch the Item`);
-    }
 
     return await response.json();
   }
@@ -100,21 +83,13 @@ export class Api<T extends CarOrWinner> {
       body: JSON.stringify(item),
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to create the Item`);
-    }
-
     return await response.json();
   }
 
   public async deleteItem(id: number): Promise<void> {
-    const response = await fetch(`${BASE_URL}/${this._view}/${id}`, {
+    await fetch(`${BASE_URL}/${this._view}/${id}`, {
       method: 'DELETE',
     });
-
-    if (!response.ok) {
-      throw new Error(`Failed to delete the Item`);
-    }
   }
 
   public async updateItem(item: T): Promise<T> {
@@ -123,11 +98,6 @@ export class Api<T extends CarOrWinner> {
       body: JSON.stringify(item),
       headers: { 'Content-Type': 'application/json' },
     });
-
-    if (!response.ok) {
-      throw new Error(`Failed to update the Item`);
-    }
-
     return await response.json();
   }
 }

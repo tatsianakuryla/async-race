@@ -11,6 +11,10 @@ export abstract class BaseCars<T> {
     this._itemsPerPage = value;
   }
 
+  public get items(): T[] {
+    return this._items;
+  }
+
   public get currentPage(): number {
     return this._currentPage;
   }
@@ -25,6 +29,5 @@ export abstract class BaseCars<T> {
 
   protected static _handleError(context: string): void {
     errorNotification.open(context);
-    throw new Error(context);
   }
 }

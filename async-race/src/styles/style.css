@@ -30,6 +30,8 @@
   --color-page-text-disabled: #999;
   --color-page-text: #111;
   --flex-gap: 5px;
+  --item-title-width: 120px;
+  --svg-width: 100px;
 }
 
 * {
@@ -288,8 +290,7 @@ span {
 }
 
 .app__item-title {
-  min-width: 180px;
-  max-width: 180px;
+  width: var(--item-title-width);
 
   font-size: 1.2rem;
   font-weight: 600;
@@ -308,19 +309,23 @@ span {
 }
 
 .app__item-title_winners-number {
-  min-width: 10%;
-  max-width: 10%;
+  width: 10%;
 }
 
 .app__item-title_winners-name {
-  min-width: 285px;
-  max-width: 285px;
+  width: calc(var(--item-title-width) + var(--svg-width) + var(--flex-gap));
 }
 
 .app__item-title_winners-wins,
 .app__item-title_winners-time {
-  --offsets: 3;
-  min-width: calc((100% - 285px - 10% - var(--offsets) * var(--flex-gap)) / 2);
+  --offsets: 4;
+  min-width: calc(
+    (
+        100% - var(--item-title-width) - var(--svg-width) - 10% -
+          var(--offsets) * var(--flex-gap)
+      ) /
+      2
+  );
   text-align: center;
 }
 
@@ -330,7 +335,7 @@ span {
   flex-shrink: 0;
   align-items: center;
 
-  width: calc(100% - 185px);
+  width: calc(100% - var(--item-title-width) - var(--flex-gap));
   height: 45px;
   padding-bottom: 2px;
 
@@ -373,4 +378,96 @@ span {
 .app__item-title_winners {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+/* Средние экраны — планшеты */
+@media (max-width: 1024px) {
+  html {
+    font-size: 13px;
+  }
+
+  .app__input_car-title {
+    font-size: 0.9rem;
+  }
+
+  .app__view-title {
+    font-size: 1.5rem;
+  }
+
+  .app__item-title {
+    font-size: 1rem;
+  }
+
+  .app__button {
+    font-size: 0.9rem;
+    padding: 0.3rem 1rem;
+  }
+
+  .app__button_update,
+  .app__button_create {
+    width: 90px;
+  }
+
+  .app__button_select,
+  .app__button_delete,
+  .app__button_start,
+  .app__button_stop {
+    width: 75px;
+  }
+
+  .app__svg-container {
+    background-position: calc(100% - 50px) center;
+    background-size: 30px 30px;
+  }
+}
+
+/* Маленькие экраны — мобильные */
+@media (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+
+  .app__view-title {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .app__transform-block {
+    flex-direction: column;
+  }
+
+  .app__input_car-title,
+  .app__button_update,
+  .app__button_create {
+    --offsets: 2;
+    width: calc((100% - 40px - var(--flex-gap) * var(--offsets)) / 2);
+  }
+
+  .app__item-title_winners-number,
+  .app__item-title_winners-name,
+  .app__item-title_winners-wins,
+  .app__item-title_winners-time {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+
+  .app__button {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+
+  .app__button_prev,
+  .app__button_next {
+    width: 48%;
+    margin-top: 5px;
+  }
+
+  .app__buttons-contaiter_pagination {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
 }

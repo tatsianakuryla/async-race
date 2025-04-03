@@ -1,4 +1,4 @@
-import { garage, winners } from '../../..';
+import { garage, winners, winnersApi } from '../../..';
 import { createButtonsContainer } from '../../../utils/helpers';
 import { ButtonFactory } from './Button';
 
@@ -24,11 +24,13 @@ export class GarageItemsButtonsFactory {
     const deleteItemButton = ButtonFactory.create('delete');
     deleteItemButton.dataset.id = String(id);
 
-    deleteItemButton.addEventListener('click', () => {
+    deleteItemButton.addEventListener('click', async () => {
       const dataId = deleteItemButton.getAttribute('data-id');
       if (dataId) {
         garage.deleteCar(dataId);
-        winners.deleteCar(dataId);
+        if (winners.items.some((winner) => winner.id === +dataId)) {
+          winners.deleteCar(dataId);
+        }
       }
     });
 
