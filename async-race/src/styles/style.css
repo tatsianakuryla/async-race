@@ -319,7 +319,8 @@ span {
 
 .app__item-title_winners-wins,
 .app__item-title_winners-time {
-  min-width: calc((100% - 280px - 10%) / 2);
+  --offsets: 3;
+  min-width: calc((100% - 285px - 10% - var(--offsets) * var(--flex-gap)) / 2);
   text-align: center;
 }
 
@@ -339,7 +340,7 @@ span {
   background-size: 40px 40px;
 }
 
-.app__svg-container::after {
+.app__svg-container_garage::after {
   content: '';
 
   position: absolute;
@@ -353,11 +354,12 @@ span {
   background-color: var(--color-border);
 }
 
-.app__item_winners .app__svg-container {
+.app__svg-container_winners {
+  width: 100px;
   background-image: none;
 }
 
-.app__item_winners .app__svg-container::after {
+.app__svg-container_winners::after {
   height: 0;
 }
 
@@ -366,4 +368,9 @@ span {
   top: 0;
   left: 0;
   transition: transform linear;
+}
+
+.app__item-title_winners {
+  display: flex;
+  align-items: center;
 }

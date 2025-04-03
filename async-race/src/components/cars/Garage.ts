@@ -43,6 +43,8 @@ export class Garage extends BaseCars<Car> {
   }
 
   public async initialize(): Promise<void> {
+    this.cars = {};
+    this.carsAnimations = [];
     try {
       await garageApi
         .getAll(this._itemsPerPage, 'id', 'ASC', garage)
@@ -116,16 +118,29 @@ export class Garage extends BaseCars<Car> {
     carTransform.updateColorInput.value = this.chosenCar.color;
   }
 
-  public startRace(): void {
-    Object.entries(this.cars).forEach(([id, car]) => {
-      car.animation.startAnimation(+id, car.svgContainer, car.svg);
+  public async startRace(): Promise<void> {
+    const carsList = Object.entries(this.cars);
+
+    await Promise.all(
+      carsList.map(([id, carItem]) =>
+        carItem.animation.prepareForStart(+id, carItem.svgContainer),
+      ),
+    );
+
+    requestAnimationFrame(() => {
+      carsList.forEach(([id, carItem]) => {
+        carItem.animation.runAnimation(+id, carItem.svg);
+      });
     });
   }
 
-  public resetRace(): void {
-    Object.entries(this.cars).forEach(([id, car]) => {
-      car.animation.stopAnimation(+id, car.svg);
-    });
+  public async resetRace(): Promise<void> {
+    const carsList = Object.entries(this.cars);
+    await Promise.all(
+      carsList.map(([id, carItem]) =>
+        carItem.animation.stopAnimation(+id, carItem.svg),
+      ),
+    );
   }
 
   public async add100RandomCars(): Promise<void> {

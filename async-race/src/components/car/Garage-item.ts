@@ -12,12 +12,20 @@ export class GarageItem extends BaseCar {
     const garageButtons = GarageItemsButtonsFactory.getButtonsContainer(
       item.id,
     );
+    this._svgContainer.classList.add('app__svg-container_garage');
     garageButtons.append(this._getRaceButtons(item.id));
     this._car.append(garageButtons);
   }
 
   private _startAnimation(id: number): void {
-    this.animation.startAnimation(id, this._svgContainer, this._svg);
+    this.animation
+      .prepareForStart(id, this._svgContainer)
+      .then(() => {
+        this.animation.runAnimation(id, this._svg);
+      })
+      .catch((error) => {
+        throw new Error(`${error}`);
+      });
   }
 
   private _stopAnimation(id: number): void {

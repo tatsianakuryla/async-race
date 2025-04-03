@@ -7,6 +7,7 @@ export class WinnerItem extends BaseCar {
     super(item, 'winners');
     this._car.classList.add('app__item_winners');
     this._car.prepend(BaseCar._getItemInfo(String(index), 'winners-number'));
+    this._svgContainer.classList.add('app__svg-container_winners');
     this._car.append(
       BaseCar._getItemInfo(String(item.wins), 'winners-wins'),
       BaseCar._getItemInfo(String(item.time), 'winners-time'),
