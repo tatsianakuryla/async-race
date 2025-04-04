@@ -26,18 +26,14 @@ export class CarTransform {
       'app__transform-block',
       'flex',
     ]);
-    this.updateTitleInput.addEventListener('input', () =>
-      LocalStorage.setItemsToLocalStorage(
-        'update-title',
-        this.updateTitleInput.value,
-      ),
-    );
-    this.updateColorInput.addEventListener('change', () =>
-      LocalStorage.setItemsToLocalStorage(
-        'update-color',
-        this.updateColorInput.value,
-      ),
-    );
+    this.updateTitleInput.addEventListener('input', () => {
+      garage.chosenCar.name = this.updateTitleInput.value;
+      LocalStorage.saveChosenCarToLocalStorage('chosenCar', garage.chosenCar);
+    });
+    this.updateColorInput.addEventListener('change', () => {
+      garage.chosenCar.color = this.updateColorInput.value;
+      LocalStorage.saveChosenCarToLocalStorage('chosenCar', garage.chosenCar);
+    });
     this.createTitleInput.addEventListener('input', () =>
       LocalStorage.setItemsToLocalStorage(
         'create-title',
@@ -62,9 +58,7 @@ export class CarTransform {
   ): HTMLInputElement {
     const titleInput = InputFactory.create('text', 'car-title');
     titleInput.placeholder = 'Enter car title...';
-    const value = LocalStorage.getItemsFromLocalStorage(
-      `${transformTask}-title`,
-    );
+    const value = garage.chosenCar.name;
     if (value !== null) {
       titleInput.value = value;
     }
@@ -76,9 +70,7 @@ export class CarTransform {
     transformTask: TransformCarTasks,
   ): HTMLInputElement {
     const colorInput = InputFactory.create('color', 'color');
-    const value = LocalStorage.getItemsFromLocalStorage(
-      `${transformTask}-color`,
-    );
+    const value = garage.chosenCar.color;
     if (value !== null) {
       colorInput.value = value;
     } else {
@@ -102,6 +94,10 @@ export class CarTransform {
     } else if (transformTask === 'update') {
       this.updateTitleInput.value = CarTransform._DEFAULT_TITLE_INPUT_VALUE;
       this.updateColorInput.value = CarTransform._DEFAULT_COLOR_INPUT_VALUE;
+      garage.chosenCar.name = this.updateTitleInput.value;
+      garage.chosenCar.color = this.updateColorInput.value;
+      garage.chosenCar.id = 0;
+      LocalStorage.saveChosenCarToLocalStorage('chosenCar', garage.chosenCar);
     }
   }
 

@@ -29,7 +29,7 @@ export class Garage extends BaseCars<Car> {
 
   constructor() {
     super(7);
-    this.chosenCar = {
+    this.chosenCar = LocalStorage.getChosenCarFromLocalStorage() ?? {
       name: '',
       color: '',
       id: 0,
@@ -62,7 +62,12 @@ export class Garage extends BaseCars<Car> {
           garageView.updateTotalItemsQuantityInfo(garage);
           garageView.updatePageNumberInfo(garage);
           View.updatePaginationButtons(garageView, garage);
-          this._resetChosenCar();
+          const savedCar = LocalStorage.getChosenCarFromLocalStorage();
+          if (savedCar && savedCar.id !== 0) {
+            this.chosenCar = savedCar;
+            carTransform.updateTitleInput.value = savedCar.name;
+            carTransform.updateColorInput.value = savedCar.color;
+          }
         });
     } catch {
       Garage._handleError('Loading cars process ');
@@ -122,6 +127,7 @@ export class Garage extends BaseCars<Car> {
       color: '',
       id: 0,
     };
+    LocalStorage.saveChosenCarToLocalStorage('chosenCar', this.chosenCar);
     carTransform.updateTitleInput.value = this.chosenCar.name;
     carTransform.updateColorInput.value = this.chosenCar.color;
   }
@@ -179,10 +185,6 @@ export class Garage extends BaseCars<Car> {
     if (!pagination.isLastPage(garage)) {
       enableButton(garageView.nextPageButton);
     }
-  }
-
-  private _resetChosenCar(): void {
-    this.chosenCar = { name: '', color: '', id: 0 };
   }
 
   private async _resetFormAndReload(type: 'create' | 'update'): Promise<void> {

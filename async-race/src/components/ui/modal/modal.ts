@@ -1,7 +1,4 @@
-import {
-  createButtonsContainer,
-  createElementWithClassId,
-} from '../../../utils/helpers';
+import { createElementWithClassId } from '../../../utils/helpers';
 import { ButtonFactory } from '../buttons/Button';
 import './modals.css';
 

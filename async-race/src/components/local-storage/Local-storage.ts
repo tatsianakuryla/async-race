@@ -1,3 +1,5 @@
+import type { Car } from '../../types';
+
 export class LocalStorage {
   public static setItemsToLocalStorage(
     key: string,
@@ -17,5 +19,14 @@ export class LocalStorage {
 
   public static removeFromLocalStorage(key: string): void {
     localStorage.removeItem(key);
+  }
+
+  public static saveChosenCarToLocalStorage(key = 'chosenCar', car: Car): void {
+    localStorage.setItem(key, JSON.stringify(car));
+  }
+
+  public static getChosenCarFromLocalStorage(key = 'chosenCar'): Car | null {
+    const result = localStorage.getItem(key);
+    return result ? JSON.parse(result) : null;
   }
 }

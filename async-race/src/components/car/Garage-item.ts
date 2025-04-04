@@ -6,6 +6,7 @@ import {
   enableButton,
 } from '../../utils/helpers';
 import { AnimationManager } from '../animation/Animation';
+import { LocalStorage } from '../local-storage/Local-storage';
 import { ButtonFactory } from '../ui/buttons/Button';
 import { BaseCar } from './Base-car';
 
@@ -102,6 +103,10 @@ export class GarageItem extends BaseCar {
       if (dataId) {
         garage.selectCar(dataId);
       }
+      LocalStorage.setItemsToLocalStorage(
+        'update-title',
+        carTransform.updateTitleInput.value,
+      );
     });
 
     this.deleteItemButton.dataset.id = String(id);
