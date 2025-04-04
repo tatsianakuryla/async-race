@@ -33,6 +33,7 @@
   --flex-gap: 5px;
   --item-title-width: 120px;
   --svg-width: 100px;
+  --transition-bg: background-color 0.2s ease-in-out;
 }
 
 * {
@@ -109,7 +110,6 @@ span {
 
 .app__transform-option {
   --offsets: 1;
-
   flex-basis: calc(
     (100% - var(--flex-gap) * var(--offsets)) / (var(--offsets) + 1)
   );
@@ -117,40 +117,37 @@ span {
 
 .app__input_car-title {
   --offsets: 2;
-
   width: calc((100% - 30px - 100px - var(--flex-gap) * var(--offsets)));
   padding: 0.3rem 1rem;
   border: 2px solid var(--color-border);
   border-radius: 8px;
-
   font-size: 1rem;
   color: var(--color-text);
-
   background-color: var(--color-card);
 }
 
 .app__input_color {
   cursor: pointer;
-
   width: 30px;
   height: 30px;
   border: none;
-
   background: none;
 }
 
 .app__button {
   cursor: pointer;
-
   padding: 0.3rem 1.2rem;
   border: none;
   border-radius: 8px;
-
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
-
   transition: background 0.2s ease;
+}
+
+.app__button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .app__button_update,
@@ -203,18 +200,9 @@ span {
   width: 85px;
   border: 1px solid var(--color-border);
   border-radius: 10px;
-
   font-size: 0.9rem;
   font-weight: 500;
-
   background-color: var(--color-dark-bg);
-}
-
-.app__button_select:hover,
-.app__button_delete:hover,
-.app__button_start:hover,
-.app__button_stop:hover {
-  background-color: var(--color-dark-bg-hover);
 }
 
 .app__button_select:disabled,
@@ -228,26 +216,6 @@ span {
   background-color: var(--color-disabled-bg);
 }
 
-/* ХОВЕРЫ: */
-.app__button_update:hover {
-  background-color: var(--color-hover-update);
-}
-
-.app__button_create:hover {
-  background-color: var(--color-hover-create);
-}
-
-.app__button_visit-garage:hover,
-.app__button_visit-winners:hover {
-  background-color: var(--color-hover-visit);
-}
-
-.app__button_race-all:hover,
-.app__button_reset-race:hover,
-.app__button_generate-cars:hover {
-  background-color: var(--color-hover-race);
-}
-
 .app__buttons-contaiter_pagination {
   align-items: center;
   align-self: flex-end;
@@ -256,18 +224,14 @@ span {
 .app__button_prev,
 .app__button_next {
   cursor: pointer;
-
   padding: 0.3rem 1rem;
   border: none;
   border-radius: 0.5rem;
-
   font-size: 0.8rem;
   font-weight: bold;
   color: var(--color-page-text);
-
   background-color: var(--color-page-bg);
-
-  transition: background-color 0.2s ease-in-out;
+  transition: var(--transition-bg);
 }
 
 .app__button_prev:disabled,
@@ -276,11 +240,6 @@ span {
   pointer-events: none;
   color: var(--color-page-text-disabled);
   background-color: var(--color-page-bg-disabled);
-}
-
-.app__button_prev:hover:not(:disabled),
-.app__button_next:hover:not(:disabled) {
-  background-color: var(--color-page-bg-hover);
 }
 
 .app__page-number {
@@ -292,11 +251,9 @@ span {
 
 .app__item {
   gap: 3px;
-
   padding: 0.3rem 1rem;
   border: 1px solid var(--color-dark-btn);
   border-radius: 12px;
-
   background-color: var(--color-card);
   box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
 }
@@ -307,7 +264,6 @@ span {
 
 .app__item-title {
   width: var(--item-title-width);
-
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--color-title);
@@ -347,14 +303,11 @@ span {
 
 .app__svg-container {
   position: relative;
-
   flex-shrink: 0;
   align-items: center;
-
   width: calc(100% - var(--item-title-width) - var(--flex-gap));
   height: 45px;
   padding-bottom: 2px;
-
   background-image: url('../images/finish.png');
   background-repeat: no-repeat;
   background-position: calc(100% - 70px) center;
@@ -363,15 +316,12 @@ span {
 
 .app__svg-container_garage::after {
   content: '';
-
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
-
   height: 3px;
   border-radius: 1px;
-
   background-color: var(--color-border);
 }
 
@@ -397,93 +347,60 @@ span {
   justify-content: center;
 }
 
-/* Средние экраны — планшеты */
-@media (max-width: 1024px) {
-  html {
-    font-size: 13px;
-  }
+/* ХОВЕРЫ И АКТИВЫ */
 
-  .app__input_car-title {
-    font-size: 0.9rem;
+@media (hover: hover) {
+  .app__button_update:hover {
+    background-color: var(--color-hover-update);
   }
-
-  .app__view-title {
-    font-size: 1.5rem;
+  .app__button_create:hover {
+    background-color: var(--color-hover-create);
   }
-
-  .app__item-title {
-    font-size: 1rem;
+  .app__button_visit-garage:hover,
+  .app__button_visit-winners:hover {
+    background-color: var(--color-hover-visit);
   }
-
-  .app__button {
-    font-size: 0.9rem;
-    padding: 0.3rem 1rem;
+  .app__button_race-all:hover,
+  .app__button_reset-race:hover,
+  .app__button_generate-cars:hover {
+    background-color: var(--color-hover-race);
   }
-
-  .app__button_update,
-  .app__button_create {
-    width: 90px;
+  .app__button_select:hover,
+  .app__button_delete:hover,
+  .app__button_start:hover,
+  .app__button_stop:hover {
+    background-color: var(--color-dark-bg-hover);
   }
-
-  .app__button_select,
-  .app__button_delete,
-  .app__button_start,
-  .app__button_stop {
-    width: 75px;
-  }
-
-  .app__svg-container {
-    background-position: calc(100% - 50px) center;
-    background-size: 30px 30px;
+  .app__button_prev:hover:not(:disabled),
+  .app__button_next:hover:not(:disabled) {
+    background-color: var(--color-hover-page);
   }
 }
 
-/* Маленькие экраны — мобильные */
-@media (max-width: 768px) {
-  html {
-    font-size: 12px;
+@media (hover: none) {
+  .app__button_update:active {
+    background-color: var(--color-hover-update);
   }
-
-  .app__view-title {
-    font-size: 1.3rem;
-    text-align: center;
+  .app__button_create:active {
+    background-color: var(--color-hover-create);
   }
-
-  .app__transform-block {
-    flex-direction: column;
+  .app__button_visit-garage:active,
+  .app__button_visit-winners:active {
+    background-color: var(--color-hover-visit);
   }
-
-  .app__input_car-title,
-  .app__button_update,
-  .app__button_create {
-    --offsets: 2;
-    width: calc((100% - 40px - var(--flex-gap) * var(--offsets)) / 2);
+  .app__button_race-all:active,
+  .app__button_reset-race:active,
+  .app__button_generate-cars:active {
+    background-color: var(--color-hover-race);
   }
-
-  .app__item-title_winners-number,
-  .app__item-title_winners-name,
-  .app__item-title_winners-wins,
-  .app__item-title_winners-time {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    margin-bottom: 5px;
+  .app__button_select:active,
+  .app__button_delete:active,
+  .app__button_start:active,
+  .app__button_stop:active {
+    background-color: var(--color-dark-bg-hover);
   }
-
-  .app__button {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-
-  .app__button_prev,
-  .app__button_next {
-    width: 48%;
-    margin-top: 5px;
-  }
-
-  .app__buttons-contaiter_pagination {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
+  .app__button_prev:active:not(:disabled),
+  .app__button_next:active:not(:disabled) {
+    background-color: var(--color-hover-page);
   }
 }

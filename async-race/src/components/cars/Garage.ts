@@ -4,13 +4,14 @@ import {
   garage,
   garageApi,
   garageView,
+  pagination,
   RANDOM_CAR_BRANDS,
   RANDOM_CAR_COLORS,
   RANDOM_CAR_MODELS,
 } from '../..';
 import type { Car } from '../../types';
 import {
-  disableButton,
+  enableButton,
   getRandomIndex,
   textToUpperCase,
 } from '../../utils/helpers';
@@ -175,6 +176,9 @@ export class Garage extends BaseCars<Car> {
     }
     await Promise.all(carPromises);
     await this.initialize();
+    if (!pagination.isLastPage(garage)) {
+      enableButton(garageView.nextPageButton);
+    }
   }
 
   private _resetChosenCar(): void {
