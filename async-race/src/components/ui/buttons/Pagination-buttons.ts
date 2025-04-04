@@ -5,26 +5,24 @@ import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from './Button';
 
 export class PaginationButtonsFactory {
-  public static getNextPageButton(
-    carsHolder: Garage | Winners,
-  ): HTMLButtonElement {
+  public static getNextPageButton(view: Garage | Winners): HTMLButtonElement {
     const nextButton = ButtonFactory.create('next');
     nextButton.addEventListener('click', async () => {
-      pagination.nextPage(carsHolder);
-      this._savePageToLocalStorage(carsHolder);
-      await carsHolder.initialize();
+      pagination.nextPage(view);
+      this._savePageToLocalStorage(view);
+      await view.initialize();
     });
     return nextButton;
   }
 
   public static getPreviousPageButton(
-    carsHolder: Garage | Winners,
+    view: Garage | Winners,
   ): HTMLButtonElement {
     const previousButton = ButtonFactory.create('prev');
     previousButton.addEventListener('click', async () => {
-      pagination.prevPage(carsHolder);
-      this._savePageToLocalStorage(carsHolder);
-      await carsHolder.initialize();
+      pagination.prevPage(view);
+      this._savePageToLocalStorage(view);
+      await view.initialize();
     });
     return previousButton;
   }

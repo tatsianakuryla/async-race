@@ -1,5 +1,6 @@
+import { errorNotification } from '../..';
 import { Api } from '../../api/api';
-import { EngineStatus } from '../../types';
+import type { EngineStatus } from '../../types';
 
 export class AnimationManager {
   public distance = 0;
@@ -51,7 +52,7 @@ export class AnimationManager {
             await Api.manageCarEngine(id, 'stopped');
             this.engineStatus = 'stopped';
           } catch (error) {
-            console.error(error);
+            errorNotification.open(`${error}`);
           }
         }
       });

@@ -1,17 +1,23 @@
-import { main } from '../..';
+import { main, pagination } from '../..';
 import { type Views } from '../../types';
 import {
   createButtonsContainer,
   createContainer,
   createElementWithClassId,
+  disableButton,
+  enableButton,
   textToUpperCase,
 } from '../../utils/helpers';
 import type { Garage } from '../cars/Garage';
 import type { Winners } from '../cars/Winners';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
+import type { GarageView } from './Garage-view';
+import type { WinnersView } from './Winners-view';
 
 export abstract class View {
+  public prevPageButton: HTMLButtonElement = createElementWithClassId('button');
+  public nextPageButton: HTMLButtonElement = createElementWithClassId('button');
   public itemsList: HTMLUListElement;
   protected _totalItemsQuantityInfo: HTMLSpanElement;
   protected _section: HTMLElement;
@@ -46,6 +52,18 @@ export abstract class View {
 
   public get pageNumberInfo(): HTMLElement {
     return this._pageNumberInfo;
+  }
+
+  public static updatePaginationButtons(
+    view: GarageView | WinnersView,
+    viewHolder: Garage | Winners,
+  ): void {
+    if (pagination.isFirstPage(viewHolder)) {
+      disableButton(view.prevPageButton);
+    }
+    if (pagination.isLastPage(viewHolder)) {
+      disableButton(view.nextPageButton);
+    }
   }
 
   private static _getViewTitle(viewModificator: Views): HTMLElement {
@@ -86,10 +104,24 @@ export abstract class View {
   ): HTMLElement {
     const buttonsContainer = createButtonsContainer('pagination');
     this.updatePageNumberInfo(view);
+    this.prevPageButton = PaginationButtonsFactory.getPreviousPageButton(view);
+    this.nextPageButton = PaginationButtonsFactory.getNextPageButton(view);
+    this.prevPageButton.addEventListener('click', () => {
+      enableButton(this.nextPageButton);
+      if (pagination.isFirstPage(view)) {
+        disableButton(this.prevPageButton);
+      }
+    });
+    this.nextPageButton.addEventListener('click', () => {
+      enableButton(this.prevPageButton);
+      if (pagination.isLastPage(view)) {
+        disableButton(this.nextPageButton);
+      }
+    });
     buttonsContainer.append(
-      PaginationButtonsFactory.getPreviousPageButton(view),
+      this.prevPageButton,
       this.pageNumberInfo,
-      PaginationButtonsFactory.getNextPageButton(view),
+      this.nextPageButton,
     );
     return buttonsContainer;
   }

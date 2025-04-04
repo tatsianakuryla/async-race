@@ -5,7 +5,7 @@ import type { Winners } from '../cars/Winners';
 export class Pagination {
   private _totalItems: number = 0;
   private _itemsPerPage: number;
-
+  private _firstPage: number = 1;
   constructor(itemsPerPage: ItemsPerPage) {
     this._itemsPerPage = itemsPerPage;
   }
@@ -42,5 +42,9 @@ export class Pagination {
 
   public isLastPage(viewHolder: Garage | Winners): boolean {
     return viewHolder.currentPage === this.totalPages;
+  }
+
+  public isFirstPage(viewHolder: Garage | Winners): boolean {
+    return viewHolder.currentPage === this._firstPage;
   }
 }

@@ -38,3 +38,11 @@ export function createButtonsContainer(containerClass: string): HTMLElement {
 export function getRandomIndex(): number {
   return Math.floor(Math.random() * 100);
 }
+
+export function enableButton(button: HTMLButtonElement): void {
+  button.disabled = false;
+}
+
+export function disableButton(button: HTMLButtonElement): void {
+  button.disabled = true;
+}

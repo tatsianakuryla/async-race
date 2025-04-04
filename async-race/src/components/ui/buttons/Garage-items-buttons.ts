@@ -1,4 +1,4 @@
-import { garage, winners, winnersApi } from '../../..';
+import { garage, winners } from '../../..';
 import { createButtonsContainer } from '../../../utils/helpers';
 import { ButtonFactory } from './Button';
 

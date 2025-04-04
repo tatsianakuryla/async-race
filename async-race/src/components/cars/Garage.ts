@@ -7,14 +7,14 @@ import {
   RANDOM_CAR_BRANDS,
   RANDOM_CAR_COLORS,
   RANDOM_CAR_MODELS,
-  winners,
 } from '../..';
 import type { Car } from '../../types';
 import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import { BaseCars } from './Base-cars';
 import { LocalStorage } from '../local-storage/Local-storage';
-import { AnimationManager } from '../animation/Animation';
+import type { AnimationManager } from '../animation/Animation';
+import { View } from '../views/Base-view';
 
 export class Garage extends BaseCars<Car> {
   public chosenCar: Car;
@@ -55,6 +55,7 @@ export class Garage extends BaseCars<Car> {
           this.renderAll(this._items);
           garageView.updateTotalItemsQuantityInfo(garage);
           garageView.updatePageNumberInfo(garage);
+          View.updatePaginationButtons(garageView, garage);
           this._resetChosenCar();
         });
     } catch {

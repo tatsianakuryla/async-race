@@ -2,6 +2,7 @@ import { garageApi, winners, winnersApi, winnersView } from '../..';
 import type { CarAndWinner, Winner } from '../../types';
 import { WinnerItem } from '../car/Winner';
 import { LocalStorage } from '../local-storage/Local-storage';
+import { View } from '../views/Base-view';
 import { BaseCars } from './Base-cars';
 
 export class Winners extends BaseCars<Winner> {
@@ -59,6 +60,7 @@ export class Winners extends BaseCars<Winner> {
       await this.renderAll(this._items);
       winnersView.updateTotalItemsQuantityInfo(this);
       winnersView.updatePageNumberInfo(this);
+      View.updatePaginationButtons(winnersView, winners);
     } catch {
       Winners._handleError('Failed to load the Items');
     }
