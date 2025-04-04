@@ -9,12 +9,17 @@ import {
   RANDOM_CAR_MODELS,
 } from '../..';
 import type { Car } from '../../types';
-import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
+import {
+  disableButton,
+  getRandomIndex,
+  textToUpperCase,
+} from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import { BaseCars } from './Base-cars';
 import { LocalStorage } from '../local-storage/Local-storage';
 import type { AnimationManager } from '../animation/Animation';
 import { View } from '../views/Base-view';
+import { RaceButtonsFactory } from '../ui/buttons/Race-manage-buttons';
 
 export class Garage extends BaseCars<Car> {
   public chosenCar: Car;
@@ -122,7 +127,8 @@ export class Garage extends BaseCars<Car> {
 
   public async startRace(): Promise<void> {
     const carsList = Object.entries(this.cars);
-
+    carsList.forEach(([_, carItem]) => carItem.disableButtonsForRace());
+    carTransform.disableButtonsForStartRace();
     await Promise.all(
       carsList.map(([id, carItem]) =>
         carItem.animation.prepareForStart(
@@ -132,20 +138,22 @@ export class Garage extends BaseCars<Car> {
         ),
       ),
     );
-
     requestAnimationFrame(() => {
       carsList.forEach(([id, carItem]) => {
         carItem.animation.runAnimation(+id, carItem.svg);
       });
+      RaceButtonsFactory.manageButtonsRaceStart();
     });
   }
 
   public async resetRace(): Promise<void> {
     const carsList = Object.entries(this.cars);
+    carsList.forEach(([_, carItem]) => carItem.enableButtonsAfterRace());
+    carTransform.enableButtonsForEndRace();
     await Promise.all(
-      carsList.map(([id, carItem]) =>
-        carItem.animation.stopAnimation(+id, carItem.svg),
-      ),
+      carsList.map(([id, carItem]) => {
+        carItem.animation.stopAnimation(+id, carItem.svg);
+      }),
     );
   }
 

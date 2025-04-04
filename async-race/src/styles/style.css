@@ -12,6 +12,7 @@
   --color-race: #27ae60;
   --color-delete: #e74c3c;
   --color-visit: #4f46e5;
+  --color-visit-disabled: #a9cbe8;
   --color-hover-create: #17a88c;
   --color-hover-update: #d78c0f;
   --color-hover-race: #219150;
@@ -162,6 +163,14 @@ span {
   background-color: var(--color-visit);
 }
 
+.app__button_visit-garage:disabled,
+.app__button_visit-winners:disabled {
+  background-color: var(--color-visit-disabled);
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .app__button_update {
   background-color: var(--color-update);
 }
@@ -170,13 +179,21 @@ span {
   background-color: var(--color-create);
 }
 
-.app__button_race-all {
+.app__button_race-all,
+.app__button_reset-race,
+.app__button_generate-cars {
   background-color: var(--color-race);
 }
 
-.app__button_reset-race,
-.app__button_generate-cars {
-  background-color: var(--color-dark-btn);
+.app__button_race-all:disabled,
+.app__button_reset-race:disabled,
+.app__button_generate-cars:disabled,
+.app__button_create:disabled,
+.app__button_update:disabled {
+  background-color: var(--color-dark-btn-disabled);
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .app__button_select,
@@ -205,6 +222,7 @@ span {
 .app__button_start:disabled,
 .app__button_stop:disabled {
   cursor: not-allowed;
+  pointer-events: none;
   color: var(--color-disabled-text);
   opacity: 0.6;
   background-color: var(--color-disabled-bg);
@@ -224,13 +242,10 @@ span {
   background-color: var(--color-hover-visit);
 }
 
-.app__button_race-all:hover {
-  background-color: var(--color-hover-race);
-}
-
+.app__button_race-all:hover,
 .app__button_reset-race:hover,
 .app__button_generate-cars:hover {
-  background-color: var(--color-hover-dark-btn);
+  background-color: var(--color-hover-race);
 }
 
 .app__buttons-contaiter_pagination {
@@ -258,6 +273,7 @@ span {
 .app__button_prev:disabled,
 .app__button_next:disabled {
   cursor: not-allowed;
+  pointer-events: none;
   color: var(--color-page-text-disabled);
   background-color: var(--color-page-bg-disabled);
 }
