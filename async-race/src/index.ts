@@ -12,6 +12,7 @@ import { ErrorNotification } from './components/ui/error-notification/Error-noti
 import { Router } from './components/router/router';
 import './styles/modern-normalize.css';
 import './styles/style.css';
+import { Modal } from './components/ui/modal/modal';
 
 export const RANDOM_CAR_COLORS = [
   '#095387',
@@ -323,6 +324,7 @@ export const RANDOM_CAR_BRANDS = [
 ];
 
 export const errorNotification = new ErrorNotification();
+export const modal = new Modal('kjhgfd');
 export const garage = new Garage();
 export const winners = new Winners();
 export const pagination = new Pagination(7);
@@ -338,7 +340,11 @@ export const garageViewSection = garageView.section;
 export const winnersView = new WinnersView();
 export const winnersViewSection = winnersView.section;
 
-document.body.append(HeaderFactory.get(), main);
+document.body.append(
+  HeaderFactory.get(),
+  main,
+  errorNotification.errorNotification,
+);
 
 Router.addRoute('/', () => {
   garageView.open();

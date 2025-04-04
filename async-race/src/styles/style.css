@@ -53,6 +53,7 @@ html {
 
 body {
   margin: 0 auto;
+  height: 100vh;
   font-family: var(--font-main);
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -88,6 +89,10 @@ span {
 .app__item {
   display: flex;
   flex-direction: column;
+}
+
+.view-container {
+  justify-content: space-between;
 }
 
 .app__heading,
