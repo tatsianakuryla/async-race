@@ -21,11 +21,14 @@ import { LocalStorage } from '../local-storage/Local-storage';
 import type { AnimationManager } from '../animation/Animation';
 import { View } from '../views/Base-view';
 import { RaceButtonsFactory } from '../ui/buttons/Race-manage-buttons';
+import { Modal } from '../ui/modal/modal';
+import { Winners } from './Winners';
 
 export class Garage extends BaseCars<Car> {
   public chosenCar: Car;
   public cars: Record<number, GarageItem> = {};
   public carsAnimations: AnimationManager[] = [];
+  public raceDurations: { id: number; time: number; name: string }[] = [];
 
   constructor() {
     super(7);
@@ -52,6 +55,7 @@ export class Garage extends BaseCars<Car> {
   public async initialize(): Promise<void> {
     this.cars = {};
     this.carsAnimations = [];
+    this.raceDurations = [];
     try {
       await garageApi
         .getAll(this._itemsPerPage, 'id', 'ASC', garage)
@@ -148,8 +152,15 @@ export class Garage extends BaseCars<Car> {
     requestAnimationFrame(() => {
       carsList.forEach(([id, carItem]) => {
         carItem.animation.runAnimation(+id, carItem.svg);
+        carItem.raceTime = carItem.animation.duration;
+        this.raceDurations.push({
+          id: +id,
+          time: +carItem.raceTime,
+          name: carItem.carName,
+        });
       });
       RaceButtonsFactory.manageButtonsRaceStart();
+      this._manageRaceWinner();
     });
   }
 
@@ -190,5 +201,19 @@ export class Garage extends BaseCars<Car> {
   private async _resetFormAndReload(type: 'create' | 'update'): Promise<void> {
     await this.initialize();
     carTransform.cleanInputs(type);
+  }
+
+  private async _manageRaceWinner(): Promise<void> {
+    const winner = this.raceDurations.sort((a, b) => a.time - b.time)[0];
+    const looser = this.raceDurations.sort((a, b) => b.time - a.time)[0];
+    const maxTime = looser.time;
+    const winnerTime = (winner.time / 1000).toFixed(2);
+    const modal = new Modal(
+      `The winner: ${winner.name}! Id: ${winner.id}, Time: ${winnerTime}s`,
+    );
+    setTimeout(() => {
+      modal.open();
+    }, maxTime + 1000);
+    await Winners.saveWinner({ id: winner.id, time: +winnerTime });
   }
 }

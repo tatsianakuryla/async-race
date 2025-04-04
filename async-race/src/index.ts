@@ -324,7 +324,6 @@ export const RANDOM_CAR_BRANDS = [
 ];
 
 export const errorNotification = new ErrorNotification();
-export const modal = new Modal('kjhgfd');
 export const garage = new Garage();
 export const winners = new Winners();
 export const pagination = new Pagination(7);

@@ -16,6 +16,8 @@ export class RaceButtonsFactory {
     disableButton(this._resetRaceButton);
     this._raceAllButton.addEventListener('click', () => {
       garage.startRace();
+      disableButton(this._raceAllButton);
+      disableButton(this._generateCarsButton);
     });
 
     this._resetRaceButton.addEventListener('click', () => {

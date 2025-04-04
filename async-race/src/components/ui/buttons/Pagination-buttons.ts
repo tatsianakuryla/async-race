@@ -1,4 +1,4 @@
-import { pagination } from '../../..';
+import { carTransform, garage, pagination } from '../../..';
 import { Garage } from '../../cars/Garage';
 import type { Winners } from '../../cars/Winners';
 import { LocalStorage } from '../../local-storage/Local-storage';
@@ -10,6 +10,9 @@ export class PaginationButtonsFactory {
     nextButton.addEventListener('click', async () => {
       pagination.nextPage(view);
       this._savePageToLocalStorage(view);
+      const carsList = Object.entries(garage.cars);
+      carsList.forEach(([_, carItem]) => carItem.enableButtonsAfterRace());
+      carTransform.enableButtonsForEndRace();
       await view.initialize();
     });
     return nextButton;
@@ -21,6 +24,9 @@ export class PaginationButtonsFactory {
     const previousButton = ButtonFactory.create('prev');
     previousButton.addEventListener('click', async () => {
       pagination.prevPage(view);
+      const carsList = Object.entries(garage.cars);
+      carsList.forEach(([_, carItem]) => carItem.enableButtonsAfterRace());
+      carTransform.enableButtonsForEndRace();
       this._savePageToLocalStorage(view);
       await view.initialize();
     });

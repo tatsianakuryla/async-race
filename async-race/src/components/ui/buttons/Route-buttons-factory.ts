@@ -1,10 +1,11 @@
-import { garageView, winnersView } from '../../..';
+import { carTransform, garage, garageView, winnersView } from '../../..';
 import {
   createButtonsContainer,
   disableButton,
   enableButton,
 } from '../../../utils/helpers';
 import { ButtonFactory } from './Button';
+import { RaceButtonsFactory } from './Race-manage-buttons';
 
 export class RouteButtonsFactory {
   public static getButtons(): HTMLElement {
@@ -23,6 +24,9 @@ export class RouteButtonsFactory {
       winnersView.open();
       enableButton(visitGarageButton);
       disableButton(visitWinnersButton);
+      const carsList = Object.entries(garage.cars);
+      carsList.forEach(([_, carItem]) => carItem.enableButtonsAfterRace());
+      carTransform.enableButtonsForEndRace();
     });
 
     buttonsContainer.append(visitGarageButton, visitWinnersButton);

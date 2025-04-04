@@ -3,11 +3,13 @@ import { createElementWithClassId } from '../../utils/helpers';
 import { CarSvg } from './Car-svg';
 
 export class BaseCar {
+  public carName: string;
   protected _car: HTMLLIElement;
   protected _svgContainer: HTMLElement;
   protected _svg: SVGElement;
 
   constructor(item: Car | CarAndWinner, classModificator: string) {
+    this.carName = item.name;
     this._car = createElementWithClassId('li', ['app__item', 'flex']);
     this._car.setAttribute('data-id', String(item.id));
 

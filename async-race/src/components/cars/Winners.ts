@@ -1,4 +1,10 @@
-import { garageApi, winners, winnersApi, winnersView } from '../..';
+import {
+  errorNotification,
+  garageApi,
+  winners,
+  winnersApi,
+  winnersView,
+} from '../..';
 import type { CarAndWinner, Winner } from '../../types';
 import { WinnerItem } from '../car/Winner';
 import { LocalStorage } from '../local-storage/Local-storage';
@@ -14,7 +20,7 @@ export class Winners extends BaseCars<Winner> {
     this._currentPage = pageNumber ? +pageNumber : 1;
   }
 
-  public static async createCar(item: Winner): Promise<void> {
+  private static async _createCar(item: Winner): Promise<void> {
     try {
       await winnersApi.createItem(item);
     } catch {
@@ -22,11 +28,43 @@ export class Winners extends BaseCars<Winner> {
     }
   }
 
-  public static async updateCar(item: Winner): Promise<void> {
+  private static async _updateCar(item: Winner): Promise<void> {
     try {
       await winnersApi.updateItem(item);
     } catch {
       Winners._handleError('Failed to update the Item');
+    }
+  }
+
+  public static async saveWinner(winner: {
+    id: number;
+    time: number;
+  }): Promise<void> {
+    try {
+      const existingWinner: Winner = await winnersApi.getOne(winner.id);
+
+      const updatedWinner: Winner = {
+        id: winner.id,
+        wins: existingWinner.wins + 1,
+        time: Math.min(existingWinner.time, winner.time),
+      };
+
+      await Winners._updateCar(updatedWinner);
+    } catch (error) {
+      if (typeof error === 'object' && error !== null && 'status' in error) {
+        if (error.status === 404) {
+          const newWinner: Winner = {
+            id: winner.id,
+            wins: 1,
+            time: winner.time,
+          };
+
+          await Winners._createCar(newWinner);
+          return;
+        }
+      }
+
+      errorNotification.open('Failed to save the winner');
     }
   }
 

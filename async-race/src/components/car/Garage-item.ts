@@ -16,6 +16,7 @@ export class GarageItem extends BaseCar {
   public deleteItemButton = ButtonFactory.create('delete');
   public selectItemButton = ButtonFactory.create('select');
   public animation = new AnimationManager();
+  public raceTime = this.animation.duration;
 
   constructor(item: Car) {
     super(item, 'garage');
