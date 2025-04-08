@@ -5,7 +5,7 @@ import {
   winnersApi,
   winnersView,
 } from '../..';
-import type { CarAndWinner, Winner, WinnerInput } from '../../types';
+import { type CarAndWinner, type Winner, type WinnerInput } from '../../types';
 import { WinnerItem } from '../car/Winner';
 import { LocalStorage } from '../local-storage/Local-storage';
 import { View } from '../views/Base-view';
@@ -66,12 +66,12 @@ export class Winners extends BaseCars<Winner> {
 
   private static async _safeExecute<T>(
     action: () => Promise<T>,
-    errorMsg: string,
+    errorMessage: string,
   ): Promise<T | undefined> {
     try {
       return await action();
     } catch {
-      this._handleError(errorMsg);
+      this._handleError(errorMessage);
       return undefined;
     }
   }
@@ -99,6 +99,26 @@ export class Winners extends BaseCars<Winner> {
     await this._renderView();
   }
 
+  public async renderAll(winners: Winner[]): Promise<void> {
+    const resultArray = await Winners._getWinnersFromGarage(winners);
+    winnersView.itemsList.replaceChildren();
+
+    resultArray.forEach((winner, index) => {
+      const winnerCar = new WinnerItem(
+        winner,
+        (this.currentPage - 1) * this._itemsPerPage + 1 + index,
+      );
+      winnersView.itemsList.append(winnerCar.car);
+    });
+  }
+
+  public async deleteCar(dataId: string): Promise<void> {
+    await Winners._safeExecute(async () => {
+      await winnersApi.deleteItem(+dataId);
+      await this.initialize();
+    }, 'Failed to delete the winner');
+  }
+
   private async _loadData(): Promise<void> {
     try {
       const response = await winnersApi.getAll(
@@ -119,25 +139,5 @@ export class Winners extends BaseCars<Winner> {
     winnersView.updateTotalItemsQuantityInfo(this);
     winnersView.updatePageNumberInfo(this);
     View.updatePaginationButtons(winnersView, winners);
-  }
-
-  public async renderAll(winners: Winner[]): Promise<void> {
-    const resultArray = await Winners._getWinnersFromGarage(winners);
-    winnersView.itemsList.replaceChildren();
-
-    resultArray.forEach((winner, index) => {
-      const winnerCar = new WinnerItem(
-        winner,
-        (this.currentPage - 1) * this._itemsPerPage + 1 + index,
-      );
-      winnersView.itemsList.append(winnerCar.car);
-    });
-  }
-
-  public async deleteCar(dataId: string): Promise<void> {
-    await Winners._safeExecute(async () => {
-      await winnersApi.deleteItem(+dataId);
-      await this.initialize();
-    }, 'Failed to delete the winner');
   }
 }

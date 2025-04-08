@@ -8,8 +8,8 @@ import {
   enableButton,
   textToUpperCase,
 } from '../../utils/helpers';
-import type { Garage } from '../cars/Garage';
-import type { Winners } from '../cars/Winners';
+import type { Garage } from '../garage-and-winners/Garage';
+import type { Winners } from '../garage-and-winners/Winners';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
 import type { GarageView } from './Garage-view';

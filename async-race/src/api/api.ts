@@ -1,6 +1,6 @@
 import { pagination } from '..';
-import type { Garage } from '../components/cars/Garage';
-import type { Winners } from '../components/cars/Winners';
+import type { Garage } from '../components/garage-and-winners/Garage';
+import type { Winners } from '../components/garage-and-winners/Winners';
 import type {
   Order,
   CarOrWinner,

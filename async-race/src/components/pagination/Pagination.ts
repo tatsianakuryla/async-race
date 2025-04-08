@@ -1,6 +1,6 @@
 import type { ItemsPerPage } from '../../types';
-import type { Garage } from '../cars/Garage';
-import type { Winners } from '../cars/Winners';
+import type { Garage } from '../garage-and-winners/Garage';
+import type { Winners } from '../garage-and-winners/Winners';
 
 export class Pagination {
   private _totalItems: number = 0;

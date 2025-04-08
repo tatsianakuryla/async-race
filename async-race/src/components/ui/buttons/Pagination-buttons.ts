@@ -1,6 +1,6 @@
 import { carTransform, garage, pagination } from '../../..';
-import { Garage } from '../../cars/Garage';
-import type { Winners } from '../../cars/Winners';
+import { Garage } from '../../garage-and-winners/Garage';
+import type { Winners } from '../../garage-and-winners/Winners';
 import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from './Button';
 
@@ -11,7 +11,7 @@ export class PaginationButtonsFactory {
       pagination.nextPage(view);
       this._savePageToLocalStorage(view);
       const carsList = Object.entries(garage.cars);
-      carsList.forEach(([_, carItem]) => carItem.enableButtonsAfterRace());
+      carsList.forEach(([, carItem]) => carItem.enableButtonsAfterRace());
       carTransform.enableButtonsForEndRace();
       await view.initialize();
     });
@@ -25,7 +25,7 @@ export class PaginationButtonsFactory {
     previousButton.addEventListener('click', async () => {
       pagination.prevPage(view);
       const carsList = Object.entries(garage.cars);
-      carsList.forEach(([_, carItem]) => carItem.enableButtonsAfterRace());
+      carsList.forEach(([, carItem]) => carItem.enableButtonsAfterRace());
       carTransform.enableButtonsForEndRace();
       this._savePageToLocalStorage(view);
       await view.initialize();

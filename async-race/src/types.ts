@@ -49,3 +49,8 @@ export type WinnerInput = {
   id: number;
   time: number;
 };
+
+export enum RouteButtonType {
+  Garage = 'visit garage',
+  Winners = 'visit winners',
+}

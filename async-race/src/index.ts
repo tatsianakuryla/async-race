@@ -4,15 +4,14 @@ import { HeaderFactory } from './components/ui/layout/Header';
 import { MainFactory } from './components/ui/layout/Main';
 import { GarageView } from './components/views/Garage-view';
 import { WinnersView } from './components/views/Winners-view';
-import { Garage } from './components/cars/Garage';
+import { Garage } from './components/garage-and-winners/Garage';
 import { CarTransform } from './components/ui/car-transform/Car-transform';
 import { Pagination } from './components/pagination/Pagination';
-import { Winners } from './components/cars/Winners';
+import { Winners } from './components/garage-and-winners/Winners';
 import { ErrorNotification } from './components/ui/error-notification/Error-notification';
 import { Router } from './components/router/router';
 import './styles/modern-normalize.css';
 import './styles/style.css';
-import { Modal } from './components/ui/modal/modal';
 
 export const RANDOM_CAR_COLORS = [
   '#095387',

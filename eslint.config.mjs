@@ -78,7 +78,12 @@ export default [
           },
         },
       ],
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      // 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { varsIgnorePattern: '^_' },
+      ],
+      'no-unused-vars': 'off',
     },
   },
 ];
