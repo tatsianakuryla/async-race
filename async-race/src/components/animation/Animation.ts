@@ -31,7 +31,7 @@ export class AnimationManager {
 
     svg.style.transition = `transform ${this.duration}ms linear`;
 
-    const handleFinish = () => {
+    const handleFinish = (): void => {
       svg.removeEventListener('transitionend', handleFinish);
       if (this.engineStatus === 'drive') {
         onFinish?.(true);

@@ -1,5 +1,5 @@
 import { carTransform } from '../..';
-import { RaceData } from '../../types';
+import type { RaceData } from '../../types';
 import type { GarageItem } from '../car/Garage-item';
 import { Modal } from '../ui/modal/modal';
 import { Winners } from './Winners';

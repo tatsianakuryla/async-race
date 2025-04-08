@@ -46,3 +46,13 @@ export function enableButton(button: HTMLButtonElement): void {
 export function disableButton(button: HTMLButtonElement): void {
   button.disabled = true;
 }
+
+export function parseEnumValue<T>(
+  value: string | null,
+  enumType: Record<string, T>,
+  defaultValue: T,
+): T {
+  return value && Object.values(enumType).includes(value as T)
+    ? (value as T)
+    : defaultValue;
+}

@@ -7,15 +7,15 @@ import {
   pagination,
 } from '../..';
 import type { Car } from '../../types';
-import { TransformTask } from '../../types';
+import { Order, Sort, TransformTask } from '../../types';
 import { enableButton } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import { BaseCars } from './Base-cars';
 import { CarTransform } from '../ui/car-transform/Car-transform';
 import { RaceButtonsFactory } from '../ui/buttons/Race-manage-buttons';
 import { GarageStorageManager } from './Garage-storage-manager';
-import { CarGenerator } from './CarsGenerator';
-import { RaceManager } from './RaceManager';
+import { CarGenerator } from './Cars-generator';
+import { RaceManager } from './Race-manager';
 import { View } from '../views/Base-view';
 
 export class Garage extends BaseCars<Car> {
@@ -46,8 +46,8 @@ export class Garage extends BaseCars<Car> {
     try {
       const response = await garageApi.getAll(
         this._itemsPerPage,
-        'id',
-        'ASC',
+        Sort.Id,
+        Order.ASC,
         garage,
       );
       if (!response || !Array.isArray(response.results)) {

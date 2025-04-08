@@ -25,8 +25,17 @@ export enum Views {
   Winners = 'winners',
 }
 
-export type Sort = 'id' | 'wins' | 'time';
-export type Order = 'ASC' | 'DESC';
+export enum Sort {
+  Id = 'id',
+  Wins = 'wins',
+  Time = 'time',
+}
+
+export enum Order {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
 export type ItemsPerPage = 7 | 10;
 
 export type EngineDataResponse = {

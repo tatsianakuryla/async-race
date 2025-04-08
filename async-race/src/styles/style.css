@@ -295,6 +295,8 @@ span {
 
 .app__item-title_winners-wins,
 .app__item-title_winners-time {
+  position: relative;
+  height: 40px;
   --offsets: 4;
   min-width: calc(
     (
@@ -303,7 +305,21 @@ span {
       ) /
       2
   );
+  align-items: center;
   text-align: center;
+}
+
+.app__button_sort {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 40px;
+  background-color: transparent;
+  background-image: url('../images/sort.svg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: filter 0.3s ease-in-out;
 }
 
 .app__svg-container {
@@ -349,7 +365,6 @@ span {
 .app__item-title_winners {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 /* ХОВЕРЫ И АКТИВЫ */
@@ -379,6 +394,9 @@ span {
   .app__button_prev:hover:not(:disabled),
   .app__button_next:hover:not(:disabled) {
     background-color: var(--color-hover-page);
+  }
+  .app__button_sort:hover {
+    filter: drop-shadow(0 0 5px white);
   }
 }
 

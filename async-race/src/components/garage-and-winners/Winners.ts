@@ -5,19 +5,33 @@ import {
   winnersApi,
   winnersView,
 } from '../..';
-import { type CarAndWinner, type Winner, type WinnerInput } from '../../types';
+import {
+  Order,
+  Sort,
+  type CarAndWinner,
+  type Winner,
+  type WinnerInput,
+} from '../../types';
+import { parseEnumValue } from '../../utils/helpers';
 import { WinnerItem } from '../car/Winner';
 import { LocalStorage } from '../local-storage/Local-storage';
 import { View } from '../views/Base-view';
 import { BaseCars } from './Base-cars';
 
 export class Winners extends BaseCars<Winner> {
+  public sort: Sort;
+  public order: Order;
+
   constructor() {
     super(10);
     const pageNumber = LocalStorage.getItemsFromLocalStorage(
       'winners-page-number',
     );
     this._currentPage = pageNumber ? +pageNumber : 1;
+    const savedSort = LocalStorage.getItemsFromLocalStorage('winners-sort');
+    const savedOrder = LocalStorage.getItemsFromLocalStorage('winners-order');
+    this.sort = parseEnumValue(savedSort, Sort, Sort.Time);
+    this.order = parseEnumValue(savedOrder, Order, Order.ASC);
   }
 
   public static async saveWinner(winner: WinnerInput): Promise<void> {
@@ -36,6 +50,19 @@ export class Winners extends BaseCars<Winner> {
     } catch {
       errorNotification.open('Failed to save the winner');
     }
+  }
+
+  public toggleOrder(sort: Sort): void {
+    if (this.sort === sort && this.order === Order.ASC) {
+      this.order = Order.DESC;
+    } else if (this.sort === sort && this.order === Order.DESC) {
+      this.order = Order.ASC;
+    } else if (this.sort !== sort) {
+      this.order === Order.ASC;
+    }
+    this.sort = sort;
+    LocalStorage.setItemsToLocalStorage('winners-sort', this.sort);
+    LocalStorage.setItemsToLocalStorage('winners-order', this.order);
   }
 
   private static async _createWinner(item: Winner): Promise<void> {
@@ -88,10 +115,10 @@ export class Winners extends BaseCars<Winner> {
 
     return results
       .filter(
-        (r): r is PromiseFulfilledResult<CarAndWinner> =>
-          r.status === 'fulfilled',
+        (result): result is PromiseFulfilledResult<CarAndWinner> =>
+          result.status === 'fulfilled',
       )
-      .map((r) => r.value);
+      .map((result) => result.value);
   }
 
   public async initialize(): Promise<void> {
@@ -123,8 +150,8 @@ export class Winners extends BaseCars<Winner> {
     try {
       const response = await winnersApi.getAll(
         this._itemsPerPage,
-        'time',
-        'ASC',
+        this.sort,
+        this.order,
         winners,
       );
       this._items = response.results;

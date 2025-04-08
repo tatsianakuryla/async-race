@@ -1,5 +1,7 @@
-import type { CarAndWinner } from '../../types';
+import { winners } from '../..';
+import { CarAndWinner, Sort } from '../../types';
 import { createElementWithClassId } from '../../utils/helpers';
+import { ButtonFactory } from '../ui/buttons/Button';
 import { BaseCar } from './Base-car';
 
 export class WinnerItem extends BaseCar {
@@ -19,12 +21,26 @@ export class WinnerItem extends BaseCar {
       'app__winners-list-title',
       'flex',
     ]);
+    const winsBlock = BaseCar._getItemInfo('Wins', 'winners-wins');
+    winsBlock.append(WinnerItem._getSortButton(Sort.Wins));
+    const timeBlock = BaseCar._getItemInfo('Best time, sec', 'winners-time');
+    timeBlock.append(WinnerItem._getSortButton(Sort.Time));
     winnersTitle.append(
       BaseCar._getItemInfo('№', 'winners-number'),
       BaseCar._getItemInfo('Name', 'winners-name'),
-      BaseCar._getItemInfo('Wins', 'winners-wins'),
-      BaseCar._getItemInfo('Best time, sec', 'winners-time'),
+      winsBlock,
+      timeBlock,
     );
     return winnersTitle;
+  }
+
+  private static _getSortButton(sort: Sort): HTMLButtonElement {
+    const button = ButtonFactory.create('sort');
+    button.textContent = '';
+    button.addEventListener('click', () => {
+      winners.toggleOrder(sort);
+      winners.initialize();
+    });
+    return button;
   }
 }

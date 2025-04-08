@@ -1,7 +1,7 @@
 import { pagination } from '..';
 import type { Garage } from '../components/garage-and-winners/Garage';
 import type { Winners } from '../components/garage-and-winners/Winners';
-import type {
+import {
   Order,
   CarOrWinner,
   Sort,
@@ -48,8 +48,8 @@ export class Api<T extends CarOrWinner> {
 
   public async getAll(
     limit = 7,
-    sort: Sort = 'id',
-    order: Order = 'ASC',
+    sort: Sort = Sort.Id,
+    order: Order = Order.ASC,
     viewHolder: Winners | Garage,
   ): Promise<GetResponse<T>> {
     const page = viewHolder.currentPage;
