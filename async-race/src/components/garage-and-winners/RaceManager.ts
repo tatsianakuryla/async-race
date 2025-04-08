@@ -1,19 +1,15 @@
+import { RaceData } from '../../types';
 import type { GarageItem } from '../car/Garage-item';
 import { Modal } from '../ui/modal/modal';
 import { Winners } from './Winners';
 
-type RaceData = {
-  id: number;
-  time: number;
-  name: string;
-};
-
 export class RaceManager {
   private raceDurations: RaceData[] = [];
+  private _isRaceActive = false;
+  private _finishedCount = 0;
 
-  public static async resetRace(
-    cars: Record<number, GarageItem>,
-  ): Promise<void> {
+  public async resetRace(cars: Record<number, GarageItem>): Promise<void> {
+    this._isRaceActive = false;
     const resetPromises = Object.entries(cars).map(([id, carItem]) =>
       carItem.animation.stopAnimation(+id, carItem.svg),
     );
@@ -25,6 +21,8 @@ export class RaceManager {
 
   public async startRace(cars: Record<number, GarageItem>): Promise<void> {
     this.raceDurations = [];
+    this._isRaceActive = true;
+    this._finishedCount = 0;
 
     const carsList = Object.entries(cars);
 
@@ -40,32 +38,42 @@ export class RaceManager {
       ),
     );
 
-    requestAnimationFrame(() => {
-      carsList.forEach(([id, carItem]) => {
-        const numericId = +id;
-        carItem.animation.runAnimation(numericId, carItem.svg);
-        carItem.raceTime = carItem.animation.duration;
-        this.raceDurations.push({
-          id: numericId,
-          time: carItem.animation.duration,
-          name: carItem.carName,
-        });
-      });
+    carsList.forEach(([id, carItem]) => {
+      const numericId = +id;
 
-      this._handleWinner();
+      carItem.animation.runAnimation(numericId, carItem.svg, (didFinish) => {
+        if (!this._isRaceActive) return;
+
+        if (didFinish) {
+          const duration = carItem.animation.duration;
+          carItem.raceTime = duration;
+          this.raceDurations.push({
+            id: numericId,
+            time: duration,
+            name: carItem.carName,
+          });
+        }
+
+        this._finishedCount++;
+
+        if (this._finishedCount === carsList.length) {
+          this._handleWinner();
+        }
+      });
     });
   }
 
   private async _handleWinner(): Promise<void> {
+    if (!this._isRaceActive || this.raceDurations.length === 0) return;
+
     const [winner] = [...this.raceDurations].sort((a, b) => a.time - b.time);
-    const maxTime = Math.max(...this.raceDurations.map((r) => r.time));
     const timeInSec = (winner.time / 1000).toFixed(2);
 
     const modal = new Modal(
       `🏁 The winner: ${winner.name}! ID: ${winner.id}, Time: ${timeInSec}s`,
     );
 
-    setTimeout(() => modal.open(), maxTime + 1000);
+    setTimeout(() => modal.open(), 1000);
     await Winners.saveWinner({ id: winner.id, time: +timeInSec });
   }
 }

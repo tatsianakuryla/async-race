@@ -22,10 +22,23 @@ export class AnimationManager {
     this.duration = (this.distance / velocity) * 1000;
   }
 
-  public runAnimation(id: number, svg: SVGElement): void {
+  public runAnimation(
+    id: number,
+    svg: SVGElement,
+    onFinish?: (didFinish: boolean) => void,
+  ): void {
     const startTime = performance.now();
 
     svg.style.transition = `transform ${this.duration}ms linear`;
+
+    const handleFinish = () => {
+      svg.removeEventListener('transitionend', handleFinish);
+      if (this.engineStatus === 'drive') {
+        onFinish?.(true);
+      }
+    };
+
+    svg.addEventListener('transitionend', handleFinish);
 
     requestAnimationFrame(() => {
       svg.style.transform = `translateX(${this.distance}px)`;
@@ -54,6 +67,8 @@ export class AnimationManager {
           } catch (error) {
             errorNotification.open(`${error}`);
           }
+
+          onFinish?.(false);
         }
       });
   }

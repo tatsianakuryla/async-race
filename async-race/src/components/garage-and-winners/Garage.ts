@@ -159,7 +159,7 @@ export class Garage extends BaseCars<Car> {
   }
 
   public async resetRace(): Promise<void> {
-    await RaceManager.resetRace(this.cars);
+    await this._raceManager.resetRace(this.cars);
     carTransform.enableButtonsForEndRace();
   }
 

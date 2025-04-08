@@ -54,3 +54,9 @@ export enum RouteButtonType {
   Garage = 'visit garage',
   Winners = 'visit winners',
 }
+
+export type RaceData = {
+  id: number;
+  time: number;
+  name: string;
+};
