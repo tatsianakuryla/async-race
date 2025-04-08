@@ -316,7 +316,7 @@ span {
   width: 40px;
   background-color: transparent;
   background-image: url('../images/sort.svg');
-  background-size: 100% 100%;
+  background-size: 80% 80%;
   background-position: center;
   background-repeat: no-repeat;
   transition: filter 0.3s ease-in-out;
@@ -425,5 +425,8 @@ span {
   .app__button_prev:active:not(:disabled),
   .app__button_next:active:not(:disabled) {
     background-color: var(--color-hover-page);
+  }
+  .app__button_sort:active {
+    filter: drop-shadow(0 0 5px white);
   }
 }
