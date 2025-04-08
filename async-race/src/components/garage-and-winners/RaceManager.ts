@@ -1,3 +1,4 @@
+import { carTransform } from '../..';
 import { RaceData } from '../../types';
 import type { GarageItem } from '../car/Garage-item';
 import { Modal } from '../ui/modal/modal';
@@ -15,6 +16,7 @@ export class RaceManager {
     );
 
     Object.values(cars).forEach((carItem) => carItem.enableButtonsAfterRace());
+    carTransform.enableButtonsForEndRace();
 
     await Promise.all(resetPromises);
   }
@@ -27,7 +29,7 @@ export class RaceManager {
     const carsList = Object.entries(cars);
 
     carsList.forEach(([, carItem]) => carItem.disableButtonsForRace());
-
+    carTransform.disableButtonsForStartRace();
     await Promise.all(
       carsList.map(([id, carItem]) =>
         carItem.animation.prepareForStart(
