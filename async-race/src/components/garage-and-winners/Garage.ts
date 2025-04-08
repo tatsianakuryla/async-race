@@ -7,8 +7,8 @@ import {
   pagination,
 } from '../..';
 import type { Car } from '../../types';
-import { Order, Sort, TransformTask } from '../../types';
-import { enableButton } from '../../utils/helpers';
+import { ItemsPerPage, Order, Sort, TransformTask } from '../../types';
+import { enableButton, getTrimmedInputValue } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import { BaseCars } from './Base-cars';
 import { CarTransform } from '../ui/car-transform/Car-transform';
@@ -30,15 +30,15 @@ export class Garage extends BaseCars<Car> {
   private _newCar: Car = Garage.EMPTY_CAR;
 
   constructor() {
-    super(7);
+    super(ItemsPerPage.Garage);
     this.chosenCar = GarageStorageManager.getChosenCar() ?? Garage.EMPTY_CAR;
     const page = GarageStorageManager.getCurrentPage();
-    this._currentPage = page ?? 1;
+    this._currentPage = page ?? BaseCars.DEFAULT_PAGE;
   }
 
   private static _showError(message: string): void {
     errorNotification.open(message);
-    Garage._handleError(message);
+    Garage._reportError(message);
   }
 
   public async initialize(): Promise<void> {
@@ -55,14 +55,13 @@ export class Garage extends BaseCars<Car> {
       }
 
       this._items = response.results;
-      this._itemsOnServerQuantity = response.totalCount;
+      this._totalItemsCount = response.totalCount;
 
       this._renderGarageUI();
 
       const savedCar = GarageStorageManager.getChosenCar();
       if (savedCar && savedCar.id !== 0) {
-        this.chosenCar = savedCar;
-        this._updateTransformFromSelectedCar();
+        this._setChosenCar(savedCar);
       }
 
       GarageStorageManager.saveCurrentPage(this._currentPage);
@@ -77,13 +76,13 @@ export class Garage extends BaseCars<Car> {
     cars.forEach((car) => {
       const item = new GarageItem(car);
       this.cars[car.id] = item;
-      garageView.itemsList.append(item.car);
+      garageView.itemsList.append(item.element);
     });
   }
 
   public async createCar(): Promise<void> {
     const { createTitleInput, createColorInput, createButton } = carTransform;
-    const title = createTitleInput.value.trim();
+    const title = getTrimmedInputValue(createTitleInput);
     if (!title) return;
 
     createButton.disabled = true;
@@ -96,7 +95,7 @@ export class Garage extends BaseCars<Car> {
       };
 
       await garageApi.createItem(this._newCar);
-      await this._refreshAndClearInputs(TransformTask.Create);
+      await this._reloadAndResetForm(TransformTask.Create);
     } catch {
       Garage._showError('Failed to create car');
     } finally {
@@ -112,7 +111,7 @@ export class Garage extends BaseCars<Car> {
       return;
     }
 
-    const title = updateTitleInput.value.trim();
+    const title = getTrimmedInputValue(updateTitleInput);
     if (!title) {
       errorNotification.open('Car name cannot be empty');
       return;
@@ -125,7 +124,7 @@ export class Garage extends BaseCars<Car> {
       this.chosenCar.color = updateColorInput.value;
 
       await garageApi.updateItem(this.chosenCar);
-      await this._refreshAndClearInputs(TransformTask.Update);
+      await this._reloadAndResetForm(TransformTask.Update);
     } catch {
       Garage._showError('Failed to update car');
     } finally {
@@ -147,10 +146,9 @@ export class Garage extends BaseCars<Car> {
   }
 
   public selectCar(dataId: string): void {
-    this.chosenCar =
-      this._items.find((car) => car.id === +dataId) ?? Garage.EMPTY_CAR;
-    GarageStorageManager.saveChosenCar(this.chosenCar);
-    this._updateTransformFromSelectedCar();
+    this._setChosenCar(
+      this._items.find((car) => car.id === +dataId) ?? Garage.EMPTY_CAR,
+    );
   }
 
   public async startRace(): Promise<void> {
@@ -171,9 +169,7 @@ export class Garage extends BaseCars<Car> {
       await Promise.all(createPromises);
       await this.initialize();
 
-      if (!pagination.isLastPage(this)) {
-        enableButton(garageView.nextPageButton);
-      }
+      this._updatePagination();
     } catch {
       Garage._showError('Failed to add random cars');
     }
@@ -189,7 +185,7 @@ export class Garage extends BaseCars<Car> {
     this._newCar = Garage.EMPTY_CAR;
   }
 
-  private async _refreshAndClearInputs(type: TransformTask): Promise<void> {
+  private async _reloadAndResetForm(type: TransformTask): Promise<void> {
     await this.initialize();
     carTransform.cleanInputs(type);
   }
@@ -199,5 +195,17 @@ export class Garage extends BaseCars<Car> {
     garageView.updateTotalItemsQuantityInfo(this);
     garageView.updatePageNumberInfo(this);
     View.updatePaginationButtons(garageView, this);
+  }
+
+  private _setChosenCar(car: Car): void {
+    this.chosenCar = car;
+    GarageStorageManager.saveChosenCar(car);
+    this._updateTransformFromSelectedCar();
+  }
+
+  private _updatePagination(): void {
+    if (!pagination.isLastPage(this)) {
+      enableButton(garageView.nextPageButton);
+    }
   }
 }

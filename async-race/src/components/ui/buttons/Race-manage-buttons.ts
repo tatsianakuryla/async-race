@@ -1,4 +1,5 @@
 import { garage } from '../../..';
+import { ButtonType } from '../../../types';
 import {
   createButtonsContainer,
   disableButton,
@@ -7,13 +8,17 @@ import {
 import { ButtonFactory } from './Button';
 
 export class RaceButtonsFactory {
-  private static _raceAllButton = ButtonFactory.create('race all');
-  private static _resetRaceButton = ButtonFactory.create('reset race');
-  private static _generateCarsButton = ButtonFactory.create('generate cars');
+  private static _raceAllButton = ButtonFactory.create(ButtonType.RaceAll);
+  private static _resetRaceButton = ButtonFactory.create(ButtonType.Reset);
+  private static _generateCarsButton = ButtonFactory.create(
+    ButtonType.Generate,
+  );
 
   public static getButtons(): HTMLElement {
     const buttonsContainer = createButtonsContainer('manage');
+
     disableButton(this._resetRaceButton);
+
     this._raceAllButton.addEventListener('click', () => {
       garage.startRace();
       disableButton(this._raceAllButton);

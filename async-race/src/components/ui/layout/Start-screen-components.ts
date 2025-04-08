@@ -11,7 +11,7 @@ export class StartScreenComponentsFactory {
       'flex',
     ]);
     const container = createContainer('start-window');
-    container.append(RouteButtonsFactory.getButtons());
+    container.append(RouteButtonsFactory.createRouteButtons());
 
     section.append(container);
     return section;

@@ -1,25 +1,26 @@
 import { errorNotification } from '../..';
 import { Api } from '../../api/api';
-import type { EngineStatus } from '../../types';
+import { EngineStatus } from '../../types';
 
 export class AnimationManager {
-  public distance = 0;
-  public duration = 0;
-  public engineStatus: EngineStatus = 'stopped';
+  private static readonly _FINISH_LINE_OFFSET = 80;
 
-  public async prepareForStart(
+  private _distance = 0;
+  private _engineStatus = EngineStatus.Stopped;
+  public duration = 0;
+
+  public async prepareAnimation(
     id: number,
     svgContainer: HTMLElement,
     svg: SVGElement,
   ): Promise<void> {
     this.stopAnimation(id, svg);
-    const { velocity } = await Api.manageCarEngine(id, 'started');
-    this.engineStatus = 'started';
+    const { velocity } = await Api.manageCarEngine(id, EngineStatus.Started);
+    this._engineStatus = EngineStatus.Started;
 
     const containerWidth = svgContainer.offsetWidth;
-    const finishLineOffset = 80;
-    this.distance = containerWidth - finishLineOffset;
-    this.duration = (this.distance / velocity) * 1000;
+    this._distance = containerWidth - AnimationManager._FINISH_LINE_OFFSET;
+    this.duration = (this._distance / velocity) * 1000;
   }
 
   public runAnimation(
@@ -29,59 +30,68 @@ export class AnimationManager {
   ): void {
     const startTime = performance.now();
 
-    svg.style.transition = `transform ${this.duration}ms linear`;
+    this.applyTransform(svg, this._distance, this.duration);
 
     const handleFinish = (): void => {
       svg.removeEventListener('transitionend', handleFinish);
-      if (this.engineStatus === 'drive') {
+      if (this._engineStatus === EngineStatus.Drive) {
         onFinish?.(true);
       }
     };
 
     svg.addEventListener('transitionend', handleFinish);
 
-    requestAnimationFrame(() => {
-      svg.style.transform = `translateX(${this.distance}px)`;
-    });
-
     Api.switchEngineToDriveMode(id)
       .then(() => {
-        if (this.engineStatus === 'started') {
-          this.engineStatus = 'drive';
+        if (this._engineStatus === EngineStatus.Started) {
+          this._engineStatus = EngineStatus.Drive;
         }
       })
-      .catch(async () => {
-        if (this.engineStatus !== 'stopped') {
-          const elapsedTime = performance.now() - startTime;
-          const currentPosition = (elapsedTime / this.duration) * this.distance;
-          const remainingTime = this.duration - elapsedTime;
-
-          svg.style.transition = `transform ${remainingTime}ms linear`;
-          requestAnimationFrame(() => {
-            svg.style.transform = `translateX(${currentPosition}px)`;
-          });
-
-          try {
-            await Api.manageCarEngine(id, 'stopped');
-            this.engineStatus = 'stopped';
-          } catch (error) {
-            errorNotification.open(`${error}`);
-          }
-
-          onFinish?.(false);
-        }
-      });
+      .catch(() => this._handleEngineFailure(id, svg, startTime, onFinish));
   }
 
   public async stopAnimation(id: number, svg: SVGElement): Promise<void> {
-    this.engineStatus = 'stopped';
+    this._engineStatus = EngineStatus.Stopped;
     svg.style.transition = '';
     svg.style.transform = 'translateX(0)';
 
     try {
-      await Api.manageCarEngine(id, 'stopped');
+      await Api.manageCarEngine(id, EngineStatus.Stopped);
     } catch (error) {
       throw new Error(`${error}`);
     }
+  }
+
+  private applyTransform(
+    svg: SVGElement,
+    value: number,
+    duration: number,
+  ): void {
+    svg.style.transition = `transform ${duration}ms linear`;
+    svg.style.transform = `translateX(${value}px)`;
+  }
+
+  private async _handleEngineFailure(
+    id: number,
+    svg: SVGElement,
+    startTime: number,
+    onFinish?: (didFinish: boolean) => void,
+  ): Promise<void> {
+    if (this._engineStatus === EngineStatus.Stopped) return;
+
+    const elapsedTime = performance.now() - startTime;
+    const currentPosition = (elapsedTime / this.duration) * this._distance;
+    const remainingTime = this.duration - elapsedTime;
+
+    this.applyTransform(svg, currentPosition, remainingTime);
+
+    try {
+      await Api.manageCarEngine(id, EngineStatus.Stopped);
+      this._engineStatus = EngineStatus.Stopped;
+    } catch (error) {
+      errorNotification.open(`${error}`);
+    }
+
+    onFinish?.(false);
   }
 }

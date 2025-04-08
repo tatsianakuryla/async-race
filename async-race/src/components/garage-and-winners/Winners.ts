@@ -6,8 +6,10 @@ import {
   winnersView,
 } from '../..';
 import {
+  ItemsPerPage,
   Order,
   Sort,
+  StorageKey,
   type CarAndWinner,
   type Winner,
   type WinnerInput,
@@ -23,13 +25,13 @@ export class Winners extends BaseCars<Winner> {
   public order: Order;
 
   constructor() {
-    super(10);
+    super(ItemsPerPage.Winners);
     const pageNumber = LocalStorage.getItemsFromLocalStorage(
-      'winners-page-number',
+      StorageKey.WinnersPage,
     );
-    this._currentPage = pageNumber ? +pageNumber : 1;
-    const savedSort = LocalStorage.getItemsFromLocalStorage('winners-sort');
-    const savedOrder = LocalStorage.getItemsFromLocalStorage('winners-order');
+    this._currentPage = pageNumber ? +pageNumber : BaseCars.DEFAULT_PAGE;
+    const savedSort = LocalStorage.getItemsFromLocalStorage(StorageKey.Sort);
+    const savedOrder = LocalStorage.getItemsFromLocalStorage(StorageKey.Order);
     this.sort = parseEnumValue(savedSort, Sort, Sort.Time);
     this.order = parseEnumValue(savedOrder, Order, Order.ASC);
   }
@@ -38,7 +40,7 @@ export class Winners extends BaseCars<Winner> {
     try {
       const existingWinner = await winnersApi.getOne(winner.id);
 
-      if (!existingWinner?.id) {
+      if (!existingWinner.id) {
         await this._createWinner({
           id: winner.id,
           wins: 1,
@@ -58,11 +60,11 @@ export class Winners extends BaseCars<Winner> {
     } else if (this.sort === sort && this.order === Order.DESC) {
       this.order = Order.ASC;
     } else if (this.sort !== sort) {
-      this.order === Order.ASC;
+      this.order = Order.ASC;
     }
     this.sort = sort;
-    LocalStorage.setItemsToLocalStorage('winners-sort', this.sort);
-    LocalStorage.setItemsToLocalStorage('winners-order', this.order);
+    LocalStorage.setItemsToLocalStorage(StorageKey.Sort, this.sort);
+    LocalStorage.setItemsToLocalStorage(StorageKey.Order, this.order);
   }
 
   private static async _createWinner(item: Winner): Promise<void> {
@@ -98,7 +100,7 @@ export class Winners extends BaseCars<Winner> {
     try {
       return await action();
     } catch {
-      this._handleError(errorMessage);
+      this._reportError(errorMessage);
       return undefined;
     }
   }
@@ -135,7 +137,7 @@ export class Winners extends BaseCars<Winner> {
         winner,
         (this.currentPage - 1) * this._itemsPerPage + 1 + index,
       );
-      winnersView.itemsList.append(winnerCar.car);
+      winnersView.itemsList.append(winnerCar.element);
     });
   }
 
@@ -155,9 +157,9 @@ export class Winners extends BaseCars<Winner> {
         winners,
       );
       this._items = response.results;
-      this._itemsOnServerQuantity = response.totalCount;
+      this._totalItemsCount = response.totalCount;
     } catch {
-      Winners._handleError('Failed to load winners data');
+      Winners._reportError('Failed to load winners data');
     }
   }
 

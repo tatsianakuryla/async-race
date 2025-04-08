@@ -56,3 +56,7 @@ export function parseEnumValue<T>(
     ? (value as T)
     : defaultValue;
 }
+
+export function getTrimmedInputValue(input: HTMLInputElement): string {
+  return input.value.trim();
+}

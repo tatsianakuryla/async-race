@@ -3,9 +3,11 @@ import type { Garage } from '../garage-and-winners/Garage';
 import type { Winners } from '../garage-and-winners/Winners';
 
 export class Pagination {
+  protected static readonly FIRST_PAGE = 1;
+
   private _totalItems: number = 0;
   private _itemsPerPage: number;
-  private _firstPage: number = 1;
+
   constructor(itemsPerPage: ItemsPerPage) {
     this._itemsPerPage = itemsPerPage;
   }
@@ -18,8 +20,12 @@ export class Pagination {
     this._totalItems = count;
   }
 
-  public static isFirstPage(viewHolder: Garage | Winners): boolean {
-    return viewHolder.currentPage === 1;
+  public isFirstPage(viewHolder: Garage | Winners): boolean {
+    return viewHolder.currentPage === Pagination.FIRST_PAGE;
+  }
+
+  public isLastPage(viewHolder: Garage | Winners): boolean {
+    return viewHolder.currentPage === this.totalPages;
   }
 
   public nextPage(viewHolder: Garage | Winners): void {
@@ -29,22 +35,14 @@ export class Pagination {
   }
 
   public prevPage(viewHolder: Garage | Winners): void {
-    if (viewHolder.currentPage > 1 && this.totalPages) {
+    if (viewHolder.currentPage > Pagination.FIRST_PAGE) {
       viewHolder.currentPage -= 1;
     }
   }
 
   public goToPage(page: number, viewHolder: Garage | Winners): void {
-    if (page >= 1 && page <= this.totalPages) {
+    if (page >= Pagination.FIRST_PAGE && page <= this.totalPages) {
       viewHolder.currentPage = page;
     }
-  }
-
-  public isLastPage(viewHolder: Garage | Winners): boolean {
-    return viewHolder.currentPage === this.totalPages;
-  }
-
-  public isFirstPage(viewHolder: Garage | Winners): boolean {
-    return viewHolder.currentPage === this._firstPage;
   }
 }

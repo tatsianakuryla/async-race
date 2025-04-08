@@ -1,5 +1,5 @@
 import { carTransform, garage, winners } from '../..';
-import type { Car } from '../../types';
+import { ButtonType, type Car } from '../../types';
 import {
   createButtonsContainer,
   disableButton,
@@ -11,11 +11,11 @@ import { ButtonFactory } from '../ui/buttons/Button';
 import { BaseCar } from './Base-car';
 
 export class GarageItem extends BaseCar {
-  public startRaceButton = ButtonFactory.create('start');
-  public stopRaceButton = ButtonFactory.create('stop');
-  public deleteItemButton = ButtonFactory.create('delete');
-  public selectItemButton = ButtonFactory.create('select');
-  public animation = new AnimationManager();
+  public readonly startRaceButton = ButtonFactory.create(ButtonType.Start);
+  public readonly stopRaceButton = ButtonFactory.create(ButtonType.Stop);
+  public readonly deleteItemButton = ButtonFactory.create(ButtonType.Delete);
+  public readonly selectItemButton = ButtonFactory.create(ButtonType.Select);
+  public readonly animation = new AnimationManager();
   public raceTime = this.animation.duration;
 
   constructor(item: Car) {
@@ -23,10 +23,10 @@ export class GarageItem extends BaseCar {
     const garageButtons = createButtonsContainer('garage');
     this._svgContainer.classList.add('app__svg-container_garage');
     garageButtons.append(
-      this._getMainButtons(item.id),
-      this._getRaceButtons(item.id),
+      this._createMainButtons(item.id),
+      this._createRaceButtons(item.id),
     );
-    this._car.append(garageButtons);
+    this._element.append(garageButtons);
   }
 
   public disableButtonsForRace(): void {
@@ -50,7 +50,7 @@ export class GarageItem extends BaseCar {
     carTransform.disableButtonsForStartRace();
   }
 
-  private _enableButtonsForIndividualRace(): void {
+  private _enableButtonsAfterIndividualRace(): void {
     disableButton(this.stopRaceButton);
     enableButton(this.startRaceButton);
     enableButton(this.deleteItemButton);
@@ -58,9 +58,9 @@ export class GarageItem extends BaseCar {
     carTransform.enableButtonsForEndRace();
   }
 
-  private _startAnimation(id: number): void {
+  private _startCarAnimation(id: number): void {
     this.animation
-      .prepareForStart(id, this._svgContainer, this._svg)
+      .prepareAnimation(id, this._svgContainer, this._svg)
       .then(() => {
         this.animation.runAnimation(id, this._svg);
         this.disableButtonsForIndividualRace();
@@ -70,40 +70,37 @@ export class GarageItem extends BaseCar {
       });
   }
 
-  private _stopAnimation(id: number): void {
+  private _stopCarAnimation(id: number): void {
     this.animation.stopAnimation(id, this._svg);
   }
 
-  private _getRaceButtons(id: number): HTMLElement {
-    const buttonsContainer = createButtonsContainer('garage-race');
-    this.startRaceButton.dataset.id = String(id);
-    this.startRaceButton.addEventListener('click', () => {
-      this._startAnimation(id);
-    });
+  private _createRaceButtons(id: number): HTMLElement {
+    const container = createButtonsContainer('garage-race');
 
-    this.stopRaceButton.dataset.id = String(id);
+    this._setButtonId(this.startRaceButton, id);
+    this._setButtonId(this.stopRaceButton, id);
+
     disableButton(this.stopRaceButton);
-    this.stopRaceButton.addEventListener('click', () => {
-      const id = this.stopRaceButton.getAttribute('data-id');
-      if (id) {
-        this._stopAnimation(+id);
-      }
-      this._enableButtonsForIndividualRace();
+
+    this.startRaceButton.addEventListener('click', () => {
+      this._startCarAnimation(id);
     });
 
-    buttonsContainer.append(this.startRaceButton, this.stopRaceButton);
-    return buttonsContainer;
+    this.stopRaceButton.addEventListener('click', () => {
+      this._stopCarAnimation(id);
+      this._enableButtonsAfterIndividualRace();
+    });
+
+    container.append(this.startRaceButton, this.stopRaceButton);
+    return container;
   }
 
-  private _getMainButtons(id: number): HTMLElement {
+  private _createMainButtons(id: number): HTMLElement {
     const buttonsContainer = createButtonsContainer('garage-main');
     this.selectItemButton.dataset.id = String(id);
 
     this.selectItemButton.addEventListener('click', () => {
-      const dataId = this.selectItemButton.getAttribute('data-id');
-      if (dataId) {
-        garage.selectCar(dataId);
-      }
+      garage.selectCar(String(id));
       LocalStorage.setItemsToLocalStorage(
         'update-title',
         carTransform.updateTitleInput.value,
@@ -113,16 +110,18 @@ export class GarageItem extends BaseCar {
     this.deleteItemButton.dataset.id = String(id);
 
     this.deleteItemButton.addEventListener('click', async () => {
-      const dataId = this.deleteItemButton.getAttribute('data-id');
-      if (dataId) {
-        garage.deleteCar(dataId);
-        if (winners.items.some((winner) => winner.id === +dataId)) {
-          winners.deleteCar(dataId);
-        }
+      const stringId = String(id);
+      garage.deleteCar(stringId);
+      if (winners.items.some((winner) => winner.id === id)) {
+        winners.deleteCar(stringId);
       }
     });
 
     buttonsContainer.append(this.selectItemButton, this.deleteItemButton);
     return buttonsContainer;
+  }
+
+  private _setButtonId(button: HTMLButtonElement, id: number): void {
+    button.dataset.id = String(id);
   }
 }

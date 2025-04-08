@@ -20,6 +20,6 @@ export class GarageView extends View {
   public override open(): void {
     super.open('/garage', winnersViewSection);
     garage.initialize();
-    RouteButtonsFactory.toggleRouteButtons(Views.Garage);
+    RouteButtonsFactory.updateRouteButtonStates(Views.Garage);
   }
 }

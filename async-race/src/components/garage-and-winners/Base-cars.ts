@@ -2,9 +2,11 @@ import { errorNotification } from '../..';
 import type { ItemsPerPage } from '../../types';
 
 export abstract class BaseCars<T> {
+  protected static readonly DEFAULT_PAGE = 1;
+
   protected _items: T[] = [];
-  protected _itemsOnServerQuantity = 0;
-  protected _currentPage: number = 1;
+  protected _totalItemsCount = 0;
+  protected _currentPage: number = BaseCars.DEFAULT_PAGE;
   protected _itemsPerPage: ItemsPerPage;
 
   constructor(value: ItemsPerPage) {
@@ -20,14 +22,14 @@ export abstract class BaseCars<T> {
   }
 
   public get itemsQuantity(): number {
-    return this._itemsOnServerQuantity;
+    return this._totalItemsCount;
   }
 
   public set currentPage(value: number) {
     this._currentPage = value;
   }
 
-  protected static _handleError(context: string): void {
+  protected static _reportError(context: string): void {
     errorNotification.open(context);
   }
 }

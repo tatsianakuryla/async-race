@@ -36,7 +36,10 @@ export enum Order {
   DESC = 'DESC',
 }
 
-export type ItemsPerPage = 7 | 10;
+export enum ItemsPerPage {
+  Garage = 7,
+  Winners = 10,
+}
 
 export type EngineDataResponse = {
   velocity: number;
@@ -47,7 +50,11 @@ export type EngineToDriveModeResponse = {
   success: boolean;
 };
 
-export type EngineStatus = 'started' | 'stopped' | 'drive';
+export enum EngineStatus {
+  Started = 'started',
+  Stopped = 'stopped',
+  Drive = 'drive',
+}
 
 export enum TransformTask {
   Create = 'create',
@@ -69,3 +76,29 @@ export type RaceData = {
   time: number;
   name: string;
 };
+
+export enum ButtonType {
+  Start = 'start',
+  Stop = 'stop',
+  Delete = 'delete',
+  Select = 'select',
+  Sort = 'sort',
+  Next = 'next',
+  Previous = 'prev',
+  RaceAll = 'race all',
+  Reset = 'reset race',
+  Generate = 'generate cars',
+  Route = 'route',
+}
+
+export enum StorageKey {
+  Sort = 'winners-sort',
+  Order = 'winners-order',
+  WinnersPage = 'winners-page-number',
+  GaragePage = 'garage-page-number',
+  ChosenCar = 'chosenCar',
+  CreateTitle = 'create-title',
+  CreateColor = 'create-color',
+  UpdateTitle = 'update-title',
+  UpdateColor = 'update-color',
+}

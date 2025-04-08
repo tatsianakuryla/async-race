@@ -3,22 +3,22 @@ import { createElementWithClassId } from '../../utils/helpers';
 import { CarSvg } from './Car-svg';
 
 export class BaseCar {
-  public carName: string;
-  protected _car: HTMLLIElement;
+  public readonly name: string;
+  protected _element: HTMLLIElement;
   protected _svgContainer: HTMLElement;
   protected _svg: SVGElement;
 
-  constructor(item: Car | CarAndWinner, classModificator: string) {
-    this.carName = item.name;
-    this._car = createElementWithClassId('li', ['app__item', 'flex']);
-    this._car.setAttribute('data-id', String(item.id));
+  constructor(item: Car | CarAndWinner, infoTypeClass: string) {
+    this.name = item.name;
+    this._element = createElementWithClassId('li', ['app__item', 'flex']);
+    this._element.setAttribute('data-id', String(item.id));
 
     this._svgContainer = createElementWithClassId('div', [
       'app__svg-container',
     ]);
     this._svgContainer.setAttribute('data-id', String(item.id));
 
-    this._svg = BaseCar._getItemSvg(item.color);
+    this._svg = BaseCar._createCarSvg(item.color);
     this._svg.setAttribute('data-id', String(item.id));
 
     this._svgContainer.append(this._svg);
@@ -28,37 +28,34 @@ export class BaseCar {
       'flex',
     ]);
     container.append(
-      BaseCar._getItemInfo(item.name, classModificator),
+      BaseCar._getItemInfo(item.name, infoTypeClass),
       this._svgContainer,
     );
-    this._car.append(container);
+    this._element.append(container);
   }
 
   public get svgContainer(): HTMLElement {
     return this._svgContainer;
   }
 
-  public get car(): HTMLLIElement {
-    return this._car;
+  public get element(): HTMLLIElement {
+    return this._element;
   }
 
   public get svg(): SVGElement {
     return this._svg;
   }
 
-  protected static _getItemInfo(
-    infoType: string,
-    classModificator: string,
-  ): HTMLElement {
+  protected static _getItemInfo(text: string, type: string): HTMLElement {
     const carId = createElementWithClassId('div', [
       'app__item-title',
-      `app__item-title_${classModificator}`,
+      `app__item-title_${type}`,
     ]);
-    carId.textContent = infoType;
+    carId.textContent = text;
     return carId;
   }
 
-  protected static _getItemSvg(color: string): SVGElement {
+  protected static _createCarSvg(color: string): SVGElement {
     const carSvg = new CarSvg(color);
     const svg = carSvg.svg;
     return svg;

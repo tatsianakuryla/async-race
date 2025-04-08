@@ -1,5 +1,5 @@
 import { winners } from '../..';
-import { CarAndWinner, Sort } from '../../types';
+import { ButtonType, CarAndWinner, Sort } from '../../types';
 import { createElementWithClassId } from '../../utils/helpers';
 import { ButtonFactory } from '../ui/buttons/Button';
 import { BaseCar } from './Base-car';
@@ -7,10 +7,12 @@ import { BaseCar } from './Base-car';
 export class WinnerItem extends BaseCar {
   constructor(item: CarAndWinner, index: number) {
     super(item, 'winners');
-    this._car.classList.add('app__item_winners');
-    this._car.prepend(BaseCar._getItemInfo(String(index), 'winners-number'));
+    this._element.classList.add('app__item_winners');
+    this._element.prepend(
+      BaseCar._getItemInfo(String(index), 'winners-number'),
+    );
     this._svgContainer.classList.add('app__svg-container_winners');
-    this._car.append(
+    this._element.append(
       BaseCar._getItemInfo(String(item.wins), 'winners-wins'),
       BaseCar._getItemInfo(String(item.time), 'winners-time'),
     );
@@ -35,7 +37,7 @@ export class WinnerItem extends BaseCar {
   }
 
   private static _getSortButton(sort: Sort): HTMLButtonElement {
-    const button = ButtonFactory.create('sort');
+    const button = ButtonFactory.create(ButtonType.Sort);
     button.textContent = '';
     button.addEventListener('click', () => {
       winners.toggleOrder(sort);

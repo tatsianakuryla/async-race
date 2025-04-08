@@ -3,13 +3,14 @@ import type { Car } from '../../types';
 
 import { getRandomIndex, textToUpperCase } from '../../utils/helpers';
 export class CarGenerator {
+  private static readonly DEFAULT_ID = 0;
   public static generate(): Car {
     const brand = RANDOM_CAR_BRANDS[getRandomIndex()];
     const model = RANDOM_CAR_MODELS[getRandomIndex()];
     const color = RANDOM_CAR_COLORS[getRandomIndex()];
 
     return {
-      id: 0,
+      id: CarGenerator.DEFAULT_ID,
       name: `${textToUpperCase(brand)} ${textToUpperCase(model)}`,
       color,
     };

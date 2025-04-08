@@ -1,5 +1,5 @@
 import { main, pagination } from '../..';
-import { type Views } from '../../types';
+import { ButtonType, type Views } from '../../types';
 import {
   createButtonsContainer,
   createContainer,
@@ -10,14 +10,19 @@ import {
 } from '../../utils/helpers';
 import type { Garage } from '../garage-and-winners/Garage';
 import type { Winners } from '../garage-and-winners/Winners';
+import { ButtonFactory } from '../ui/buttons/Button';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
 import type { GarageView } from './Garage-view';
 import type { WinnersView } from './Winners-view';
 
 export abstract class View {
-  public prevPageButton: HTMLButtonElement = createElementWithClassId('button');
-  public nextPageButton: HTMLButtonElement = createElementWithClassId('button');
+  public prevPageButton: HTMLButtonElement = ButtonFactory.create(
+    ButtonType.Previous,
+  );
+  public nextPageButton: HTMLButtonElement = ButtonFactory.create(
+    ButtonType.Next,
+  );
   public itemsList: HTMLUListElement;
   protected _totalItemsQuantityInfo: HTMLSpanElement;
   protected _section: HTMLElement;

@@ -1,4 +1,5 @@
 import type { Car } from '../../types';
+import { StorageKey } from '../../types';
 
 export class LocalStorage {
   public static setItemsToLocalStorage(
@@ -21,11 +22,16 @@ export class LocalStorage {
     localStorage.removeItem(key);
   }
 
-  public static saveChosenCarToLocalStorage(key = 'chosenCar', car: Car): void {
+  public static saveChosenCarToLocalStorage(
+    key = StorageKey.ChosenCar,
+    car: Car,
+  ): void {
     localStorage.setItem(key, JSON.stringify(car));
   }
 
-  public static getChosenCarFromLocalStorage(key = 'chosenCar'): Car | null {
+  public static getChosenCarFromLocalStorage(
+    key = StorageKey.ChosenCar,
+  ): Car | null {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : null;
   }

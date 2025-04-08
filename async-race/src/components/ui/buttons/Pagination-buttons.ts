@@ -3,16 +3,15 @@ import { Garage } from '../../garage-and-winners/Garage';
 import type { Winners } from '../../garage-and-winners/Winners';
 import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from './Button';
+import { ButtonType, StorageKey } from '../../../types';
 
 export class PaginationButtonsFactory {
   public static getNextPageButton(view: Garage | Winners): HTMLButtonElement {
-    const nextButton = ButtonFactory.create('next');
+    const nextButton = ButtonFactory.create(ButtonType.Next);
     nextButton.addEventListener('click', async () => {
       pagination.nextPage(view);
       this._savePageToLocalStorage(view);
-      const carsList = Object.entries(garage.cars);
-      carsList.forEach(([, carItem]) => carItem.enableButtonsAfterRace());
-      carTransform.enableButtonsForEndRace();
+      this._restoreRaceButtons();
       await view.initialize();
     });
     return nextButton;
@@ -21,23 +20,27 @@ export class PaginationButtonsFactory {
   public static getPreviousPageButton(
     view: Garage | Winners,
   ): HTMLButtonElement {
-    const previousButton = ButtonFactory.create('prev');
+    const previousButton = ButtonFactory.create(ButtonType.Previous);
     previousButton.addEventListener('click', async () => {
       pagination.prevPage(view);
-      const carsList = Object.entries(garage.cars);
-      carsList.forEach(([, carItem]) => carItem.enableButtonsAfterRace());
-      carTransform.enableButtonsForEndRace();
       this._savePageToLocalStorage(view);
+      this._restoreRaceButtons();
       await view.initialize();
     });
     return previousButton;
   }
 
-  private static _savePageToLocalStorage(carsHolder: Garage | Winners): void {
+  private static _savePageToLocalStorage(view: Garage | Winners): void {
     const key =
-      carsHolder instanceof Garage
-        ? 'garage-page-number'
-        : 'winners-page-number';
-    LocalStorage.setItemsToLocalStorage(key, carsHolder.currentPage);
+      view instanceof Garage ? StorageKey.GaragePage : StorageKey.WinnersPage;
+
+    LocalStorage.setItemsToLocalStorage(key, view.currentPage);
+  }
+
+  private static _restoreRaceButtons(): void {
+    Object.values(garage.cars).forEach((carItem) =>
+      carItem.enableButtonsAfterRace(),
+    );
+    carTransform.enableButtonsForEndRace();
   }
 }

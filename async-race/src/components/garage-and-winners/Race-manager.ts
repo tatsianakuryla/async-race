@@ -32,7 +32,7 @@ export class RaceManager {
     carTransform.disableButtonsForStartRace();
     await Promise.all(
       carsList.map(([id, carItem]) =>
-        carItem.animation.prepareForStart(
+        carItem.animation.prepareAnimation(
           +id,
           carItem.svgContainer,
           carItem.svg,
@@ -52,7 +52,7 @@ export class RaceManager {
           this.raceDurations.push({
             id: numericId,
             time: duration,
-            name: carItem.carName,
+            name: carItem.name,
           });
         }
 
