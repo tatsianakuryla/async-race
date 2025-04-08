@@ -1,5 +1,5 @@
 import { Api } from './api/api';
-import type { Car, Winner } from './types';
+import { Views, type Car, type Winner } from './types';
 import { HeaderFactory } from './components/ui/layout/Header';
 import { MainFactory } from './components/ui/layout/Main';
 import { GarageView } from './components/views/Garage-view';
@@ -328,8 +328,8 @@ export const garage = new Garage();
 export const winners = new Winners();
 export const pagination = new Pagination(7);
 export const carTransform = new CarTransform();
-export const garageApi = new Api<Car>('garage');
-export const winnersApi = new Api<Winner>('winners');
+export const garageApi = new Api<Car>(Views.Garage);
+export const winnersApi = new Api<Winner>(Views.Winners);
 
 export const main = MainFactory.get();
 

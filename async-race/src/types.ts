@@ -20,7 +20,11 @@ export type GetResponse<T> = {
   totalCount: number;
 };
 
-export type Views = 'garage' | 'winners';
+export enum Views {
+  Garage = 'garage',
+  Winners = 'winners',
+}
+
 export type Sort = 'id' | 'wins' | 'time';
 export type Order = 'ASC' | 'DESC';
 export type ItemsPerPage = 7 | 10;

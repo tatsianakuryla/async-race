@@ -1,10 +1,11 @@
 import { garageViewSection, winners } from '../..';
+import { Views } from '../../types';
 import { WinnerItem } from '../car/Winner';
 import { View } from './Base-view';
 
 export class WinnersView extends View {
   constructor() {
-    super('winners');
+    super(Views.Winners);
     const title = WinnerItem.getWinnersListTitle();
 
     this._container.append(
