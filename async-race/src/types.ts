@@ -44,3 +44,8 @@ export enum TransformTask {
   Create = 'create',
   Update = 'update',
 }
+
+export type WinnerInput = {
+  id: number;
+  time: number;
+};
