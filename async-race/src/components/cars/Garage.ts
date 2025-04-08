@@ -9,7 +9,7 @@ import {
   RANDOM_CAR_COLORS,
   RANDOM_CAR_MODELS,
 } from '../..';
-import type { Car } from '../../types';
+import { Car, TransformTask } from '../../types';
 import {
   enableButton,
   getRandomIndex,
@@ -23,6 +23,7 @@ import { View } from '../views/Base-view';
 import { RaceButtonsFactory } from '../ui/buttons/Race-manage-buttons';
 import { Modal } from '../ui/modal/modal';
 import { Winners } from './Winners';
+import { CarTransform } from '../ui/car-transform/Car-transform';
 
 export class Garage extends BaseCars<Car> {
   public chosenCar: Car;
@@ -34,7 +35,7 @@ export class Garage extends BaseCars<Car> {
     super(7);
     this.chosenCar = LocalStorage.getChosenCarFromLocalStorage() ?? {
       name: '',
-      color: '',
+      color: CarTransform.DEFAULT_COLOR_INPUT_VALUE,
       id: 0,
     };
     const pageNumber =
@@ -84,7 +85,7 @@ export class Garage extends BaseCars<Car> {
         this.chosenCar.name = carTransform.createTitleInput.value;
         this.chosenCar.color = carTransform.createColorInput.value;
         await garageApi.createItem(this.chosenCar);
-        this._resetFormAndReload('create');
+        this._resetFormAndReload(TransformTask.Create);
       }
     } catch {
       Garage._handleError('Creating car process ');
@@ -107,7 +108,7 @@ export class Garage extends BaseCars<Car> {
         this.chosenCar.color = carTransform.updateColorInput.value;
       }
       await garageApi.updateItem(this.chosenCar);
-      this._resetFormAndReload('update');
+      this._resetFormAndReload(TransformTask.Update);
     } catch {
       Garage._handleError('Failed to update the Item');
     }
@@ -116,7 +117,7 @@ export class Garage extends BaseCars<Car> {
   public async deleteCar(dataId: string): Promise<void> {
     try {
       if (+dataId === this.chosenCar.id) {
-        carTransform.cleanInputs('update');
+        carTransform.cleanInputs(TransformTask.Update);
       }
       await garageApi.deleteItem(+dataId);
       await this.initialize();
@@ -198,7 +199,7 @@ export class Garage extends BaseCars<Car> {
     }
   }
 
-  private async _resetFormAndReload(type: 'create' | 'update'): Promise<void> {
+  private async _resetFormAndReload(type: TransformTask): Promise<void> {
     await this.initialize();
     carTransform.cleanInputs(type);
   }

@@ -21,7 +21,6 @@ export type GetResponse<T> = {
 };
 
 export type Views = 'garage' | 'winners';
-export type TransformCarTasks = 'update' | 'create';
 export type Sort = 'id' | 'wins' | 'time';
 export type Order = 'ASC' | 'DESC';
 export type ItemsPerPage = 7 | 10;
@@ -36,3 +35,8 @@ export type EngineToDriveModeResponse = {
 };
 
 export type EngineStatus = 'started' | 'stopped' | 'drive';
+
+export enum TransformTask {
+  Create = 'create',
+  Update = 'update',
+}

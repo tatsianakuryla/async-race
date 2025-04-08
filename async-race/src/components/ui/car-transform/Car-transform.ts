@@ -1,5 +1,5 @@
 import { garage } from '../../..';
-import type { TransformCarTasks } from '../../../types';
+import { TransformTask } from '../../../types';
 import {
   createElementWithClassId,
   disableButton,
@@ -10,15 +10,20 @@ import { ButtonFactory } from '../buttons/Button';
 import { InputFactory } from '../inputs/Input';
 
 export class CarTransform {
-  private static _DEFAULT_COLOR_INPUT_VALUE = '#ffcc00';
   private static _DEFAULT_TITLE_INPUT_VALUE = '';
+  private static CREATE_TITLE_KEY = 'create-title';
+  private static CREATE_COLOR_KEY = 'create-color';
+  private static CHOSEN_CAR_KEY = 'chosenCar';
 
-  public updateTitleInput = CarTransform._getTitleInput('update');
-  public updateColorInput = CarTransform._getColorInput('update');
-  public createTitleInput = CarTransform._getTitleInput('create');
-  public createColorInput = CarTransform._getColorInput('create');
-  public updateButton = CarTransform._getTransformButton('update');
-  public createButton = CarTransform._getTransformButton('create');
+  public static DEFAULT_COLOR_INPUT_VALUE = '#ffcc00';
+
+  public updateTitleInput = CarTransform._getTitleInput(TransformTask.Update);
+  public updateColorInput = CarTransform._getColorInput(TransformTask.Update);
+  public createTitleInput = CarTransform._getTitleInput(TransformTask.Create);
+  public createColorInput = CarTransform._getColorInput(TransformTask.Create);
+  public updateButton = CarTransform._getTransformButton(TransformTask.Update);
+  public createButton = CarTransform._getTransformButton(TransformTask.Create);
+
   private _component: HTMLElement;
 
   constructor() {
@@ -26,78 +31,50 @@ export class CarTransform {
       'app__transform-block',
       'flex',
     ]);
-    this.updateTitleInput.addEventListener('input', () => {
-      garage.chosenCar.name = this.updateTitleInput.value;
-      LocalStorage.saveChosenCarToLocalStorage('chosenCar', garage.chosenCar);
-    });
-    this.updateColorInput.addEventListener('change', () => {
-      garage.chosenCar.color = this.updateColorInput.value;
-      LocalStorage.saveChosenCarToLocalStorage('chosenCar', garage.chosenCar);
-    });
-    this.createTitleInput.addEventListener('input', () =>
-      LocalStorage.setItemsToLocalStorage(
-        'create-title',
-        this.createTitleInput.value,
+
+    this._addUpdateInputListeners();
+    this._addCreateInputListeners();
+
+    this._component.append(
+      this._getTransformOption(
+        TransformTask.Update,
+        this.updateTitleInput,
+        this.updateColorInput,
+        this.updateButton,
+        () => garage.updateCar(),
+      ),
+      this._getTransformOption(
+        TransformTask.Create,
+        this.createTitleInput,
+        this.createColorInput,
+        this.createButton,
+        () => garage.createCar(),
       ),
     );
-    this.createColorInput.addEventListener('change', () =>
-      LocalStorage.setItemsToLocalStorage(
-        'create-color',
-        this.createColorInput.value,
-      ),
-    );
-    this._component.append(this._getUpdateOption(), this._getCreateOption());
   }
 
   public get block(): HTMLElement {
     return this._component;
   }
 
-  private static _getTitleInput(
-    transformTask: TransformCarTasks,
-  ): HTMLInputElement {
-    const titleInput = InputFactory.create('text', 'car-title');
-    titleInput.placeholder = 'Enter car title...';
-    const value = garage.chosenCar.name;
-    if (value !== null) {
-      titleInput.value = value;
-    }
-    titleInput.dataset.id = transformTask;
-    return titleInput;
-  }
-
-  private static _getColorInput(
-    transformTask: TransformCarTasks,
-  ): HTMLInputElement {
-    const colorInput = InputFactory.create('color', 'color');
-    const value = garage.chosenCar.color;
-    if (value !== null) {
-      colorInput.value = value;
-    } else {
-      colorInput.value = this._DEFAULT_COLOR_INPUT_VALUE;
-    }
-    colorInput.dataset.id = transformTask;
-    return colorInput;
-  }
-
-  private static _getTransformButton(
-    transformTask: TransformCarTasks,
-  ): HTMLButtonElement {
-    const confirmButton = ButtonFactory.create(transformTask);
-    return confirmButton;
-  }
-
-  public cleanInputs(transformTask: TransformCarTasks): void {
+  public cleanInputs(transformTask: TransformTask): void {
     if (transformTask === 'create') {
       this.createTitleInput.value = CarTransform._DEFAULT_TITLE_INPUT_VALUE;
-      this.createColorInput.value = CarTransform._DEFAULT_COLOR_INPUT_VALUE;
+      this.createColorInput.value = CarTransform.DEFAULT_COLOR_INPUT_VALUE;
     } else if (transformTask === 'update') {
       this.updateTitleInput.value = CarTransform._DEFAULT_TITLE_INPUT_VALUE;
-      this.updateColorInput.value = CarTransform._DEFAULT_COLOR_INPUT_VALUE;
-      garage.chosenCar.name = this.updateTitleInput.value;
-      garage.chosenCar.color = this.updateColorInput.value;
-      garage.chosenCar.id = 0;
-      LocalStorage.saveChosenCarToLocalStorage('chosenCar', garage.chosenCar);
+      this.updateColorInput.value = CarTransform.DEFAULT_COLOR_INPUT_VALUE;
+
+      garage.chosenCar = {
+        name: '',
+        color: CarTransform.DEFAULT_COLOR_INPUT_VALUE,
+        id: 0,
+      };
+
+      LocalStorage.saveChosenCarToLocalStorage(
+        CarTransform.CHOSEN_CAR_KEY,
+        garage.chosenCar,
+      );
     }
   }
 
@@ -111,37 +88,88 @@ export class CarTransform {
     enableButton(this.createButton);
   }
 
-  private _getUpdateOption(): HTMLElement {
+  private _addUpdateInputListeners(): void {
+    this.updateTitleInput.addEventListener('input', () => {
+      garage.chosenCar.name = this.updateTitleInput.value;
+      LocalStorage.saveChosenCarToLocalStorage(
+        CarTransform.CHOSEN_CAR_KEY,
+        garage.chosenCar,
+      );
+    });
+
+    this.updateColorInput.addEventListener('change', () => {
+      garage.chosenCar.color = this.updateColorInput.value;
+      LocalStorage.saveChosenCarToLocalStorage(
+        CarTransform.CHOSEN_CAR_KEY,
+        garage.chosenCar,
+      );
+    });
+  }
+
+  private _addCreateInputListeners(): void {
+    this.createTitleInput.addEventListener('input', () =>
+      LocalStorage.setItemsToLocalStorage(
+        CarTransform.CREATE_TITLE_KEY,
+        this.createTitleInput.value,
+      ),
+    );
+
+    this.createColorInput.addEventListener('change', () =>
+      LocalStorage.setItemsToLocalStorage(
+        CarTransform.CREATE_COLOR_KEY,
+        this.createColorInput.value,
+      ),
+    );
+  }
+
+  private _getTransformOption(
+    task: TransformTask,
+    titleInput: HTMLInputElement,
+    colorInput: HTMLInputElement,
+    button: HTMLButtonElement,
+    action: () => void,
+  ): HTMLElement {
     const option = createElementWithClassId('div', [
       'app__transform-option',
       'flex',
     ]);
-    this.updateButton.dataset.id = 'update';
-    this.updateButton.addEventListener('click', () => {
-      garage.updateCar();
-    });
-    option.append(
-      this.updateTitleInput,
-      this.updateColorInput,
-      this.updateButton,
-    );
+    button.dataset.id = task;
+    button.addEventListener('click', action);
+    option.append(titleInput, colorInput, button);
     return option;
   }
 
-  private _getCreateOption(): HTMLElement {
-    const option = createElementWithClassId('div', [
-      'app__transform-option',
-      'flex',
-    ]);
-    this.createButton.dataset.id = 'create';
-    this.createButton.addEventListener('click', () => {
-      garage.createCar();
-    });
-    option.append(
-      this.createTitleInput,
-      this.createColorInput,
-      this.createButton,
-    );
-    return option;
+  private static _getTitleInput(task: TransformTask): HTMLInputElement {
+    const titleInput = InputFactory.create('text', 'car-title');
+    titleInput.placeholder = 'Enter car title...';
+    const value =
+      task === 'update'
+        ? garage.chosenCar.name
+        : LocalStorage.getItemsFromLocalStorage(CarTransform.CREATE_TITLE_KEY);
+
+    if (value !== null) {
+      titleInput.value = value;
+    }
+
+    titleInput.dataset.id = task;
+    return titleInput;
+  }
+
+  private static _getColorInput(task: TransformTask): HTMLInputElement {
+    const colorInput = InputFactory.create('color', 'color');
+    const value =
+      task === 'update'
+        ? garage.chosenCar.color
+        : LocalStorage.getItemsFromLocalStorage(CarTransform.CREATE_COLOR_KEY);
+
+    colorInput.value =
+      value !== null ? value : CarTransform.DEFAULT_COLOR_INPUT_VALUE;
+
+    colorInput.dataset.id = task;
+    return colorInput;
+  }
+
+  private static _getTransformButton(task: TransformTask): HTMLButtonElement {
+    return ButtonFactory.create(task);
   }
 }
