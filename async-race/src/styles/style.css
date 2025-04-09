@@ -52,10 +52,12 @@ html {
 }
 
 body {
-  margin: 0 auto;
   height: 100vh;
+  margin: 0 auto;
+
   font-family: var(--font-main);
   color: var(--color-text);
+
   background-color: var(--color-bg);
 }
 
@@ -115,6 +117,7 @@ span {
 
 .app__transform-option {
   --offsets: 1;
+
   flex-basis: calc(
     (100% - var(--flex-gap) * var(--offsets)) / (var(--offsets) + 1)
   );
@@ -122,31 +125,39 @@ span {
 
 .app__input_car-title {
   --offsets: 2;
+
   width: calc((100% - 30px - 100px - var(--flex-gap) * var(--offsets)));
   padding: 0.3rem 1rem;
   border: 2px solid var(--color-border);
   border-radius: 8px;
+
   font-size: 1rem;
   color: var(--color-text);
+
   background-color: var(--color-card);
 }
 
 .app__input_color {
   cursor: pointer;
+
   width: 30px;
   height: 30px;
   border: none;
+
   background: none;
 }
 
 .app__button {
   cursor: pointer;
+
   padding: 0.3rem 1.2rem;
   border: none;
   border-radius: 8px;
+
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
+
   transition: background 0.2s ease;
 }
 
@@ -167,10 +178,10 @@ span {
 
 .app__button_visit-garage:disabled,
 .app__button_visit-winners:disabled {
-  background-color: var(--color-visit-disabled);
-  opacity: 0.6;
-  cursor: not-allowed;
   pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: var(--color-visit-disabled);
 }
 
 .app__button_update {
@@ -192,10 +203,10 @@ span {
 .app__button_generate-cars:disabled,
 .app__button_create:disabled,
 .app__button_update:disabled {
-  background-color: var(--color-dark-btn-disabled);
-  opacity: 0.7;
-  cursor: not-allowed;
   pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.7;
+  background-color: var(--color-dark-btn-disabled);
 }
 
 .app__button_select,
@@ -205,8 +216,10 @@ span {
   width: 85px;
   border: 1px solid var(--color-border);
   border-radius: 10px;
+
   font-size: 0.9rem;
   font-weight: 500;
+
   background-color: var(--color-dark-bg);
 }
 
@@ -214,9 +227,11 @@ span {
 .app__button_delete:disabled,
 .app__button_start:disabled,
 .app__button_stop:disabled {
-  cursor: not-allowed;
   pointer-events: none;
+  cursor: not-allowed;
+
   color: var(--color-disabled-text);
+
   opacity: 0.6;
   background-color: var(--color-disabled-bg);
 }
@@ -229,20 +244,24 @@ span {
 .app__button_prev,
 .app__button_next {
   cursor: pointer;
+
   padding: 0.3rem 1rem;
   border: none;
   border-radius: 0.5rem;
+
   font-size: 0.8rem;
   font-weight: bold;
   color: var(--color-page-text);
+
   background-color: var(--color-page-bg);
+
   transition: var(--transition-bg);
 }
 
 .app__button_prev:disabled,
 .app__button_next:disabled {
-  cursor: not-allowed;
   pointer-events: none;
+  cursor: not-allowed;
   color: var(--color-page-text-disabled);
   background-color: var(--color-page-bg-disabled);
 }
@@ -256,9 +275,11 @@ span {
 
 .app__item {
   gap: 3px;
+
   padding: 0.3rem 1rem;
   border: 1px solid var(--color-dark-btn);
   border-radius: 12px;
+
   background-color: var(--color-card);
   box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
 }
@@ -295,9 +316,12 @@ span {
 
 .app__item-title_winners-wins,
 .app__item-title_winners-time {
-  position: relative;
-  height: 40px;
   --offsets: 4;
+
+  position: relative;
+
+  align-items: center;
+
   min-width: calc(
     (
         100% - var(--item-title-width) - var(--svg-width) - 10% -
@@ -305,30 +329,37 @@ span {
       ) /
       2
   );
-  align-items: center;
+  height: 40px;
+
   text-align: center;
 }
 
 .app__button_sort {
   position: absolute;
   right: 0;
-  height: 100%;
+
   width: 40px;
+  height: 100%;
+
   background-color: transparent;
   background-image: url('../images/sort.svg');
-  background-size: 80% 80%;
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80% 80%;
+
   transition: filter 0.3s ease-in-out;
 }
 
 .app__svg-container {
   position: relative;
+
   flex-shrink: 0;
   align-items: center;
+
   width: calc(100% - var(--item-title-width) - var(--flex-gap));
   height: 45px;
   padding-bottom: 2px;
+
   background-image: url('../images/finish.png');
   background-repeat: no-repeat;
   background-position: calc(100% - 70px) center;
@@ -337,12 +368,15 @@ span {
 
 .app__svg-container_garage::after {
   content: '';
+
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
+
   height: 3px;
   border-radius: 1px;
+
   background-color: var(--color-border);
 }
 
@@ -373,30 +407,36 @@ span {
   .app__button_update:hover {
     background-color: var(--color-hover-update);
   }
+
   .app__button_create:hover {
     background-color: var(--color-hover-create);
   }
+
   .app__button_visit-garage:hover,
   .app__button_visit-winners:hover {
     background-color: var(--color-hover-visit);
   }
+
   .app__button_race-all:hover,
   .app__button_reset-race:hover,
   .app__button_generate-cars:hover {
     background-color: var(--color-hover-race);
   }
+
   .app__button_select:hover,
   .app__button_delete:hover,
   .app__button_start:hover,
   .app__button_stop:hover {
     background-color: var(--color-dark-bg-hover);
   }
+
   .app__button_prev:hover:not(:disabled),
   .app__button_next:hover:not(:disabled) {
     background-color: var(--color-hover-page);
   }
+
   .app__button_sort:hover {
-    filter: drop-shadow(0 0 5px white);
+    filter: drop-shadow(0 0 5px var(--color-text));
   }
 }
 
@@ -404,29 +444,35 @@ span {
   .app__button_update:active {
     background-color: var(--color-hover-update);
   }
+
   .app__button_create:active {
     background-color: var(--color-hover-create);
   }
+
   .app__button_visit-garage:active,
   .app__button_visit-winners:active {
     background-color: var(--color-hover-visit);
   }
+
   .app__button_race-all:active,
   .app__button_reset-race:active,
   .app__button_generate-cars:active {
     background-color: var(--color-hover-race);
   }
+
   .app__button_select:active,
   .app__button_delete:active,
   .app__button_start:active,
   .app__button_stop:active {
     background-color: var(--color-dark-bg-hover);
   }
+
   .app__button_prev:active:not(:disabled),
   .app__button_next:active:not(:disabled) {
     background-color: var(--color-hover-page);
   }
+
   .app__button_sort:active {
-    filter: drop-shadow(0 0 5px white);
+    filter: drop-shadow(0 0 5px var(--color-text));
   }
 }
