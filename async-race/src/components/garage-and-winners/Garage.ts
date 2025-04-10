@@ -65,6 +65,8 @@ export class Garage extends BaseCars<Car> {
       }
 
       GarageStorageManager.saveCurrentPage(this._currentPage);
+      this._updatePagination();
+      RaceButtonsFactory.manageButtonsRaceEnd();
     } catch {
       Garage._showError('Failed to load cars');
     }

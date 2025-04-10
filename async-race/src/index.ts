@@ -326,6 +326,7 @@ export const errorNotification = new ErrorNotification();
 export const garage = new Garage();
 export const winners = new Winners();
 export const pagination = new Pagination(7);
+export const winnersPagination = new Pagination(10);
 export const carTransform = new CarTransform();
 export const garageApi = new Api<Car>(Views.Garage);
 export const winnersApi = new Api<Winner>(Views.Winners);

@@ -3,6 +3,7 @@ import {
   garageApi,
   winners,
   winnersApi,
+  winnersPagination,
   winnersView,
 } from '../..';
 import {
@@ -156,6 +157,7 @@ export class Winners extends BaseCars<Winner> {
         this.order,
         winners,
       );
+      winnersPagination.totalItems = this._totalItemsCount;
       this._items = response.results;
       this._totalItemsCount = response.totalCount;
     } catch {
@@ -168,5 +170,14 @@ export class Winners extends BaseCars<Winner> {
     winnersView.updateTotalItemsQuantityInfo(this);
     winnersView.updatePageNumberInfo(this);
     View.updatePaginationButtons(winnersView, winners);
+    this._updatePagination();
+  }
+
+  private _updatePagination(): void {
+    if (!winnersPagination.isLastPage(this)) {
+      winnersView.nextPageButton.disabled = false;
+    } else {
+      winnersView.nextPageButton.disabled = true;
+    }
   }
 }
