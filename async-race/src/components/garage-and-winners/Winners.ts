@@ -145,6 +145,22 @@ export class Winners extends BaseCars<Winner> {
   public async deleteCar(dataId: string): Promise<void> {
     await Winners._safeExecute(async () => {
       await winnersApi.deleteItem(+dataId);
+      const response = await winnersApi.getAll(
+        1,
+        this.sort,
+        this.order,
+        winners,
+      );
+      const totalCount = response.totalCount;
+      const maxPage = Math.ceil(totalCount / this._itemsPerPage);
+
+      if (this._currentPage > maxPage) {
+        this._currentPage = maxPage || 1;
+        LocalStorage.setItemsToLocalStorage(
+          StorageKey.WinnersPage,
+          this._currentPage,
+        );
+      }
       await this.initialize();
     }, 'Failed to delete the winner');
   }
@@ -157,9 +173,10 @@ export class Winners extends BaseCars<Winner> {
         this.order,
         winners,
       );
-      winnersPagination.totalItems = this._totalItemsCount;
+
       this._items = response.results;
       this._totalItemsCount = response.totalCount;
+      winnersPagination.totalItems = this._totalItemsCount;
     } catch {
       Winners._reportError('Failed to load winners data');
     }

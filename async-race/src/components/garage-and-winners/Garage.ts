@@ -141,6 +141,15 @@ export class Garage extends BaseCars<Car> {
 
     try {
       await garageApi.deleteItem(+dataId);
+      const response = await garageApi.getAll(1, Sort.Id, Order.ASC, garage);
+      const totalCount = response.totalCount;
+      const maxPage = Math.ceil(totalCount / this._itemsPerPage);
+
+      if (this._currentPage > maxPage) {
+        this._currentPage = maxPage || 1;
+        GarageStorageManager.saveCurrentPage(this._currentPage);
+      }
+
       await this.initialize();
     } catch {
       Garage._showError('Failed to delete car');
