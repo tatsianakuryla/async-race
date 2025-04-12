@@ -102,8 +102,3 @@ export enum StorageKey {
   UpdateTitle = 'update-title',
   UpdateColor = 'update-color',
 }
-
-export enum PaginationButtonsId {
-  next = 'next-page-button',
-  prev = 'prev-page-button',
-}

@@ -12,8 +12,26 @@ export class RaceManager {
   private _isRaceActive = false;
   private _finishedCount = 0;
 
+  private static _disableButtonsRaceStart(
+    cars: Record<number, GarageItem>,
+  ): void {
+    Object.values(cars).forEach((carItem) => carItem.disableButtonsForRace());
+    carTransform.disableButtonsForStartRace();
+    disableButton(RouteButtonsFactory.visitWinnersButton);
+    PaginationButtonsFactory.disablePaginationButtons();
+  }
+
+  private static _enableButtonsRaceStart(
+    cars: Record<number, GarageItem>,
+  ): void {
+    carTransform.enableButtonsForEndRace();
+    Object.values(cars).forEach((carItem) => carItem.enableButtonsAfterRace());
+    enableButton(RouteButtonsFactory.visitWinnersButton);
+    PaginationButtonsFactory.enablePaginationButtons();
+  }
+
   public async resetRace(cars: Record<number, GarageItem>): Promise<void> {
-    this._enableButtonsRaceStart(cars);
+    RaceManager._enableButtonsRaceStart(cars);
     this._isRaceActive = false;
     const resetPromises = Object.entries(cars).map(([id, carItem]) =>
       carItem.animation.stopAnimation(+id, carItem.svg),
@@ -28,7 +46,7 @@ export class RaceManager {
 
     const carsList = Object.entries(cars);
 
-    this._disableButtonsRaceStart(cars);
+    RaceManager._disableButtonsRaceStart(cars);
     await Promise.all(
       carsList.map(([id, carItem]) =>
         carItem.animation.prepareAnimation(
@@ -76,19 +94,5 @@ export class RaceManager {
 
     setTimeout(() => modal.open(), 1000);
     await Winners.saveWinner({ id: winner.id, time: +timeInSec });
-  }
-
-  private _disableButtonsRaceStart(cars: Record<number, GarageItem>): void {
-    Object.values(cars).forEach((carItem) => carItem.disableButtonsForRace());
-    carTransform.disableButtonsForStartRace();
-    disableButton(RouteButtonsFactory.visitWinnersButton);
-    PaginationButtonsFactory.disablePaginationButtons();
-  }
-
-  private _enableButtonsRaceStart(cars: Record<number, GarageItem>): void {
-    carTransform.enableButtonsForEndRace();
-    Object.values(cars).forEach((carItem) => carItem.enableButtonsAfterRace());
-    enableButton(RouteButtonsFactory.visitWinnersButton);
-    PaginationButtonsFactory.enablePaginationButtons();
   }
 }

@@ -15,6 +15,30 @@ export class CarTransform {
   public static readonly DEFAULT_COLOR_INPUT_VALUE = '#ffcc00';
   private static readonly _DEFAULT_TITLE_INPUT_VALUE = '';
 
+  public updateTitleInput = CarTransform._createTitleInput(
+    TransformTask.Update,
+  );
+
+  public updateColorInput = CarTransform._createColorInput(
+    TransformTask.Update,
+  );
+
+  public createTitleInput = CarTransform._createTitleInput(
+    TransformTask.Create,
+  );
+
+  public createColorInput = CarTransform._createColorInput(
+    TransformTask.Create,
+  );
+
+  public updateButton = CarTransform._createTransformButton(
+    TransformTask.Update,
+  );
+
+  public createButton = CarTransform._createTransformButton(
+    TransformTask.Create,
+  );
+
   private _component: HTMLElement;
 
   constructor() {
@@ -47,25 +71,6 @@ export class CarTransform {
   public get block(): HTMLElement {
     return this._component;
   }
-
-  public updateTitleInput = CarTransform._createTitleInput(
-    TransformTask.Update,
-  );
-  public updateColorInput = CarTransform._createColorInput(
-    TransformTask.Update,
-  );
-  public createTitleInput = CarTransform._createTitleInput(
-    TransformTask.Create,
-  );
-  public createColorInput = CarTransform._createColorInput(
-    TransformTask.Create,
-  );
-  public updateButton = CarTransform._createTransformButton(
-    TransformTask.Update,
-  );
-  public createButton = CarTransform._createTransformButton(
-    TransformTask.Create,
-  );
 
   private static _createTitleInput(task: TransformTask): HTMLInputElement {
     const input = InputFactory.create('text', 'car-title');

@@ -3,15 +3,13 @@ import { Garage } from '../../garage-and-winners/Garage';
 import type { Winners } from '../../garage-and-winners/Winners';
 import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from './Button';
-import { ButtonType, PaginationButtonsId, StorageKey } from '../../../types';
+import { ButtonType, StorageKey } from '../../../types';
 import { Pagination } from '../../pagination/Pagination';
 import { disableButton, enableButton } from '../../../utils/helpers';
-import { BaseCars } from '../../garage-and-winners/Base-cars';
 
 export class PaginationButtonsFactory {
   public static getNextPageButton(view: Garage | Winners): HTMLButtonElement {
     const nextButton = ButtonFactory.create(ButtonType.Next);
-    nextButton.id = PaginationButtonsId.next;
     nextButton.addEventListener('click', async () => {
       garagePagination.nextPage(view);
       this._savePageToLocalStorage(view);
@@ -24,7 +22,6 @@ export class PaginationButtonsFactory {
     view: Garage | Winners,
   ): HTMLButtonElement {
     const previousButton = ButtonFactory.create(ButtonType.Previous);
-    previousButton.id = PaginationButtonsId.prev;
     previousButton.addEventListener('click', async () => {
       Pagination.prevPage(view);
       this._savePageToLocalStorage(view);
