@@ -51,7 +51,6 @@ export class GarageItem extends BaseCar {
     disableButton(this.startRaceButton);
     disableButton(this.deleteItemButton);
     disableButton(this.selectItemButton);
-    carTransform.disableButtonsForStartRace();
   }
 
   private _enableButtonsAfterIndividualRace(): void {
@@ -59,7 +58,6 @@ export class GarageItem extends BaseCar {
     enableButton(this.startRaceButton);
     enableButton(this.deleteItemButton);
     enableButton(this.selectItemButton);
-    carTransform.enableButtonsForEndRace();
   }
 
   private _startCarAnimation(id: number): void {

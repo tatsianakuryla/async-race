@@ -1,4 +1,4 @@
-import { carTransform, garage, garageView, winnersView } from '../../..';
+import { garageView, winnersView } from '../../..';
 import { ButtonType, RouteButtonType, CarHolders } from '../../../types';
 import {
   createButtonsContainer,
@@ -8,24 +8,14 @@ import {
 import { ButtonFactory } from './Button';
 
 export class RouteButtonsFactory {
-  private static _visitGarageButton: HTMLButtonElement | null = null;
-  private static _visitWinnersButton: HTMLButtonElement | null = null;
+  private static _visitGarageButton: HTMLButtonElement;
+  private static _visitWinnersButton: HTMLButtonElement;
 
   public static get visitGarageButton(): HTMLButtonElement {
-    if (!this._visitGarageButton) {
-      throw new Error(
-        'visitGarageButton not initialized. Call createRouteButtons() first.',
-      );
-    }
     return this._visitGarageButton;
   }
 
   public static get visitWinnersButton(): HTMLButtonElement {
-    if (!this._visitWinnersButton) {
-      throw new Error(
-        'visitWinnersButton not initialized. Call createRouteButtons() first.',
-      );
-    }
     return this._visitWinnersButton;
   }
 
@@ -43,7 +33,6 @@ export class RouteButtonsFactory {
     this._visitWinnersButton.addEventListener('click', () => {
       winnersView.open();
       this.updateRouteButtonStates(CarHolders.Winners);
-      this._restoreRaceStateAfterNavigation();
     });
 
     buttonsContainer.append(this._visitGarageButton, this._visitWinnersButton);
@@ -58,12 +47,5 @@ export class RouteButtonsFactory {
       enableButton(this.visitGarageButton);
       disableButton(this.visitWinnersButton);
     }
-  }
-
-  private static _restoreRaceStateAfterNavigation(): void {
-    Object.values(garage.cars).forEach((carItem) =>
-      carItem.enableButtonsAfterRace(),
-    );
-    carTransform.enableButtonsForEndRace();
   }
 }
