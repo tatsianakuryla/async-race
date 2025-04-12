@@ -29,6 +29,10 @@ export class GarageItem extends BaseCar {
     this._element.append(garageButtons);
   }
 
+  private static _setButtonId(button: HTMLButtonElement, id: number): void {
+    button.dataset.id = String(id);
+  }
+
   public disableButtonsForRace(): void {
     disableButton(this.startRaceButton);
     disableButton(this.stopRaceButton);
@@ -77,8 +81,8 @@ export class GarageItem extends BaseCar {
   private _createRaceButtons(id: number): HTMLElement {
     const container = createButtonsContainer('garage-race');
 
-    this._setButtonId(this.startRaceButton, id);
-    this._setButtonId(this.stopRaceButton, id);
+    GarageItem._setButtonId(this.startRaceButton, id);
+    GarageItem._setButtonId(this.stopRaceButton, id);
 
     disableButton(this.stopRaceButton);
 
@@ -119,9 +123,5 @@ export class GarageItem extends BaseCar {
 
     buttonsContainer.append(this.selectItemButton, this.deleteItemButton);
     return buttonsContainer;
-  }
-
-  private _setButtonId(button: HTMLButtonElement, id: number): void {
-    button.dataset.id = String(id);
   }
 }

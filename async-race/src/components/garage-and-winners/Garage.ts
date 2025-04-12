@@ -3,12 +3,12 @@ import {
   errorNotification,
   garage,
   garageApi,
+  garagePagination,
   garageView,
-  pagination,
 } from '../..';
 import type { Car } from '../../types';
 import { ItemsPerPage, Order, Sort, TransformTask } from '../../types';
-import { enableButton, getTrimmedInputValue } from '../../utils/helpers';
+import { getTrimmedInputValue } from '../../utils/helpers';
 import { GarageItem } from '../car/Garage-item';
 import { BaseCars } from './Base-cars';
 import { CarTransform } from '../ui/car-transform/Car-transform';
@@ -65,7 +65,7 @@ export class Garage extends BaseCars<Car> {
       }
 
       GarageStorageManager.saveCurrentPage(this._currentPage);
-      this._updatePagination();
+      BaseCars._updatePagination(garage, garagePagination, garageView);
       RaceButtonsFactory.manageButtonsRaceEnd();
     } catch {
       Garage._showError('Failed to load cars');
@@ -180,7 +180,7 @@ export class Garage extends BaseCars<Car> {
       await Promise.all(createPromises);
       await this.initialize();
 
-      this._updatePagination();
+      BaseCars._updatePagination(garage, garagePagination, garageView);
     } catch {
       Garage._showError('Failed to add random cars');
     }
@@ -212,11 +212,5 @@ export class Garage extends BaseCars<Car> {
     this.chosenCar = car;
     GarageStorageManager.saveChosenCar(car);
     this._updateTransformFromSelectedCar();
-  }
-
-  private _updatePagination(): void {
-    if (!pagination.isLastPage(this)) {
-      enableButton(garageView.nextPageButton);
-    }
   }
 }

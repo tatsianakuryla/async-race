@@ -1,4 +1,4 @@
-import type { Car } from '../../types';
+import type { Car, Order, Sort } from '../../types';
 import { StorageKey } from '../../types';
 
 export class LocalStorage {
@@ -32,6 +32,16 @@ export class LocalStorage {
   public static getChosenCarFromLocalStorage(
     key = StorageKey.ChosenCar,
   ): Car | null {
+    const result = localStorage.getItem(key);
+    return result ? JSON.parse(result) : null;
+  }
+
+  public static getOrderFromLocalStorage(key: StorageKey.Order): Order | null {
+    const result = localStorage.getItem(key);
+    return result ? JSON.parse(result) : null;
+  }
+
+  public static getSortFromLocalStorage(key: StorageKey.Sort): Sort | null {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : null;
   }

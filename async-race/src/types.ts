@@ -20,7 +20,7 @@ export type GetResponse<T> = {
   totalCount: number;
 };
 
-export enum Views {
+export enum CarHolders {
   Garage = 'garage',
   Winners = 'winners',
 }

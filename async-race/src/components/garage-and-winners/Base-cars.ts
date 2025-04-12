@@ -1,5 +1,10 @@
 import { errorNotification } from '../..';
 import type { ItemsPerPage } from '../../types';
+import { disableButton, enableButton } from '../../utils/helpers';
+import type { Pagination } from '../pagination/Pagination';
+import type { View } from '../views/Base-view';
+import type { Garage } from './Garage';
+import type { Winners } from './Winners';
 
 export abstract class BaseCars<T> {
   protected static readonly DEFAULT_PAGE = 1;
@@ -31,5 +36,17 @@ export abstract class BaseCars<T> {
 
   protected static _reportError(context: string): void {
     errorNotification.open(context);
+  }
+
+  protected static _updatePagination(
+    carHolder: Garage | Winners,
+    pagination: Pagination,
+    view: View,
+  ): void {
+    if (!pagination.isLastPage(carHolder)) {
+      enableButton(view.nextPageButton);
+    } else {
+      disableButton(view.nextPageButton);
+    }
   }
 }

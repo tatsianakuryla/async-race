@@ -1,5 +1,5 @@
 import { carTransform, garage, garageView, winnersView } from '../../..';
-import { ButtonType, RouteButtonType, Views } from '../../../types';
+import { ButtonType, RouteButtonType, CarHolders } from '../../../types';
 import {
   createButtonsContainer,
   disableButton,
@@ -37,12 +37,12 @@ export class RouteButtonsFactory {
 
     this._visitGarageButton.addEventListener('click', () => {
       garageView.open();
-      this.updateRouteButtonStates(Views.Garage);
+      this.updateRouteButtonStates(CarHolders.Garage);
     });
 
     this._visitWinnersButton.addEventListener('click', () => {
       winnersView.open();
-      this.updateRouteButtonStates(Views.Winners);
+      this.updateRouteButtonStates(CarHolders.Winners);
       this._restoreRaceStateAfterNavigation();
     });
 
@@ -50,8 +50,8 @@ export class RouteButtonsFactory {
     return buttonsContainer;
   }
 
-  public static updateRouteButtonStates(active: Views): void {
-    if (active === Views.Garage) {
+  public static updateRouteButtonStates(active: CarHolders): void {
+    if (active === CarHolders.Garage) {
       enableButton(this.visitWinnersButton);
       disableButton(this.visitGarageButton);
     } else {

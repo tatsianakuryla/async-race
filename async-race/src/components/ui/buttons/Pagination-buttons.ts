@@ -1,15 +1,16 @@
-import { carTransform, garage, pagination } from '../../..';
+import { carTransform, garage, garagePagination } from '../../..';
 import { Garage } from '../../garage-and-winners/Garage';
 import type { Winners } from '../../garage-and-winners/Winners';
 import { LocalStorage } from '../../local-storage/Local-storage';
 import { ButtonFactory } from './Button';
 import { ButtonType, StorageKey } from '../../../types';
+import { Pagination } from '../../pagination/Pagination';
 
 export class PaginationButtonsFactory {
   public static getNextPageButton(view: Garage | Winners): HTMLButtonElement {
     const nextButton = ButtonFactory.create(ButtonType.Next);
     nextButton.addEventListener('click', async () => {
-      pagination.nextPage(view);
+      garagePagination.nextPage(view);
       this._savePageToLocalStorage(view);
       this._restoreRaceButtons();
       await view.initialize();
@@ -22,7 +23,7 @@ export class PaginationButtonsFactory {
   ): HTMLButtonElement {
     const previousButton = ButtonFactory.create(ButtonType.Previous);
     previousButton.addEventListener('click', async () => {
-      pagination.prevPage(view);
+      Pagination.prevPage(view);
       this._savePageToLocalStorage(view);
       this._restoreRaceButtons();
       await view.initialize();

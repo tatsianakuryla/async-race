@@ -1,22 +1,22 @@
-import { pagination } from '..';
+import { garagePagination } from '..';
 import type { Garage } from '../components/garage-and-winners/Garage';
 import type { Winners } from '../components/garage-and-winners/Winners';
 import {
   Order,
+  Sort
+} from '../types';
+import type { GetResponse, CarHolders ,
   CarOrWinner,
-  Sort,
   EngineDataResponse,
   EngineToDriveModeResponse,
-  EngineStatus,
-} from '../types';
-import type { GetResponse, Views } from '../types';
+  EngineStatus} from '../types';
 import { BASE_URL } from '../types';
 
 export class Api<T extends CarOrWinner> {
   private static readonly DEFAULT_LIMIT = 7;
   private static readonly TOTAL_COUNT_HEADER = 'X-Total-Count';
 
-  constructor(private readonly view: Views) {}
+  constructor(private readonly view: CarHolders) {}
 
   private get baseViewUrl(): string {
     return `${BASE_URL}/${this.view}`;
@@ -26,8 +26,8 @@ export class Api<T extends CarOrWinner> {
     id: number,
     status: EngineStatus,
   ): Promise<EngineDataResponse> {
-    const params = new URLSearchParams({ id: String(id), status });
-    const response = await fetch(`${BASE_URL}/engine?${params}`, {
+    const parameters = new URLSearchParams({ id: String(id), status });
+    const response = await fetch(`${BASE_URL}/engine?${parameters}`, {
       method: 'PATCH',
     });
     return response.json();
@@ -36,8 +36,8 @@ export class Api<T extends CarOrWinner> {
   public static async switchEngineToDriveMode(
     id: number,
   ): Promise<EngineToDriveModeResponse> {
-    const params = new URLSearchParams({ id: String(id), status: 'drive' });
-    const response = await fetch(`${BASE_URL}/engine?${params}`, {
+    const parameters = new URLSearchParams({ id: String(id), status: 'drive' });
+    const response = await fetch(`${BASE_URL}/engine?${parameters}`, {
       method: 'PATCH',
     });
     return response.json();
@@ -57,7 +57,7 @@ export class Api<T extends CarOrWinner> {
     const totalCount =
       Number(response.headers.get(Api.TOTAL_COUNT_HEADER)) || 0;
 
-    pagination.totalItems = totalCount;
+    garagePagination.totalItems = totalCount;
 
     return { results, totalCount };
   }

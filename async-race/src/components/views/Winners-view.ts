@@ -1,12 +1,12 @@
 import { garageViewSection, winners } from '../..';
-import { Views } from '../../types';
+import { CarHolders } from '../../types';
 import { WinnerItem } from '../car/Winner';
 import { RouteButtonsFactory } from '../ui/buttons/Route-buttons-factory';
 import { View } from './Base-view';
 
 export class WinnersView extends View {
   constructor() {
-    super(Views.Winners);
+    super(CarHolders.Winners);
     const title = WinnerItem.getWinnersListTitle();
 
     this._container.append(
@@ -19,6 +19,6 @@ export class WinnersView extends View {
   public override open(): void {
     super.open('/winners', garageViewSection);
     winners.initialize();
-    RouteButtonsFactory.updateRouteButtonStates(Views.Winners);
+    RouteButtonsFactory.updateRouteButtonStates(CarHolders.Winners);
   }
 }

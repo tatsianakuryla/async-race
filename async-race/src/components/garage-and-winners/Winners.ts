@@ -15,7 +15,6 @@ import {
   type Winner,
   type WinnerInput,
 } from '../../types';
-import { parseEnumValue } from '../../utils/helpers';
 import { WinnerItem } from '../car/Winner';
 import { LocalStorage } from '../local-storage/Local-storage';
 import { View } from '../views/Base-view';
@@ -31,10 +30,11 @@ export class Winners extends BaseCars<Winner> {
       StorageKey.WinnersPage,
     );
     this._currentPage = pageNumber ? +pageNumber : BaseCars.DEFAULT_PAGE;
-    const savedSort = LocalStorage.getItemsFromLocalStorage(StorageKey.Sort);
-    const savedOrder = LocalStorage.getItemsFromLocalStorage(StorageKey.Order);
-    this.sort = parseEnumValue(savedSort, Sort, Sort.Time);
-    this.order = parseEnumValue(savedOrder, Order, Order.ASC);
+    const savedSort = LocalStorage.getSortFromLocalStorage(StorageKey.Sort);
+    const savedOrder = LocalStorage.getOrderFromLocalStorage(StorageKey.Order);
+
+    this.sort = savedSort ?? Sort.Time;
+    this.order = savedOrder ?? Order.ASC;
   }
 
   public static async saveWinner(winner: WinnerInput): Promise<void> {
@@ -53,19 +53,6 @@ export class Winners extends BaseCars<Winner> {
     } catch {
       errorNotification.open('Failed to save the winner');
     }
-  }
-
-  public toggleOrder(sort: Sort): void {
-    if (this.sort === sort && this.order === Order.ASC) {
-      this.order = Order.DESC;
-    } else if (this.sort === sort && this.order === Order.DESC) {
-      this.order = Order.ASC;
-    } else if (this.sort !== sort) {
-      this.order = Order.ASC;
-    }
-    this.sort = sort;
-    LocalStorage.setItemsToLocalStorage(StorageKey.Sort, this.sort);
-    LocalStorage.setItemsToLocalStorage(StorageKey.Order, this.order);
   }
 
   private static async _createWinner(item: Winner): Promise<void> {
@@ -122,6 +109,19 @@ export class Winners extends BaseCars<Winner> {
           result.status === 'fulfilled',
       )
       .map((result) => result.value);
+  }
+
+  public toggleOrder(sort: Sort): void {
+    if (this.sort === sort && this.order === Order.ASC) {
+      this.order = Order.DESC;
+    } else if (this.sort === sort && this.order === Order.DESC) {
+      this.order = Order.ASC;
+    } else if (this.sort !== sort) {
+      this.order = Order.ASC;
+    }
+    this.sort = sort;
+    LocalStorage.setItemsToLocalStorage(StorageKey.Sort, this.sort);
+    LocalStorage.setItemsToLocalStorage(StorageKey.Order, this.order);
   }
 
   public async initialize(): Promise<void> {
@@ -187,14 +187,6 @@ export class Winners extends BaseCars<Winner> {
     winnersView.updateTotalItemsQuantityInfo(this);
     winnersView.updatePageNumberInfo(this);
     View.updatePaginationButtons(winnersView, winners);
-    this._updatePagination();
-  }
-
-  private _updatePagination(): void {
-    if (!winnersPagination.isLastPage(this)) {
-      winnersView.nextPageButton.disabled = false;
-    } else {
-      winnersView.nextPageButton.disabled = true;
-    }
+    BaseCars._updatePagination(winners, winnersPagination, winnersView);
   }
 }

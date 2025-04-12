@@ -1,5 +1,5 @@
 import { Api } from './api/api';
-import { Views, type Car, type Winner } from './types';
+import { ItemsPerPage, CarHolders, type Car, type Winner } from './types';
 import { HeaderFactory } from './components/ui/layout/Header';
 import { MainFactory } from './components/ui/layout/Main';
 import { GarageView } from './components/views/Garage-view';
@@ -325,11 +325,11 @@ export const RANDOM_CAR_BRANDS = [
 export const errorNotification = new ErrorNotification();
 export const garage = new Garage();
 export const winners = new Winners();
-export const pagination = new Pagination(7);
-export const winnersPagination = new Pagination(10);
+export const garagePagination = new Pagination(ItemsPerPage.Garage);
+export const winnersPagination = new Pagination(ItemsPerPage.Winners);
 export const carTransform = new CarTransform();
-export const garageApi = new Api<Car>(Views.Garage);
-export const winnersApi = new Api<Winner>(Views.Winners);
+export const garageApi = new Api<Car>(CarHolders.Garage);
+export const winnersApi = new Api<Winner>(CarHolders.Winners);
 
 export const main = MainFactory.get();
 

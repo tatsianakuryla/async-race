@@ -20,8 +20,14 @@ export class Pagination {
     this._totalItems = count;
   }
 
-  public isFirstPage(viewHolder: Garage | Winners): boolean {
+  public static isFirstPage(viewHolder: Garage | Winners): boolean {
     return viewHolder.currentPage === Pagination.FIRST_PAGE;
+  }
+
+  public static prevPage(viewHolder: Garage | Winners): void {
+    if (viewHolder.currentPage > Pagination.FIRST_PAGE) {
+      viewHolder.currentPage -= 1;
+    }
   }
 
   public isLastPage(viewHolder: Garage | Winners): boolean {
@@ -31,12 +37,6 @@ export class Pagination {
   public nextPage(viewHolder: Garage | Winners): void {
     if (viewHolder.currentPage < this.totalPages) {
       viewHolder.currentPage += 1;
-    }
-  }
-
-  public prevPage(viewHolder: Garage | Winners): void {
-    if (viewHolder.currentPage > Pagination.FIRST_PAGE) {
-      viewHolder.currentPage -= 1;
     }
   }
 

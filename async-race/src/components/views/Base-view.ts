@@ -1,5 +1,5 @@
-import { main, pagination } from '../..';
-import { ButtonType, type Views } from '../../types';
+import { main, garagePagination } from '../..';
+import { ButtonType, type CarHolders } from '../../types';
 import {
   createButtonsContainer,
   createContainer,
@@ -10,6 +10,7 @@ import {
 } from '../../utils/helpers';
 import type { Garage } from '../garage-and-winners/Garage';
 import type { Winners } from '../garage-and-winners/Winners';
+import { Pagination } from '../pagination/Pagination';
 import { ButtonFactory } from '../ui/buttons/Button';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { ItemsListFactory } from '../ui/items-list/Items-list';
@@ -30,7 +31,7 @@ export abstract class View {
   protected _pageNumberInfo: HTMLElement;
   protected _TOTAL_INFO_TEXT = 'Total quantity: ';
 
-  constructor(viewModificator: Views) {
+  constructor(viewModificator: CarHolders) {
     this._section = createElementWithClassId('section', [
       'app__view',
       `app__view_${viewModificator}`,
@@ -63,15 +64,15 @@ export abstract class View {
     view: GarageView | WinnersView,
     viewHolder: Garage | Winners,
   ): void {
-    if (pagination.isFirstPage(viewHolder)) {
+    if (Pagination.isFirstPage(viewHolder)) {
       disableButton(view.prevPageButton);
     }
-    if (pagination.isLastPage(viewHolder)) {
+    if (garagePagination.isLastPage(viewHolder)) {
       disableButton(view.nextPageButton);
     }
   }
 
-  private static _getViewTitle(viewModificator: Views): HTMLElement {
+  private static _getViewTitle(viewModificator: CarHolders): HTMLElement {
     const title = createElementWithClassId('h3', ['app__view-title']);
     title.textContent = textToUpperCase(viewModificator);
     return title;
@@ -113,13 +114,13 @@ export abstract class View {
     this.nextPageButton = PaginationButtonsFactory.getNextPageButton(view);
     this.prevPageButton.addEventListener('click', () => {
       enableButton(this.nextPageButton);
-      if (pagination.isFirstPage(view)) {
+      if (Pagination.isFirstPage(view)) {
         disableButton(this.prevPageButton);
       }
     });
     this.nextPageButton.addEventListener('click', () => {
       enableButton(this.prevPageButton);
-      if (pagination.isLastPage(view)) {
+      if (garagePagination.isLastPage(view)) {
         disableButton(this.nextPageButton);
       }
     });

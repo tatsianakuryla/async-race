@@ -5,9 +5,18 @@ import { EngineStatus } from '../../types';
 export class AnimationManager {
   private static readonly _FINISH_LINE_OFFSET = 80;
 
+  public duration = 0;
   private _distance = 0;
   private _engineStatus = EngineStatus.Stopped;
-  public duration = 0;
+
+  private static applyTransform(
+    svg: SVGElement,
+    value: number,
+    duration: number,
+  ): void {
+    svg.style.transition = `transform ${duration}ms linear`;
+    svg.style.transform = `translateX(${value}px)`;
+  }
 
   public async prepareAnimation(
     id: number,
@@ -30,7 +39,7 @@ export class AnimationManager {
   ): void {
     const startTime = performance.now();
 
-    this.applyTransform(svg, this._distance, this.duration);
+    AnimationManager.applyTransform(svg, this._distance, this.duration);
 
     const handleFinish = (): void => {
       svg.removeEventListener('transitionend', handleFinish);
@@ -62,15 +71,6 @@ export class AnimationManager {
     }
   }
 
-  private applyTransform(
-    svg: SVGElement,
-    value: number,
-    duration: number,
-  ): void {
-    svg.style.transition = `transform ${duration}ms linear`;
-    svg.style.transform = `translateX(${value}px)`;
-  }
-
   private async _handleEngineFailure(
     id: number,
     svg: SVGElement,
@@ -83,7 +83,7 @@ export class AnimationManager {
     const currentPosition = (elapsedTime / this.duration) * this._distance;
     const remainingTime = this.duration - elapsedTime;
 
-    this.applyTransform(svg, currentPosition, remainingTime);
+    AnimationManager.applyTransform(svg, currentPosition, remainingTime);
 
     try {
       await Api.manageCarEngine(id, EngineStatus.Stopped);
