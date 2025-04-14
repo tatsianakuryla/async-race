@@ -78,7 +78,7 @@ export class CarTransform {
     input.value =
       task === TransformTask.Update
         ? garage.chosenCar.name
-        : (LocalStorage.getItemsFromLocalStorage(StorageKey.CreateTitle) ?? '');
+        : (LocalStorage.getItem(StorageKey.CreateTitle) ?? '');
     input.dataset.id = task;
     return input;
   }
@@ -88,7 +88,7 @@ export class CarTransform {
     const color =
       task === TransformTask.Update
         ? garage.chosenCar.color
-        : LocalStorage.getItemsFromLocalStorage(StorageKey.CreateColor);
+        : LocalStorage.getItem(StorageKey.CreateColor);
     input.value = color ?? CarTransform.DEFAULT_COLOR_INPUT_VALUE;
     input.dataset.id = task;
     return input;
@@ -131,10 +131,7 @@ export class CarTransform {
         name: '',
         color: CarTransform.DEFAULT_COLOR_INPUT_VALUE,
       };
-      LocalStorage.saveChosenCarToLocalStorage(
-        StorageKey.ChosenCar,
-        garage.chosenCar,
-      );
+      LocalStorage.saveChosenCar(StorageKey.ChosenCar, garage.chosenCar);
     }
   }
 
@@ -151,34 +148,22 @@ export class CarTransform {
   private _attachUpdateInputListeners(): void {
     this.updateTitleInput.addEventListener('input', () => {
       garage.chosenCar.name = this.updateTitleInput.value;
-      LocalStorage.saveChosenCarToLocalStorage(
-        StorageKey.ChosenCar,
-        garage.chosenCar,
-      );
+      LocalStorage.saveChosenCar(StorageKey.ChosenCar, garage.chosenCar);
     });
 
     this.updateColorInput.addEventListener('change', () => {
       garage.chosenCar.color = this.updateColorInput.value;
-      LocalStorage.saveChosenCarToLocalStorage(
-        StorageKey.ChosenCar,
-        garage.chosenCar,
-      );
+      LocalStorage.saveChosenCar(StorageKey.ChosenCar, garage.chosenCar);
     });
   }
 
   private _attachCreateInputListeners(): void {
     this.createTitleInput.addEventListener('input', () =>
-      LocalStorage.setItemsToLocalStorage(
-        StorageKey.CreateTitle,
-        this.createTitleInput.value,
-      ),
+      LocalStorage.setItem(StorageKey.CreateTitle, this.createTitleInput.value),
     );
 
     this.createColorInput.addEventListener('change', () =>
-      LocalStorage.setItemsToLocalStorage(
-        StorageKey.CreateColor,
-        this.createColorInput.value,
-      ),
+      LocalStorage.setItem(StorageKey.CreateColor, this.createColorInput.value),
     );
   }
 }

@@ -53,6 +53,6 @@ export class PaginationButtonsFactory {
     const key =
       view instanceof Garage ? StorageKey.GaragePage : StorageKey.WinnersPage;
 
-    LocalStorage.setItemsToLocalStorage(key, view.currentPage);
+    LocalStorage.setItem(key, view.currentPage);
   }
 }

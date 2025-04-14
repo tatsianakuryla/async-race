@@ -9,7 +9,7 @@ import {
 import type { Car } from '../../types';
 import { ItemsPerPage, Order, Sort, TransformTask } from '../../types';
 import { getTrimmedInputValue } from '../../utils/helpers';
-import { GarageItem } from '../car/Garage-item';
+import { GarageItem } from '../garage-winners-item/Garage-item';
 import { BaseCars } from './Base-cars';
 import { CarTransform } from '../ui/car-transform/Car-transform';
 import { RaceButtonsFactory } from '../ui/buttons/Race-manage-buttons';

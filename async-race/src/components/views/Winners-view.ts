@@ -1,6 +1,6 @@
 import { garageViewSection, winners } from '../..';
 import { CarHolders } from '../../types';
-import { WinnerItem } from '../car/Winner';
+import { WinnerItem } from '../garage-winners-item/Winner';
 import { RouteButtonsFactory } from '../ui/buttons/Route-buttons-factory';
 import { View } from './Base-view';
 

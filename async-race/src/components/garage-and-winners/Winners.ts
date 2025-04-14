@@ -15,7 +15,7 @@ import {
   type Winner,
   type WinnerInput,
 } from '../../types';
-import { WinnerItem } from '../car/Winner';
+import { WinnerItem } from '../garage-winners-item/Winner';
 import { LocalStorage } from '../local-storage/Local-storage';
 import { View } from '../views/Base-view';
 import { BaseCars } from './Base-cars';
@@ -26,12 +26,10 @@ export class Winners extends BaseCars<Winner> {
 
   constructor() {
     super(ItemsPerPage.Winners);
-    const pageNumber = LocalStorage.getItemsFromLocalStorage(
-      StorageKey.WinnersPage,
-    );
+    const pageNumber = LocalStorage.getItem(StorageKey.WinnersPage);
     this._currentPage = pageNumber ? +pageNumber : BaseCars.DEFAULT_PAGE;
-    const savedSort = LocalStorage.getSortFromLocalStorage(StorageKey.Sort);
-    const savedOrder = LocalStorage.getOrderFromLocalStorage(StorageKey.Order);
+    const savedSort = LocalStorage.getSort(StorageKey.Sort);
+    const savedOrder = LocalStorage.getOrder(StorageKey.Order);
 
     this.sort = savedSort ?? Sort.Time;
     this.order = savedOrder ?? Order.ASC;
@@ -120,8 +118,8 @@ export class Winners extends BaseCars<Winner> {
       this.order = Order.ASC;
     }
     this.sort = sort;
-    LocalStorage.setItemsToLocalStorage(StorageKey.Sort, this.sort);
-    LocalStorage.setItemsToLocalStorage(StorageKey.Order, this.order);
+    LocalStorage.setItem(StorageKey.Sort, this.sort);
+    LocalStorage.setItem(StorageKey.Order, this.order);
   }
 
   public async initialize(): Promise<void> {
@@ -156,10 +154,7 @@ export class Winners extends BaseCars<Winner> {
 
       if (this._currentPage > maxPage) {
         this._currentPage = maxPage || 1;
-        LocalStorage.setItemsToLocalStorage(
-          StorageKey.WinnersPage,
-          this._currentPage,
-        );
+        LocalStorage.setItem(StorageKey.WinnersPage, this._currentPage);
       }
       await this.initialize();
     }, 'Failed to delete the winner');

@@ -1,7 +1,7 @@
 import { carTransform } from '../..';
 import type { RaceData } from '../../types';
 import { disableButton, enableButton } from '../../utils/helpers';
-import type { GarageItem } from '../car/Garage-item';
+import type { GarageItem } from '../garage-winners-item/Garage-item';
 import { PaginationButtonsFactory } from '../ui/buttons/Pagination-buttons';
 import { RouteButtonsFactory } from '../ui/buttons/Route-buttons-factory';
 import { Modal } from '../ui/modal/modal';
@@ -62,7 +62,6 @@ export class RaceManager {
 
       carItem.animation.runAnimation(numericId, carItem.svg, (didFinish) => {
         if (!this._isRaceActive) return;
-
         if (didFinish) {
           const duration = carItem.animation.duration;
           carItem.raceTime = duration;
@@ -72,9 +71,7 @@ export class RaceManager {
             name: carItem.name,
           });
         }
-
         this._finishedCount++;
-
         if (this._finishedCount === carsList.length) {
           this._handleWinner();
         }

@@ -103,10 +103,7 @@ export class GarageItem extends BaseCar {
 
     this.selectItemButton.addEventListener('click', () => {
       garage.selectCar(String(id));
-      LocalStorage.setItemsToLocalStorage(
-        'update-title',
-        carTransform.updateTitleInput.value,
-      );
+      LocalStorage.setItem('update-title', carTransform.updateTitleInput.value);
     });
 
     this.deleteItemButton.dataset.id = String(id);

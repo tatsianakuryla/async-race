@@ -2,46 +2,38 @@ import type { Car, Order, Sort } from '../../types';
 import { StorageKey } from '../../types';
 
 export class LocalStorage {
-  public static setItemsToLocalStorage(
-    key: string,
-    value: string | number,
-  ): void {
+  public static setItem(key: string, value: string | number): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  public static getItemsFromLocalStorage(key: string): string | null {
+  public static getItem(key: string): string | null {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : null;
   }
 
-  public static clearLocalStorage(): void {
+  public static clear(): void {
     localStorage.clear();
   }
 
-  public static removeFromLocalStorage(key: string): void {
+  public static remove(key: string): void {
     localStorage.removeItem(key);
   }
 
-  public static saveChosenCarToLocalStorage(
-    key = StorageKey.ChosenCar,
-    car: Car,
-  ): void {
+  public static saveChosenCar(key = StorageKey.ChosenCar, car: Car): void {
     localStorage.setItem(key, JSON.stringify(car));
   }
 
-  public static getChosenCarFromLocalStorage(
-    key = StorageKey.ChosenCar,
-  ): Car | null {
+  public static getChosenCar(key = StorageKey.ChosenCar): Car | null {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : null;
   }
 
-  public static getOrderFromLocalStorage(key: StorageKey.Order): Order | null {
+  public static getOrder(key: StorageKey.Order): Order | null {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : null;
   }
 
-  public static getSortFromLocalStorage(key: StorageKey.Sort): Sort | null {
+  public static getSort(key: StorageKey.Sort): Sort | null {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : null;
   }
