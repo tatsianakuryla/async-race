@@ -1,7 +1,7 @@
 import { Api } from './api/api';
 import { ItemsPerPage, CarHolders, type Car, type Winner } from './types';
-import { HeaderFactory } from './components/ui/layout/Header';
-import { MainFactory } from './components/ui/layout/Main';
+import { HeaderFactory } from './components/ui/primary-layout/Header';
+import { MainFactory } from './components/ui/primary-layout/Main';
 import { GarageView } from './components/views/Garage-view';
 import { WinnersView } from './components/views/Winners-view';
 import { Garage } from './components/garage-and-winners/Garage';
