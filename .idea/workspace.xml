@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bcbbbf3-fc98-4b7d-9152-9e4488ef18fd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/tatsianakuryla-JSFE2024Q4.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/animation/Animation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/animation/Animation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/garage-and-winners/Base-cars.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/garage-and-winners/Base-cars.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/local-storage/Local-storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/local-storage/Local-storage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/pagination/Pagination.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/pagination/Pagination.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/ui/modal/modal.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/ui/modal/modal.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/views/Base-view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/views/Base-view.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/views/Garage-view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/views/Garage-view.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/components/views/Winners-view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/views/Winners-view.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,22 +49,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "async-race",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\User\\Desktop\\Tatsiana\\Обучение\\FE\\RS\\tatsianakuryla-JSFE2024Q4\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;async-race&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\User\\Desktop\\Tatsiana\\Обучение\\FE\\RS\\tatsianakuryla-JSFE2024Q4\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -97,7 +81,7 @@
       <updated>1749569142053</updated>
       <workItem from="1749569144310" duration="267000" />
       <workItem from="1749569478172" duration="2000" />
-      <workItem from="1752590761969" duration="2177000" />
+      <workItem from="1752590761969" duration="2558000" />
     </task>
     <servers />
   </component>

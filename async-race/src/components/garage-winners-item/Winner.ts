@@ -1,5 +1,5 @@
 import { winners } from '../..';
-import type { CarAndWinner} from '../../types';
+import type { CarAndWinner } from '../../types';
 import { ButtonType, Sort } from '../../types';
 import { createElementWithClassId } from '../../utils/helpers';
 import { ButtonFactory } from '../ui/buttons/Button';

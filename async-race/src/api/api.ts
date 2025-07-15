@@ -1,15 +1,15 @@
 import { garagePagination } from '..';
 import type { Garage } from '../components/garage-and-winners/Garage';
 import type { Winners } from '../components/garage-and-winners/Winners';
-import {
-  Order,
-  Sort
-} from '../types';
-import type { GetResponse, CarHolders ,
+import { Order, Sort } from '../types';
+import type {
+  GetResponse,
+  CarHolders,
   CarOrWinner,
   EngineDataResponse,
   EngineToDriveModeResponse,
-  EngineStatus} from '../types';
+  EngineStatus,
+} from '../types';
 import { BASE_URL } from '../types';
 
 export class Api<T extends CarOrWinner> {
