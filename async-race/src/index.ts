@@ -1,5 +1,11 @@
 import { Api } from './api/api';
-import { ItemsPerPage, CarHolders, type Car, type Winner } from './types';
+import {
+  ItemsPerPage,
+  CarHolders,
+  type Car,
+  type Winner,
+  RouteValues,
+} from './types';
 import { HeaderFactory } from './components/ui/primary-layout/Header';
 import { MainFactory } from './components/ui/primary-layout/Main';
 import { GarageView } from './components/views/Garage-view';
@@ -345,15 +351,15 @@ document.body.append(
   errorNotification.errorNotification,
 );
 
-Router.addRoute('/', () => {
+Router.addRoute(RouteValues.MAIN, () => {
   garageView.open();
 });
 
-Router.addRoute('/garage', () => {
+Router.addRoute(RouteValues.GARAGE, () => {
   garageView.open();
 });
 
-Router.addRoute('/winners', () => {
+Router.addRoute(RouteValues.WINNERS, () => {
   winnersView.open();
 });
 

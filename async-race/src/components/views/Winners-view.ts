@@ -1,5 +1,5 @@
 import { garageViewSection, winners } from '../..';
-import { CarHolders } from '../../types';
+import { CarHolders, RouteValues } from '../../types';
 import { WinnerItem } from '../garage-winners-item/Winner';
 import { RouteButtonsFactory } from '../ui/buttons/Route-buttons-factory';
 import { View } from './Base-view';
@@ -17,8 +17,8 @@ export class WinnersView extends View {
   }
 
   public override open(): void {
-    super.open('/winners', garageViewSection);
-    winners.initialize();
+    super.open(RouteValues.WINNERS, garageViewSection);
+    winners.initialize().then(() => {});
     RouteButtonsFactory.updateRouteButtonStates(CarHolders.Winners);
   }
 }

@@ -15,17 +15,8 @@ export class LocalStorage {
     localStorage.clear();
   }
 
-  public static remove(key: string): void {
-    localStorage.removeItem(key);
-  }
-
   public static saveChosenCar(key = StorageKey.ChosenCar, car: Car): void {
     localStorage.setItem(key, JSON.stringify(car));
-  }
-
-  public static getChosenCar(key = StorageKey.ChosenCar): Car | null {
-    const result = localStorage.getItem(key);
-    return result ? JSON.parse(result) : null;
   }
 
   public static getOrder(key: StorageKey.Order): Order | null {

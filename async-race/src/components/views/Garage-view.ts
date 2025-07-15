@@ -1,5 +1,5 @@
 import { carTransform, garage, winnersViewSection } from '../..';
-import { CarHolders } from '../../types';
+import { CarHolders, RouteValues } from '../../types';
 import { RaceButtonsFactory } from '../ui/buttons/Race-manage-buttons';
 import { RouteButtonsFactory } from '../ui/buttons/Route-buttons-factory';
 import { View } from './Base-view';
@@ -18,8 +18,8 @@ export class GarageView extends View {
   }
 
   public override open(): void {
-    super.open('/garage', winnersViewSection);
-    garage.initialize();
+    super.open(RouteValues.GARAGE, winnersViewSection);
+    garage.initialize().then(() => {});
     RouteButtonsFactory.updateRouteButtonStates(CarHolders.Garage);
   }
 }

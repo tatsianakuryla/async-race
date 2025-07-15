@@ -99,6 +99,10 @@ export enum StorageKey {
   ChosenCar = 'chosenCar',
   CreateTitle = 'create-title',
   CreateColor = 'create-color',
-  UpdateTitle = 'update-title',
-  UpdateColor = 'update-color',
+}
+
+export enum RouteValues {
+  GARAGE = '/garage',
+  WINNERS = '/winners',
+  MAIN = '/',
 }

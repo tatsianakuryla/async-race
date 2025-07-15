@@ -23,7 +23,7 @@ export class AnimationManager {
     svgContainer: HTMLElement,
     svg: SVGElement,
   ): Promise<void> {
-    this.stopAnimation(id, svg);
+    void this.stopAnimation(id, svg);
     const { velocity } = await Api.manageCarEngine(id, EngineStatus.Started);
     this._engineStatus = EngineStatus.Started;
 

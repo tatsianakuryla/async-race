@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4bcbbbf3-fc98-4b7d-9152-9e4488ef18fd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/tatsianakuryla-JSFE2024Q4.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/animation/Animation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/animation/Animation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/garage-and-winners/Base-cars.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/garage-and-winners/Base-cars.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/local-storage/Local-storage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/local-storage/Local-storage.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/pagination/Pagination.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/pagination/Pagination.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/ui/modal/modal.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/ui/modal/modal.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/views/Base-view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/views/Base-view.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/views/Garage-view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/views/Garage-view.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/components/views/Winners-view.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/components/views/Winners-view.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/async-race/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="self-introduction" />
+                    <option name="lastUsedInstant" value="1749569185" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="presentation" />
+                    <option name="lastUsedInstant" value="1749569184" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2yK2rC8guyUSau2BNgHmxnB6F2c" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "async-race",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\User\\Desktop\\Tatsiana\\Обучение\\FE\\RS\\tatsianakuryla-JSFE2024Q4\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-WS-251.23774.424" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4bcbbbf3-fc98-4b7d-9152-9e4488ef18fd" name="Changes" comment="" />
+      <created>1749569142053</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749569142053</updated>
+      <workItem from="1749569144310" duration="267000" />
+      <workItem from="1749569478172" duration="2000" />
+      <workItem from="1752590761969" duration="2177000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

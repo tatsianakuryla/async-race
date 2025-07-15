@@ -31,7 +31,7 @@ export abstract class View {
   protected _pageNumberInfo: HTMLElement;
   protected _TOTAL_INFO_TEXT = 'Total quantity: ';
 
-  constructor(viewModificator: CarHolders) {
+  protected constructor(viewModificator: CarHolders) {
     this._section = createElementWithClassId('section', [
       'app__view',
       `app__view_${viewModificator}`,

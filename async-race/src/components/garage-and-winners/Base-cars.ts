@@ -14,7 +14,7 @@ export abstract class BaseCars<T> {
   protected _currentPage: number = BaseCars.DEFAULT_PAGE;
   protected _itemsPerPage: ItemsPerPage;
 
-  constructor(value: ItemsPerPage) {
+  protected constructor(value: ItemsPerPage) {
     this._itemsPerPage = value;
   }
 

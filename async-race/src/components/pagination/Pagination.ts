@@ -6,7 +6,7 @@ export class Pagination {
   protected static readonly FIRST_PAGE = 1;
 
   private _totalItems: number = 0;
-  private _itemsPerPage: number;
+  private readonly _itemsPerPage: number;
 
   constructor(itemsPerPage: ItemsPerPage) {
     this._itemsPerPage = itemsPerPage;
@@ -37,12 +37,6 @@ export class Pagination {
   public nextPage(viewHolder: Garage | Winners): void {
     if (viewHolder.currentPage < this.totalPages) {
       viewHolder.currentPage += 1;
-    }
-  }
-
-  public goToPage(page: number, viewHolder: Garage | Winners): void {
-    if (page >= Pagination.FIRST_PAGE && page <= this.totalPages) {
-      viewHolder.currentPage = page;
     }
   }
 }

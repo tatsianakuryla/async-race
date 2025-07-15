@@ -3,8 +3,8 @@ import { ButtonFactory } from '../buttons/Button';
 import './modals.css';
 
 export class Modal {
-  private _modal: HTMLElement;
-  private _infoText: HTMLElement;
+  private readonly _modal: HTMLElement;
+  private readonly _infoText: HTMLElement;
 
   constructor(textContent: string) {
     this._modal = createElementWithClassId('dialog', ['app__modal-winner']);
