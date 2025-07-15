@@ -43,9 +43,9 @@ export class RouteButtonsFactory {
     if (active === CarHolders.Garage) {
       enableButton(this.visitWinnersButton);
       disableButton(this.visitGarageButton);
-    } else {
-      enableButton(this.visitGarageButton);
-      disableButton(this.visitWinnersButton);
+      return;
     }
+    enableButton(this.visitGarageButton);
+    disableButton(this.visitWinnersButton);
   }
 }

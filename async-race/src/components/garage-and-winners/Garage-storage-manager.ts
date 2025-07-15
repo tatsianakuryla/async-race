@@ -10,10 +10,6 @@ export class GarageStorageManager {
     return item ? JSON.parse(item) : null;
   }
 
-  public static clearChosenCar(): void {
-    localStorage.removeItem(StorageKey.ChosenCar);
-  }
-
   public static saveCurrentPage(page: number): void {
     localStorage.setItem(StorageKey.GaragePage, page.toString());
   }
@@ -21,9 +17,5 @@ export class GarageStorageManager {
   public static getCurrentPage(): number | null {
     const item = localStorage.getItem(StorageKey.GaragePage);
     return item ? +item : null;
-  }
-
-  public static clearCurrentPage(): void {
-    localStorage.removeItem(StorageKey.GaragePage);
   }
 }

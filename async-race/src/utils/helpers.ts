@@ -27,12 +27,11 @@ export function createContainer(containerClass: string): HTMLElement {
 }
 
 export function createButtonsContainer(containerClass: string): HTMLElement {
-  const buttonsContainer = createElementWithClassId('div', [
+  return createElementWithClassId('div', [
     'app__buttons-contaiter',
     `app__buttons-contaiter_${containerClass}`,
     'flex',
   ]);
-  return buttonsContainer;
 }
 
 export function getRandomIndex(): number {

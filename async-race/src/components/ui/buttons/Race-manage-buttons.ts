@@ -26,12 +26,12 @@ export class RaceButtonsFactory {
     });
 
     this._resetRaceButton.addEventListener('click', () => {
-      garage.resetRace();
+      garage.resetRace().then(() => {});
       RaceButtonsFactory.manageButtonsRaceEnd();
     });
 
     this._generateCarsButton.addEventListener('click', () => {
-      garage.add100RandomCars();
+      garage.add100RandomCars().then(() => {});
     });
 
     buttonsContainer.append(
