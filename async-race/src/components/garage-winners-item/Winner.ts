@@ -42,7 +42,7 @@ export class WinnerItem extends BaseCar {
     button.textContent = '';
     button.addEventListener('click', () => {
       winners.toggleOrder(sort);
-      winners.initialize();
+      void winners.initialize().then(() => {});
     });
     return button;
   }

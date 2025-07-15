@@ -57,7 +57,6 @@ export class BaseCar {
 
   protected static _createCarSvg(color: string): SVGElement {
     const carSvg = new CarSvg(color);
-    const svg = carSvg.svg;
-    return svg;
+    return carSvg.svg;
   }
 }

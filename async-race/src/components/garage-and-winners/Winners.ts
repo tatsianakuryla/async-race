@@ -26,8 +26,11 @@ export class Winners extends BaseCars<Winner> {
 
   constructor() {
     super(ItemsPerPage.Winners);
-    const pageNumber = LocalStorage.getItem(StorageKey.WinnersPage);
-    this._currentPage = pageNumber ? +pageNumber : BaseCars.DEFAULT_PAGE;
+    const raw = localStorage.getItem(StorageKey.WinnersPage);
+    const pageNumber = raw !== null ? parseInt(raw, 10) : NaN;
+    this._currentPage = Number.isNaN(pageNumber)
+      ? BaseCars.DEFAULT_PAGE
+      : pageNumber;
     const savedSort = LocalStorage.getSort(StorageKey.Sort);
     const savedOrder = LocalStorage.getOrder(StorageKey.Order);
 

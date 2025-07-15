@@ -73,7 +73,7 @@ export class GarageItem extends BaseCar {
   }
 
   private _stopCarAnimation(id: number): void {
-    this.animation.stopAnimation(id, this._svg);
+    void this.animation.stopAnimation(id, this._svg);
   }
 
   private _createRaceButtons(id: number): HTMLElement {
@@ -110,9 +110,9 @@ export class GarageItem extends BaseCar {
 
     this.deleteItemButton.addEventListener('click', async () => {
       const stringId = String(id);
-      garage.deleteCar(stringId);
+      await garage.deleteCar(stringId);
       if (winners.items.some((winner) => winner.id === id)) {
-        winners.deleteCar(stringId);
+        await winners.deleteCar(stringId);
       }
     });
 
