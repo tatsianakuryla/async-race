@@ -28,8 +28,8 @@ export function createContainer(containerClass: string): HTMLElement {
 
 export function createButtonsContainer(containerClass: string): HTMLElement {
   return createElementWithClassId('div', [
-    'app__buttons-contaiter',
-    `app__buttons-contaiter_${containerClass}`,
+    'app__buttons-container',
+    `app__buttons-container_${containerClass}`,
     'flex',
   ]);
 }
