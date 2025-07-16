@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bcbbbf3-fc98-4b7d-9152-9e4488ef18fd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/async-race/src/styles/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/styles/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/async-race/src/utils/helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/async-race/src/utils/helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +82,7 @@
       <updated>1749569142053</updated>
       <workItem from="1749569144310" duration="267000" />
       <workItem from="1749569478172" duration="2000" />
-      <workItem from="1752590761969" duration="3499000" />
+      <workItem from="1752590761969" duration="10504000" />
     </task>
     <servers />
   </component>

@@ -8,6 +8,8 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
+    publicPath: '/async-race/',
   },
   mode: 'development',
   devtool: 'source-map',

@@ -4,7 +4,7 @@
   "description": "",
   "author": "",
   "license": "ISC",
-  "homepage": "https://tatsianakuryla.github.io/tatsianakuryla-JSFE2024Q4/async-race",
+  "homepage": "https://tatsianakuryla.github.io/async-race/",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
