@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4bcbbbf3-fc98-4b7d-9152-9e4488ef18fd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
-    </list>
+    <list default="true" id="4bcbbbf3-fc98-4b7d-9152-9e4488ef18fd" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +21,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="async-race" />
+                    <option name="lastUsedInstant" value="1752682585" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="self-introduction" />
                     <option name="lastUsedInstant" value="1749569185" />
@@ -82,7 +83,8 @@
       <updated>1749569142053</updated>
       <workItem from="1749569144310" duration="267000" />
       <workItem from="1749569478172" duration="2000" />
-      <workItem from="1752590761969" duration="10504000" />
+      <workItem from="1752590761969" duration="14585000" />
+      <workItem from="1752675077803" duration="2027000" />
     </task>
     <servers />
   </component>
